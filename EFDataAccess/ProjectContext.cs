@@ -1,4 +1,5 @@
 ﻿using Domain;
+using EFDataAccess.Configurations;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -21,8 +22,8 @@ namespace EFDataAccess
             optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-K6HQC4F;Initial Catalog=ProjectDb;Integrated Security=True");
         }
 
-        /*protected override void OnModelCreating(ModelBuilder modelBuilder) {
-
-        }*/
+        protected override void OnModelCreating(ModelBuilder modelBuilder) {
+            modelBuilder.ApplyConfiguration(new UserConfiguration);
+        }
     }
 }

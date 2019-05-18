@@ -26,6 +26,7 @@ namespace EFDataAccess
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new CharacterConfiguration());
             modelBuilder.ApplyConfiguration(new GameClassConfiguration());
+            modelBuilder.ApplyConfiguration(new GenderConfiguration());
         }
     }
 }

@@ -12,6 +12,7 @@ namespace Domain
         public int GameClassId { get; set; }
         public GameClass GameClass { get; set; }
         public int GenderId { get; set; }
+        public Gender Gender { get; set; }
         public int RaceId { get; set; }
         public int? InventoryId { get; set; }
         public int UserId { get; set; }

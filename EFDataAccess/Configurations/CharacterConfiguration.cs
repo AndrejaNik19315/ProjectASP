@@ -19,13 +19,13 @@ namespace EFDataAccess.Configurations
                 .HasDefaultValue(1);
             builder.Property(c => c.Funds)
                 .HasMaxLength(1000)
-                .HasDefaultValue(5);
+                .HasDefaultValue(5.0m);
             builder.Property(c => c.CreatedAt)
                 .HasDefaultValueSql("GETDATE()");
 
             builder.HasIndex(c => c.Name).IsUnique();
             builder.HasKey(c => c.Id);
-
+            
         }
     }
 }

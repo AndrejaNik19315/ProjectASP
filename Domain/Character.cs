@@ -10,6 +10,7 @@ namespace Domain
         public int? Level { get; set; }
         public decimal? Funds { get; set; }
         public int GameClassId { get; set; }
+        public GameClass GameClass { get; set; }
         public int GenderId { get; set; }
         public int RaceId { get; set; }
         public int? InventoryId { get; set; }

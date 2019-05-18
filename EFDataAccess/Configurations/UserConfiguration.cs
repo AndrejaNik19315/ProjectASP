@@ -12,11 +12,9 @@ namespace EFDataAccess.Configurations
         public void Configure(EntityTypeBuilder<User> builder)
         {
             builder.Property(u => u.Firstname)
-                .HasMaxLength(24)
-                .IsRequired();
+                .HasMaxLength(24);
             builder.Property(u => u.Lastname)
-                .HasMaxLength(32)
-                .IsRequired();
+                .HasMaxLength(32);
             builder.Property(u => u.Username)
                 .HasMaxLength(16)
                 .IsRequired();

@@ -25,7 +25,6 @@ namespace EFDataAccess.Configurations
 
             builder.HasIndex(c => c.Name).IsUnique();
             builder.HasKey(c => c.Id);
-            
         }
     }
 }

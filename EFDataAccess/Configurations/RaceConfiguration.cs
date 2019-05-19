@@ -18,7 +18,7 @@ namespace EFDataAccess.Configurations
                 .HasDefaultValueSql("GETDATE()");
 
             builder.HasKey(r => r.Id);
-            builder.HasIndex(r => r.Name.ToLower())
+            builder.HasIndex(r => r.Name)
                 .IsUnique();
 
             builder.HasMany(r => r.Characters)

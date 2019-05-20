@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EFCommands", "EFCommands\EF
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Applications", "Applications", "{5323E4E1-DCFD-48E9-BAF4-82D7722D877D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "Api\Api.csproj", "{396756F5-AFFB-4913-8C63-C85891176D56}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,9 +37,16 @@ Global
 		{7FAE652C-7AC2-4D70-9870-22A5E02D829A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7FAE652C-7AC2-4D70-9870-22A5E02D829A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7FAE652C-7AC2-4D70-9870-22A5E02D829A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{396756F5-AFFB-4913-8C63-C85891176D56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{396756F5-AFFB-4913-8C63-C85891176D56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{396756F5-AFFB-4913-8C63-C85891176D56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{396756F5-AFFB-4913-8C63-C85891176D56}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{396756F5-AFFB-4913-8C63-C85891176D56} = {5323E4E1-DCFD-48E9-BAF4-82D7722D877D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {673EFB1F-91E5-41AD-9F2A-9CD46A545E63}

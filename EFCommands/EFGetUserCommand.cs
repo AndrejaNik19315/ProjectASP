@@ -1,0 +1,36 @@
+﻿using Application.Commands.Users;
+using Application.Dto;
+using Application.Exceptions;
+using Application.Interfaces;
+using EFDataAccess;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace EFCommands
+{
+    public class EFGetUserCommand : BaseEFCommand, IGetUserCommand
+    {
+        public EFGetUserCommand(ProjectContext context) : base(context)
+        {
+        }
+
+        public UserDto Execute(int request)
+        {
+            var user = Context.Users.Find(request);
+
+            if (user == null)
+                throw new EntityNotFoundException();
+
+            return new UserDto
+            {
+                Id = user.Id,
+                Firstname = user.Firstname,
+                Lastname = user.Lastname,
+                Username = user.Username,
+                Email = user.Email,
+                IsActive = user.IsActive
+            };
+        }
+    }
+}

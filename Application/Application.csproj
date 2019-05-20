@@ -9,9 +9,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Commands\" />
+    <Folder Include="Commands\Characters\" />
     <Folder Include="Exceptions\" />
-    <Folder Include="Searches\" />
   </ItemGroup>
 
 </Project>

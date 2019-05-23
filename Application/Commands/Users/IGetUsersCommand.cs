@@ -5,9 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Application.Commands
+namespace Application.Commands.Users
 {
-    interface IGetCharacterCommand : ICommand<int, CharacterDto>
+    public interface IGetUsersCommand : ICommand<UserSearch, IEnumerable<UserDto>>
     {
 
     }

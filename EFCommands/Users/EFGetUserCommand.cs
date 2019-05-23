@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace EFCommands
+namespace EFCommands.Users
 {
     public class EFGetUserCommand : BaseEFCommand, IGetUserCommand
     {

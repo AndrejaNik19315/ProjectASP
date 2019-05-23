@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace EFCommands
+namespace EFCommands.Users
 {
     public class EFDeleteUserCommand : BaseEFCommand, IDeleteUserCommand
     {

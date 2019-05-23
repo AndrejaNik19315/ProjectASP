@@ -8,5 +8,6 @@ namespace Api.Queries
     public class UserSearchQuery
     {
         public string Username { get; set; }
+        public bool isActive { get; set; }
     }
 }

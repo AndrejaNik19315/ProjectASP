@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <Folder Include="Commands\Characters\" />
-    <Folder Include="Exceptions\" />
   </ItemGroup>
 
 </Project>

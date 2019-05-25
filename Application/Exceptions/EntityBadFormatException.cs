@@ -4,8 +4,7 @@ using System.Text;
 
 namespace Application.Exceptions
 {
-    public class EntityNotFoundException : Exception
+    public class EntityBadFormatException : Exception
     {
-        
     }
 }

@@ -5,11 +5,11 @@ using System.Text;
 
 namespace EFCommands
 {
-    public class BaseEFCommand
+    public abstract class BaseEFCommand
     {
         protected ProjectContext Context { get; set; }
 
-        public BaseEFCommand(ProjectContext context)
+        protected BaseEFCommand(ProjectContext context)
         {
             Context = context;
         }

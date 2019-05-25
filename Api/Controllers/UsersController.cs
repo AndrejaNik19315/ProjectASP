@@ -18,22 +18,28 @@ namespace Api.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly ProjectContext _context;
+        private readonly ProjectContext _context = new ProjectContext();
 
-        private IGetUserCommand _getOneCommand;
-        private IGetUsersCommand _getCommand;
+        private readonly IGetUserCommand _getUser;
+        private readonly IGetUsersCommand _getUsers;
+        private readonly IEditUserCommand _editUser;
+        private readonly IAddUserCommand _addUser;
+        private readonly IDeleteUserCommand _deleteUser;
 
-        public UsersController(IGetUserCommand getOneCommand, IGetUsersCommand getCommand)
+        public UsersController(IGetUserCommand getUser, IGetUsersCommand getUsers, IEditUserCommand editUser, IAddUserCommand addUser, IDeleteUserCommand deleteUser)
         {
-            _getCommand = getCommand;
-            _getOneCommand = getOneCommand;
+            _getUser = getUser;
+            _getUsers = getUsers;
+            _editUser = editUser;
+            _addUser = addUser;
+            _deleteUser = deleteUser;
         }
 
         // GET: api/users
         [HttpGet]
         public IActionResult Get([FromQuery]UserSearch query)
         {
-            var users = _getCommand.Execute(query);
+            var users = _getUsers.Execute(query);
             return Ok(users);
         }
 
@@ -42,7 +48,7 @@ namespace Api.Controllers
         public IActionResult Get(int id)
         {
             try {
-                var user = _getOneCommand.Execute(id);
+                var user = _getUser.Execute(id);
                 return Ok(user);
             }
             catch (EntityNotFoundException) {
@@ -51,14 +57,15 @@ namespace Api.Controllers
         }
 
         // PUT: api/Users/5
+        //TODO Figure out how to send changes only
         [HttpPut("{id}")]
-        public IActionResult PutUser(int id, [FromBody] UserDto dto)
+        public IActionResult Put(int id, [FromBody] Application.Dto.UserDto dto)
         {
             var user = _context.Users.Find(id);
 
             if (user == null)
             {
-                return NotFound();
+                return NotFound("User with specified Id, does not exist.");
             }
 
             if (_context.Users.Any(u => u.Username == dto.Username || u.Email == dto.Email)) {
@@ -67,10 +74,10 @@ namespace Api.Controllers
 
             try
             {
-                _context.SaveChanges();
+                _editUser.Execute(dto);
                 return NoContent();
             }
-            catch (DbUpdateConcurrencyException)
+            catch
             {
                 return StatusCode(500, "Something went wrong.");
             }
@@ -78,57 +85,50 @@ namespace Api.Controllers
 
         // POST: api/Users
         [HttpPost]
-        public IActionResult PostUser([FromBody] UserDto dto)
+        public IActionResult Post([FromBody] Application.Dto.UserDto dto)
         {
-            var user = new User
-            {
-                Username = dto.Username,
-                Email = dto.Email,
-                Firstname = dto.Firstname,
-                Lastname = dto.Lastname,
-                IsActive = dto.IsActive,
-            };
-
-            _context.Users.Add(user);
-
             try
             {
-                _context.SaveChanges();
+                _addUser.Execute(dto);
 
-                return Created("/api/users/" + user.Id, new UserDto {
-                    Id = user.Id,
-                    Firstname = user.Firstname,
-                    Lastname = user.Lastname,
-                    Username = user.Username, 
-                    Email = user.Email,
-                    IsActive = user.IsActive
+                return Created("/api/users/" + dto.Id, new UserDto
+                {
+                    Id = dto.Id,
+                    Firstname = dto.Firstname,
+                    Lastname = dto.Lastname,
+                    Username = dto.Username,
+                    Email = dto.Email,
+                    IsActive = dto.IsActive
                 });
             }
-            catch {
-                return StatusCode(500, "Something went wrong.");
+            catch (EntityAlreadyExistsException)
+            {
+                return Conflict("User with that username or email already exists.");
+            }
+            catch (EntityBadFormatException) {
+                return BadRequest("User out of format.");
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, ex.Message);
             }
         }
 
         // DELETE: api/Users/5
         [HttpDelete("{id}")]
-        public IActionResult DeleteUser(int id)
+        public IActionResult Delete(int id)
         {
-            var user = _context.Users.Find(id);
-
-            if (user == null)
-            {
-                return NotFound();
-            }
-
             try
             {
-                _context.Users.Remove(user);
-                _context.SaveChanges();
+                _deleteUser.Execute(id);
                 return NoContent();
+            }
+            catch (EntityNotFoundException) {
+                return NotFound("User not found");
             }
             catch
             {
-                return StatusCode(500);
+                return StatusCode(500, "Something went wrong on the server.");
             }
         }
 

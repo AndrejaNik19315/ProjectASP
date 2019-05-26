@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace Api.DataTransfer
 {
-    public class UserDto
+    public class UserDto : BaseDto
     {
-        public int Id { get; set; }
         public string Firstname { get; set; }
         public string Lastname { get; set; }
         public string Username { get; set; }

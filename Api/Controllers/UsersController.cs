@@ -54,6 +54,9 @@ namespace Api.Controllers
             catch (EntityNotFoundException) {
                 return NotFound();
             }
+            catch {
+                return StatusCode(500, "Something went wrong on the server.");
+            }
         }
 
         // PUT: api/Users/5

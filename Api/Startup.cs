@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Application.Commands.Users;
+using Application.Commands.Characters;
 using EFCommands.Users;
+using EFCommands.Characters;
 using EFDataAccess;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,11 +32,18 @@ namespace Api
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddDbContext<ProjectContext>();
+            //Users
             services.AddTransient<IGetUserCommand, EFGetUserCommand>();
             services.AddTransient<IGetUsersCommand, EFGetUsersCommand>();
             services.AddTransient<IEditUserCommand, EFEditUserCommand>();
             services.AddTransient<IAddUserCommand, EFAddUserCommand>();
             services.AddTransient<IDeleteUserCommand, EFDeleteUserCommand>();
+            //Characters
+            services.AddTransient<IGetCharacterCommand, EFGetCharacterCommand>();
+            services.AddTransient<IGetCharactersCommand, EFGetCharactersCommand>();
+            services.AddTransient<IDeleteCharacterCommand, EFDeleteCharacterCommand>();
+            services.AddTransient<IAddCharacterCommand, EFAddCharacterCommand>();
+            services.AddTransient<IEditCharacterCommand, EFEditCharacterCommand>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

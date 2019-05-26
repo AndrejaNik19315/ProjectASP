@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Application.Searches
+namespace Api.Queries
 {
-    public class CharacterSearch
+    public class CharacterSearchQuery
     {
         public string Name { get; set; }
         public int? Level { get; set; }

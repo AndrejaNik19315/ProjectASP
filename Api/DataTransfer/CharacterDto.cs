@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Application.Dto
+namespace Api.DataTransfer
 {
-    public class CharacterDto : BaseEntityDto
+    public class CharacterDto : BaseDto
     {
         public string Name { get; set; }
         public int? Level { get; set; }

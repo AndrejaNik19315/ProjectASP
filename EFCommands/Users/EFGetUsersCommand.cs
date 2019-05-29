@@ -37,5 +37,10 @@ namespace EFCommands.Users
                 IsActive = u.IsActive
             });
         }
+
+        public IEnumerable<UserDto> Execute(UserSearch request, int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

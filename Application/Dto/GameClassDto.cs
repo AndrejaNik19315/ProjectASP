@@ -8,7 +8,8 @@ namespace Application.Dto
     public class GameClassDto : BaseEntityDto
     {
         [Required]
-        [MaxLength(24)]
+        [MinLength(3)]
+        [MaxLength(16)]
         public string Name { get; set; }
     }
 }

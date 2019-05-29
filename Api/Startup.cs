@@ -15,6 +15,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Application.Commands.GameClasses;
+using EFCommands.GameClasses;
 
 namespace Api
 {
@@ -44,6 +46,13 @@ namespace Api
             services.AddTransient<IDeleteCharacterCommand, EFDeleteCharacterCommand>();
             services.AddTransient<IAddCharacterCommand, EFAddCharacterCommand>();
             services.AddTransient<IEditCharacterCommand, EFEditCharacterCommand>();
+            //GameClasses
+            services.AddTransient<IGetGameClassCommand, EFGetGameClassCommand>();
+            services.AddTransient<IGetGameClassesCommand, EFGetGameClassesCommand>();
+            services.AddTransient<IAddGameClassCommand, EFAddGameClassCommandCommand>();
+            services.AddTransient<IEditGameClassCommand, EFEditGameClassCommand>();
+            services.AddTransient<IDeleteGameClassCommand, EFDeleteGameClassCommand>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

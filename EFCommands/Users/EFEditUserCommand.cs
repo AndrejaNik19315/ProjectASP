@@ -16,40 +16,32 @@ namespace EFCommands.Users
         {
         }
 
-        public void Execute(UserDto request)
+        public void Execute(UserDto request, int id)
         {
-            //User user = new User
-            //{
-            //    Firstname = request.Firstname,
-            //    Lastname = request.Lastname,
-            //    Username = request.Username,
-            //    Email = request.Email,
-            //    IsActive = request.IsActive,
-            //    UpdatedAt = new DateTime()
-            //};
+            var user = Context.Users.Find(id);
 
-            //Context.Users.Attach(user);
-            //var entry = Context.Entry(user);
+            if (user == null)
+                throw new EntityNotFoundException();
 
-            //if (user.Firstname != null)
-            //    entry.Property(u => u.Firstname).IsModified = true;
-            //if (user.Lastname != null)
-            //    entry.Property(u => u.Lastname).IsModified = true;
-            //if (user.Username != null)
-            //    entry.Property(u => u.Username).IsModified = true;
-            //if (user.Email != null)
-            //    entry.Property(u => u.Email).IsModified = true;
+            if(request.Username != user.Username || request.Email != user.Email)
+                if (Context.Users.Any(u => u.Username.ToLower() == request.Username.ToLower() && u.Id != id || u.Email == request.Email && u.Id != id))
+                    throw new EntityAlreadyExistsException();
 
-            //var user = Context.Users.Find(request.Id);
+            user.Username = request.Username;
+            user.Email = request.Email;
+            user.Firstname = request.Firstname;
+            user.Lastname = request.Lastname;
+            if(request.IsActive != user.IsActive)
+            user.IsActive = request.IsActive;
 
-            //if (user == null)
-            //    throw new EntityNotFoundException();
-
-
-            //if (Context.Users.Any(u => u.Username == request.Username || u.Email == request.Email))
-            //    throw new EntityAlreadyExistsException();
+            user.UpdatedAt = DateTime.Now;
 
             Context.SaveChanges();
+        }
+
+        public void Execute(UserDto request)
+        {
+            throw new NotImplementedException();
         }
     }
 }

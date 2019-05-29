@@ -64,21 +64,17 @@ namespace Api.Controllers
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] Application.Dto.UserDto dto)
         {
-            var user = _context.Users.Find(id);
-
-            if (user == null)
-            {
-                return NotFound("User with specified Id, does not exist.");
-            }
-
-            if (_context.Users.Any(u => u.Username == dto.Username || u.Email == dto.Email)) {
-                return Conflict("User with that username or email already exists");
-            }
-
             try
             {
-                _editUser.Execute(dto);
+                _editUser.Execute(dto, id);
                 return NoContent();
+            }
+            catch (EntityNotFoundException)
+            {
+                return NotFound("User doesn't exists");
+            }
+            catch (EntityAlreadyExistsException) {
+                return Conflict("User with this Username or Email already exists");
             }
             catch
             {

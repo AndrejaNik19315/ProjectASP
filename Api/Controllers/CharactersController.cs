@@ -8,9 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using Domain;
 using EFDataAccess;
 using Application.Commands.Characters;
-using Application.Dto;
 using Application.Searches;
 using Application.Exceptions;
+using Api.DataTransfer;
 
 namespace Api.Controllers
 {
@@ -61,32 +61,27 @@ namespace Api.Controllers
 
         // PUT: api/Characters/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCharacter(int id, Character character)
+        public IActionResult Put(int id, [FromBody] Application.Dto.CharacterDto dto)
         {
-            if (id != character.Id)
-            {
-                return BadRequest();
+            try {
+                _editCharacter.Execute(dto, id);
+                return NoContent();
             }
-
-            _context.Entry(character).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
+            catch (EntityNotFoundException ex) {
+                return NotFound(ex.Message);
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CharacterExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+            catch (EntityNotActiveException) {
+                return BadRequest("User must be active.");
             }
-
-            return NoContent();
+            catch (EntityAlreadyExistsException) {
+                return Conflict("Character with this name already exists.");
+            }
+            catch (EntityBadFormatException) {
+                return BadRequest("Bad format, level and funds cannot be below or equal to 0.");
+            }
+            catch {
+                return StatusCode(500, "Something went wrong on the server");
+            }
         }
 
         // POST: api/Characters
@@ -96,6 +91,7 @@ namespace Api.Controllers
             try
             {
                 _addCharacter.Execute(dto);
+
                 return Created("/api/characters/" + dto.Id, new CharacterDto
                 {
                     Id = dto.Id,
@@ -113,7 +109,7 @@ namespace Api.Controllers
                 return Conflict("Character with that Name already exists.");
             }
             catch (EntityBadFormatException) {
-                return BadRequest("Character is in bad format, level and funds cannot be below or equal to 0.");
+                return BadRequest("Bad format, level and funds cannot be below or equal to 0.");
             }
             catch (EntityNotFoundException ex) {
                 return NotFound(ex.Message);
@@ -121,8 +117,8 @@ namespace Api.Controllers
             catch (EntityNotActiveException) {
                 return BadRequest("User must be active in order to add character.");
             }
-            catch (Exception ex) {
-                return StatusCode(500, ex.Message);
+            catch (Exception) {
+                return StatusCode(500, "Oh noes!");
             }
         }
 
@@ -142,11 +138,6 @@ namespace Api.Controllers
             catch {
                 return StatusCode(500, "Something went wrong on the server.");
             }
-        }
-
-        private bool CharacterExists(int id)
-        {
-            return _context.Characters.Any(e => e.Id == id);
         }
     }
 }

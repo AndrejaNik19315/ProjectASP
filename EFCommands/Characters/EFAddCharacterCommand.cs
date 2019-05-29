@@ -32,9 +32,9 @@ namespace EFCommands.Characters
             if (Context.Genders.Find(request.GenderId) == null ||
                 Context.GameClasses.Find(request.GameClassId) == null ||
                 Context.Races.Find(request.RaceId) == null)
-                throw new EntityNotFoundException("One or more of the following is out of format or don't exist: Gender,GamceClass or Race"); 
+                throw new EntityNotFoundException("One or more of the following is out of format or don't exist: GenderId, GameClassId or RaceId"); 
 
-            //if (request.InventoryId != null) {
+            //if(request.InventoryId != null) {
 
                 //}
 
@@ -51,6 +51,11 @@ namespace EFCommands.Characters
             });
 
             Context.SaveChanges();
+        }
+
+        public void Execute(CharacterDto request, int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -15,10 +15,10 @@ namespace EFDataAccess.Configurations
                 .HasMaxLength(24)
                 .IsRequired();
             builder.Property(c => c.Level)
-                .HasMaxLength(80)
+                .HasMaxLength(2)
                 .HasDefaultValue(1);
             builder.Property(c => c.Funds)
-                .HasMaxLength(1000)
+                .HasMaxLength(4)
                 .HasDefaultValue(5.0m);
             builder.Property(c => c.CreatedAt)
                 .HasDefaultValueSql("GETDATE()");

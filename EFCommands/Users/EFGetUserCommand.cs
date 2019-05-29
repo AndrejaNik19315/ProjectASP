@@ -29,8 +29,15 @@ namespace EFCommands.Users
                 Lastname = user.Lastname,
                 Username = user.Username,
                 Email = user.Email,
-                IsActive = user.IsActive
+                IsActive = user.IsActive,
+                CreatedAt = user.CreatedAt,
+                UpdatedAt = user.UpdatedAt
             };
+        }
+
+        public UserDto Execute(int request, int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -31,8 +31,15 @@ namespace EFCommands.Characters
                 GenderId = character.GenderId,
                 RaceId = character.RaceId,
                 InventoryId = character.InventoryId,
-                UserId = character.UserId
+                UserId = character.UserId,
+                CreatedAt = character.CreatedAt,
+                UpdatedAt = character.UpdatedAt
             };
+        }
+
+        public CharacterDto Execute(int request, int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

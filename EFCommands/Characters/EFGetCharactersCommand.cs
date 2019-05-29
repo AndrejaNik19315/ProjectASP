@@ -42,5 +42,10 @@ namespace EFCommands.Characters
                 RaceId = u.RaceId
             });
         }
+
+        public IEnumerable<CharacterDto> Execute(CharacterSearch request, int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

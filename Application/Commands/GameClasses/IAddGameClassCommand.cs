@@ -4,9 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Application.Commands.Characters
+namespace Application.Commands.GameClasses
 {
-    public interface IEditCharacterCommand : ICommand<CharacterDto>
+    public interface IAddGameClassCommand : ICommand<GameClassDto>
     {
     }
 }

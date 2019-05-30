@@ -26,17 +26,24 @@ namespace EFCommands.Characters
             if (Context.Characters.Any(c => c.Name == request.Name))
                 throw new EntityAlreadyExistsException();
 
-            if (request.Level <= 0 || request.Funds <= 0)
-                throw new EntityBadFormatException();
+            if (!(Context.Genders.Any(gen => gen.Id == request.GenderId)))
+                throw new EntityNotFoundException("There is no gender with that Id.");
 
-            if (Context.Genders.Find(request.GenderId) == null ||
-                Context.GameClasses.Find(request.GameClassId) == null ||
-                Context.Races.Find(request.RaceId) == null)
-                throw new EntityNotFoundException("One or more of the following is out of format or don't exist: GenderId, GameClassId or RaceId"); 
+            if(!(Context.GameClasses.Any(gc => gc.Id == request.GameClassId)))
+                throw new EntityNotFoundException("There is no gameclass with that Id.");
+
+            if(!(Context.Races.Any(r => r.Id == request.RaceId)))
+                throw new EntityNotFoundException("There is no race with that Id.");
+
+
+            //if (Context.Genders.Find(request.GenderId) == null ||
+            //    Context.GameClasses.Find(request.GameClassId) == null ||
+            //    Context.Races.Find(request.RaceId) == null)
+            //    throw new EntityNotFoundException("One or more of the following is out of format or don't exist: GenderId, GameClassId or RaceId"); 
 
             //if(request.InventoryId != null) {
 
-                //}
+            //}
 
             Context.Characters.Add(new Domain.Character
             {

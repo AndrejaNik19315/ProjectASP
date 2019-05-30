@@ -11,9 +11,9 @@ namespace Application.Dto
         [MinLength(3)]
         [MaxLength(16)]
         public string Name { get; set; }
-        [MaxLength(2)]
+        [Range(1, 60)]
         public int? Level { get; set; }
-        [MaxLength(4)]
+        [Range(0, 1000)]
         public decimal? Funds { get; set; }
         [Required]
         public int GameClassId { get; set; }

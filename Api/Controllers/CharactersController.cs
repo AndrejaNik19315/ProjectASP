@@ -18,8 +18,6 @@ namespace Api.Controllers
     [ApiController]
     public class CharactersController : ControllerBase
     {
-        private readonly ProjectContext _context = new ProjectContext();
-
         private readonly IGetCharacterCommand _getCharacter;
         private readonly IGetCharactersCommand _getCharacters;
         private readonly IDeleteCharacterCommand _deleteCharacter;
@@ -108,9 +106,6 @@ namespace Api.Controllers
             catch (EntityAlreadyExistsException) {
                 return Conflict("Character with that Name already exists.");
             }
-            catch (EntityBadFormatException) {
-                return BadRequest("Bad format, level and funds cannot be below or equal to 0.");
-            }
             catch (EntityNotFoundException ex) {
                 return NotFound(ex.Message);
             }
@@ -118,7 +113,7 @@ namespace Api.Controllers
                 return BadRequest("User must be active in order to add character.");
             }
             catch (Exception) {
-                return StatusCode(500, "Oh noes!");
+                return StatusCode(500, "Something went wrong on the server.");
             }
         }
 

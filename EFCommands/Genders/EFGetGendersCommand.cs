@@ -26,7 +26,7 @@ namespace EFCommands.Genders
             {
                 Id = g.Id,
                 Sex = g.Sex
-            });
+            }).OrderBy(g => g.Id);
 
         }
 

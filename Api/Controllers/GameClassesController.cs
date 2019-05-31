@@ -24,6 +24,8 @@ namespace Api.Controllers
         private IEditGameClassCommand _editGameClass;
         private IAddGameClassCommand _addGameClass;
 
+        private string genericErrorMsg = "Something went wrong on the server";
+
         public GameClassesController(IGetGameClassCommand getGameClass, IGetGameClassesCommand getGameClasses, IDeleteGameClassCommand deleteGameClass, IEditGameClassCommand editGameClass, IAddGameClassCommand addGameClass)
         {
             _getGameClass = getGameClass;
@@ -49,12 +51,12 @@ namespace Api.Controllers
                 var gameClass = _getGameClass.Execute(id);
                 return Ok(gameClass);
             }
-            catch (EntityNotFoundException) {
-                return NotFound("Game class not found.");
+            catch (EntityNotFoundException ex) {
+                return NotFound(ex.Message);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                return StatusCode(500, "Something went wrong on the server");
+                return StatusCode(500, genericErrorMsg);
             }
 
         }
@@ -67,14 +69,14 @@ namespace Api.Controllers
                 _editGameClass.Execute(dto, id);
                 return NoContent();
             }
-            catch (EntityNotFoundException) {
-                return NotFound("Game class not found");
+            catch (EntityNotFoundException ex) {
+                return NotFound(ex.Message);
             }
-            catch (EntityAlreadyExistsException) {
-                return Conflict("Game class with thsi name already exists");
+            catch (EntityAlreadyExistsException ex) {
+                return Conflict(ex.Message);
             }
-            catch (Exception ex) {
-                return StatusCode(500, ex.Message);
+            catch (Exception) {
+                return StatusCode(500, genericErrorMsg);
             }
         }
 
@@ -89,11 +91,11 @@ namespace Api.Controllers
                     Name = dto.Name
                 });
             }
-            catch (EntityAlreadyExistsException) {
-                return Conflict("Class with that name already exists");
+            catch (EntityAlreadyExistsException ex) {
+                return Conflict(ex.Message);
             }
             catch {
-                return StatusCode(500, "Something went wrong on the server.");
+                return StatusCode(500, genericErrorMsg);
             }
         }
 
@@ -111,7 +113,7 @@ namespace Api.Controllers
             }
             catch
             {
-                return StatusCode(500, "Something went wrong on the server.");
+                return StatusCode(500, genericErrorMsg);
             }
         }
     }

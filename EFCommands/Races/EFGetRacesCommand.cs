@@ -20,7 +20,7 @@ namespace EFCommands.Races
             var query = Context.Races.AsQueryable();
 
             if (request.Name != null)
-                query = query.Where(r => r.Name.Contains(request.Name));
+                query = query.Where(r => r.Name.ToLower().Contains(request.Name.ToLower()));
 
             return query.Select(r => new RaceDto
             {

@@ -18,7 +18,7 @@ namespace EFCommands.Characters
             var character = Context.Characters.Find(request);
 
             if (character == null) {
-                throw new EntityNotFoundException();
+                throw new EntityNotFoundException("Character not found.");
             }
 
             Context.Characters.Remove(character);

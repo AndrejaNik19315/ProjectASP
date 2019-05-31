@@ -18,7 +18,7 @@ namespace EFCommands.Users
             var user = Context.Users.Find(request);
 
             if (user == null)
-                throw new EntityNotFoundException();
+                throw new EntityNotFoundException("User not found");
 
             Context.Users.Remove(user);
 

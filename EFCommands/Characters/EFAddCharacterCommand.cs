@@ -21,10 +21,10 @@ namespace EFCommands.Characters
                 throw new EntityNotFoundException("There is no User with that Id.");
 
             if (Context.Users.Find(request.UserId).IsActive == false)
-                throw new EntityNotActiveException();
+                throw new EntityNotActiveException("User must be active.");
 
             if (Context.Characters.Any(c => c.Name == request.Name))
-                throw new EntityAlreadyExistsException();
+                throw new EntityAlreadyExistsException("Character with that name already exists.");
 
             if (!(Context.Genders.Any(gen => gen.Id == request.GenderId)))
                 throw new EntityNotFoundException("There is no gender with that Id.");
@@ -34,16 +34,6 @@ namespace EFCommands.Characters
 
             if(!(Context.Races.Any(r => r.Id == request.RaceId)))
                 throw new EntityNotFoundException("There is no race with that Id.");
-
-
-            //if (Context.Genders.Find(request.GenderId) == null ||
-            //    Context.GameClasses.Find(request.GameClassId) == null ||
-            //    Context.Races.Find(request.RaceId) == null)
-            //    throw new EntityNotFoundException("One or more of the following is out of format or don't exist: GenderId, GameClassId or RaceId"); 
-
-            //if(request.InventoryId != null) {
-
-            //}
 
             Context.Characters.Add(new Domain.Character
             {

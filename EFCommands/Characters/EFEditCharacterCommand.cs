@@ -23,11 +23,11 @@ namespace EFCommands.Characters
                 throw new EntityNotFoundException("Character with that Id doesn't exist");
 
             if (Context.Users.Find(request.UserId).IsActive == false)
-                throw new EntityNotActiveException();
+                throw new EntityNotActiveException("User must be active.");
 
             if (request.Name != character.Name)
                 if (Context.Characters.Any(c => c.Name == request.Name))
-                    throw new EntityAlreadyExistsException();
+                    throw new EntityAlreadyExistsException("Character with this name already exists.");
 
             if (request.GenderId != character.GenderId)
                 if (!(Context.Genders.Any(gen => gen.Id == request.GenderId)))
@@ -40,10 +40,6 @@ namespace EFCommands.Characters
             if(request.RaceId != character.RaceId)
                 if (!(Context.Races.Any(r => r.Id == request.RaceId)))
                     throw new EntityNotFoundException("There is no race with that Id.");
-
-            //if (request.GameClassId != character.GameClassId)
-            //    if (Context.GameClasses.Find(request.GameClassId) == null)
-            //        throw new EntityNotFoundException("GameClass Id doesn't exist");
 
             character.Name = request.Name;
             character.Level = request.Level;

@@ -10,7 +10,7 @@ using EFDataAccess;
 using Application.Commands.Users;
 using Application.Searches;
 using Application.Exceptions;
-using Api.DataTransfer;
+using Application.Dto;
 
 namespace Api.Controllers
 {
@@ -25,6 +25,8 @@ namespace Api.Controllers
         private readonly IEditUserCommand _editUser;
         private readonly IAddUserCommand _addUser;
         private readonly IDeleteUserCommand _deleteUser;
+
+        private string genericErrorMsg = "Something went wrong on the server.";
 
         public UsersController(IGetUserCommand getUser, IGetUsersCommand getUsers, IEditUserCommand editUser, IAddUserCommand addUser, IDeleteUserCommand deleteUser)
         {
@@ -51,40 +53,39 @@ namespace Api.Controllers
                 var user = _getUser.Execute(id);
                 return Ok(user);
             }
-            catch (EntityNotFoundException) {
-                return NotFound();
+            catch (EntityNotFoundException ex) {
+                return NotFound(ex.Message);
             }
             catch {
-                return StatusCode(500, "Something went wrong on the server.");
+                return StatusCode(500, genericErrorMsg);
             }
         }
 
         // PUT: api/Users/5
-        //TODO Figure out how to send changes only
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] Application.Dto.UserDto dto)
+        public IActionResult Put(int id, [FromBody] UserDto dto)
         {
             try
             {
                 _editUser.Execute(dto, id);
                 return NoContent();
             }
-            catch (EntityNotFoundException)
+            catch (EntityNotFoundException ex)
             {
-                return NotFound("User doesn't exists");
+                return NotFound(ex.Message);
             }
-            catch (EntityAlreadyExistsException) {
-                return Conflict("User with this Username or Email already exists");
+            catch (EntityAlreadyExistsException ex) {
+                return Conflict(ex.Message);
             }
             catch
             {
-                return StatusCode(500, "Something went wrong.");
+                return StatusCode(500, genericErrorMsg);
             }
         }
 
         // POST: api/Users
         [HttpPost]
-        public IActionResult Post([FromBody] Application.Dto.UserDto dto)
+        public IActionResult Post([FromBody] UserDto dto)
         {
             try
             {
@@ -100,16 +101,16 @@ namespace Api.Controllers
                     IsActive = dto.IsActive
                 });
             }
-            catch (EntityAlreadyExistsException)
+            catch (EntityAlreadyExistsException ex)
             {
-                return Conflict("User with that username or email already exists.");
+                return Conflict(ex.Message);
             }
-            catch (EntityBadFormatException) {
-                return BadRequest("User out of format.");
+            catch (EntityBadFormatException ex) {
+                return BadRequest(ex.Message);
             }
-            catch(Exception ex)
+            catch(Exception)
             {
-                return StatusCode(500, ex.Message);
+                return StatusCode(500, genericErrorMsg);
             }
         }
 
@@ -122,12 +123,12 @@ namespace Api.Controllers
                 _deleteUser.Execute(id);
                 return NoContent();
             }
-            catch (EntityNotFoundException) {
-                return NotFound("User not found");
+            catch (EntityNotFoundException ex) {
+                return NotFound(ex.Message);
             }
             catch
             {
-                return StatusCode(500, "Something went wrong on the server.");
+                return StatusCode(500, genericErrorMsg);
             }
         }
 

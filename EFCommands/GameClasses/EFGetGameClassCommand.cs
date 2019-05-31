@@ -19,7 +19,7 @@ namespace EFCommands.GameClasses
             var gameClass = Context.GameClasses.Find(request);
 
             if (gameClass == null)
-                throw new EntityNotFoundException();
+                throw new EntityNotFoundException("GameClass not found.");
 
             return new GameClassDto
             {

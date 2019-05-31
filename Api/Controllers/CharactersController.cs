@@ -10,7 +10,7 @@ using EFDataAccess;
 using Application.Commands.Characters;
 using Application.Searches;
 using Application.Exceptions;
-using Api.DataTransfer;
+using Application.Dto;
 
 namespace Api.Controllers
 {
@@ -23,6 +23,8 @@ namespace Api.Controllers
         private readonly IDeleteCharacterCommand _deleteCharacter;
         private readonly IEditCharacterCommand _editCharacter;
         private readonly IAddCharacterCommand _addCharacter;
+
+        private string genericErrorMsg = "Something went wrong on the server.";
 
         public CharactersController(IGetCharacterCommand getCharacter, IGetCharactersCommand getCharacters, IDeleteCharacterCommand deleteCharacter, IEditCharacterCommand editCharacter, IAddCharacterCommand addCharacter)
         {
@@ -49,17 +51,17 @@ namespace Api.Controllers
                 var character = _getCharacter.Execute(id);
                 return Ok(character);
             }
-            catch (EntityNotFoundException) {
-                return NotFound();
+            catch (EntityNotFoundException ex) {
+                return NotFound(ex.Message);
             }
-            catch {
-                return StatusCode(500, "Something went wrong on the server.");
+            catch(Exception) {
+                return StatusCode(500, genericErrorMsg);
             } 
         }
 
         // PUT: api/Characters/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] Application.Dto.CharacterDto dto)
+        public IActionResult Put(int id, [FromBody] CharacterDto dto)
         {
             try {
                 _editCharacter.Execute(dto, id);
@@ -68,23 +70,20 @@ namespace Api.Controllers
             catch (EntityNotFoundException ex) {
                 return NotFound(ex.Message);
             }
-            catch (EntityNotActiveException) {
-                return BadRequest("User must be active.");
+            catch (EntityNotActiveException ex) {
+                return UnprocessableEntity(ex.Message);
             }
-            catch (EntityAlreadyExistsException) {
-                return Conflict("Character with this name already exists.");
+            catch (EntityAlreadyExistsException ex) {
+                return Conflict(ex.Message);
             }
-            catch (EntityBadFormatException) {
-                return BadRequest("Bad format, level and funds cannot be below or equal to 0.");
-            }
-            catch {
-                return StatusCode(500, "Something went wrong on the server");
+            catch(Exception) {
+                return StatusCode(500, genericErrorMsg);
             }
         }
 
         // POST: api/Characters
         [HttpPost]
-        public IActionResult Post([FromBody] Application.Dto.CharacterDto dto)
+        public IActionResult Post([FromBody] CharacterDto dto)
         {
             try
             {
@@ -103,17 +102,17 @@ namespace Api.Controllers
                     UserId = dto.UserId
                 });
             }
-            catch (EntityAlreadyExistsException) {
-                return Conflict("Character with that Name already exists.");
+            catch (EntityAlreadyExistsException ex) {
+                return Conflict(ex.Message);
             }
             catch (EntityNotFoundException ex) {
                 return NotFound(ex.Message);
             }
-            catch (EntityNotActiveException) {
-                return BadRequest("User must be active in order to add character.");
+            catch (EntityNotActiveException ex) {
+                return UnprocessableEntity(ex.Message);
             }
             catch (Exception) {
-                return StatusCode(500, "Something went wrong on the server.");
+                return StatusCode(500, genericErrorMsg);
             }
         }
 
@@ -126,12 +125,12 @@ namespace Api.Controllers
                 _deleteCharacter.Execute(id);
                 return NoContent();
             }
-            catch (EntityNotFoundException)
+            catch (EntityNotFoundException ex)
             {
-                return NotFound("Character with this id, doesn't exist.");
+                return NotFound(ex.Message);
             }
             catch {
-                return StatusCode(500, "Something went wrong on the server.");
+                return StatusCode(500, genericErrorMsg);
             }
         }
     }

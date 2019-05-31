@@ -18,7 +18,7 @@ namespace EFCommands.Users
         public void Execute(UserDto request)
         {
             if (Context.Users.Any(u => u.Username == request.Username || u.Email == request.Email))
-                throw new EntityAlreadyExistsException();
+                throw new EntityAlreadyExistsException("Username or Email already exist.");
 
             Context.Users.Add(new Domain.User {
                 Firstname = request.Firstname,

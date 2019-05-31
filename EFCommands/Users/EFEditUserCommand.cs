@@ -21,11 +21,11 @@ namespace EFCommands.Users
             var user = Context.Users.Find(id);
 
             if (user == null)
-                throw new EntityNotFoundException();
+                throw new EntityNotFoundException("User not found.");
 
             if(request.Username != user.Username || request.Email != user.Email)
                 if (Context.Users.Any(u => u.Username.ToLower() == request.Username.ToLower() && u.Id != id || u.Email == request.Email && u.Id != id))
-                    throw new EntityAlreadyExistsException();
+                    throw new EntityAlreadyExistsException("Username or Email already exist.");
 
             user.Username = request.Username;
             user.Email = request.Email;

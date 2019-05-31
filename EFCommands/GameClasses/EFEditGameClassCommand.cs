@@ -20,11 +20,11 @@ namespace EFCommands.GameClasses
             var gameClass = Context.GameClasses.Find(id);
 
             if (gameClass == null)
-                throw new EntityNotFoundException();
+                throw new EntityNotFoundException("GameClass not found.");
 
             if(request.Name.ToLower() != gameClass.Name.ToLower())
                 if (Context.GameClasses.Any(gc => gc.Name.ToLower() == request.Name.ToLower()))
-                    throw new EntityAlreadyExistsException();
+                    throw new EntityAlreadyExistsException("GameClass with this name already exists.");
 
             gameClass.Name = request.Name;
             gameClass.UpdatedAt = DateTime.Now;

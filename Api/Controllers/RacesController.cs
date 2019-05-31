@@ -65,7 +65,7 @@ namespace Api.Controllers
         public IActionResult Put(int id, [FromBody] RaceDto dto)
         {
             try {
-                _addRace.Execute(dto, id);
+                _editRace.Execute(dto, id);
                 return NoContent();
             }
             catch (EntityNotFoundException ex) {

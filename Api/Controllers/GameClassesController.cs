@@ -18,8 +18,6 @@ namespace Api.Controllers
     [ApiController]
     public class GameClassesController : ControllerBase
     {
-        private readonly ProjectContext _context;
-
         private IGetGameClassCommand _getGameClass;
         private IGetGameClassesCommand _getGameClasses;
         private IDeleteGameClassCommand _deleteGameClass;
@@ -56,7 +54,7 @@ namespace Api.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, ex.Message);
+                return StatusCode(500, "Something went wrong on the server");
             }
 
         }

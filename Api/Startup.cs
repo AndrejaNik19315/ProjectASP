@@ -17,6 +17,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Application.Commands.GameClasses;
 using EFCommands.GameClasses;
+using Application.Commands.Genders;
+using EFCommands.Genders;
 
 namespace Api
 {
@@ -52,7 +54,12 @@ namespace Api
             services.AddTransient<IAddGameClassCommand, EFAddGameClassCommandCommand>();
             services.AddTransient<IEditGameClassCommand, EFEditGameClassCommand>();
             services.AddTransient<IDeleteGameClassCommand, EFDeleteGameClassCommand>();
-
+            //Genders
+            services.AddTransient<IGetGendersCommand, EFGetGendersCommand>();
+            services.AddTransient<IGetGenderCommand, EFGetGenderCommand>();
+            services.AddTransient<IAddGenderCommand, EFAddGenderCommand>();
+            services.AddTransient<IEditGenderCommand, EFEditGenderCommand>();
+            services.AddTransient<IDeleteGenderCommand, EFDeleteGenderCommand>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

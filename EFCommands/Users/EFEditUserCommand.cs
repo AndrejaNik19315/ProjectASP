@@ -31,8 +31,10 @@ namespace EFCommands.Users
             user.Email = request.Email;
             user.Firstname = request.Firstname;
             user.Lastname = request.Lastname;
+            if (request.Password != user.Password)
+                user.Password = request.Password;
             if(request.IsActive != user.IsActive)
-            user.IsActive = request.IsActive;
+                user.IsActive = request.IsActive;
 
             user.UpdatedAt = DateTime.Now;
 

@@ -17,7 +17,7 @@ namespace EFCommands.GameClasses
 
         public void Execute(GameClassDto request)
         {
-            if (Context.GameClasses.Any(gc => gc.Name == request.Name))
+            if (Context.GameClasses.Any(gc => gc.Name.ToLower() == request.Name.ToLower()))
                 throw new EntityAlreadyExistsException();
 
             Context.GameClasses.Add(new Domain.GameClass

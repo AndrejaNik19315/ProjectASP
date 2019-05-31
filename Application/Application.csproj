@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Folder Include="Commands\Characters\" />
+    <Folder Include="Commands\Races\" />
   </ItemGroup>
 
 </Project>

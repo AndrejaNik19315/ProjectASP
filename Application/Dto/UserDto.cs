@@ -20,6 +20,10 @@ namespace Application.Dto
         [Required]
         [EmailAddress]
         public string Email { get; set; }
+        [Required]
+        [MinLength(5)]
+        [MaxLength(24)]
+        public string Password { get; set; }
         public bool IsActive { get; set; }
     }
 }

@@ -11,6 +11,7 @@ namespace Domain
         public string Username { get; set; }
         public string Email { get; set; }
         public bool IsActive { get; set; }
+        public string Password { get; set; }
         public ICollection<Character> Characters { get; set; }
     }
 }

@@ -25,6 +25,7 @@ namespace EFCommands.Users
                 Lastname = request.Lastname,
                 Username = request.Username,
                 Email = request.Email,
+                Password = request.Password,
                 IsActive = request.IsActive
             });
 

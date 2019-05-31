@@ -21,6 +21,9 @@ namespace EFDataAccess.Configurations
             builder.Property(u => u.Email)
                 .HasMaxLength(128)
                 .IsRequired();
+            builder.Property(u => u.Password)
+                .HasMaxLength(128)
+                .IsRequired();
             builder.Property(u => u.IsActive)
                 .HasDefaultValue(0);
             builder.Property(u => u.CreatedAt)

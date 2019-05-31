@@ -19,7 +19,8 @@ namespace EFDataAccess
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-K6HQC4F;Initial Catalog=ProjectDb;Integrated Security=True");
+            optionsBuilder.UseSqlServer(@"Data Source=ANDREJA-LAPTOP;Initial Catalog=ProjectDb;Integrated Security=True");
+            //optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-K6HQC4F;Initial Catalog=ProjectDb;Integrated Security=True");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {

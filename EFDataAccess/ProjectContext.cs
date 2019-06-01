@@ -18,6 +18,8 @@ namespace EFDataAccess
         public DbSet<Inventory> Inventories { get; set; }
         public DbSet<InventoryItem> InventoriyItems { get; set; }
         public DbSet<Item> Items { get; set; }
+        public DbSet<ItemType> ItemTypes { get; set; }
+        public DbSet<ItemQuality> ItemQualities { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

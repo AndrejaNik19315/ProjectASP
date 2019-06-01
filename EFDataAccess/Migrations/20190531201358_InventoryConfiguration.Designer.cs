@@ -4,14 +4,16 @@ using EFDataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EFDataAccess.Migrations
 {
     [DbContext(typeof(ProjectContext))]
-    partial class ProjectContextModelSnapshot : ModelSnapshot
+    [Migration("20190531201358_InventoryConfiguration")]
+    partial class InventoryConfiguration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -132,9 +134,7 @@ namespace EFDataAccess.Migrations
                         .HasDefaultValueSql("GETDATE()");
 
                     b.Property<int?>("MaxSlots")
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(3)
-                        .HasDefaultValue(20);
+                        .HasMaxLength(3);
 
                     b.Property<int>("SlotsFilled")
                         .ValueGeneratedOnAdd()
@@ -145,70 +145,6 @@ namespace EFDataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Inventories");
-                });
-
-            modelBuilder.Entity("Domain.InventoryItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime?>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasDefaultValueSql("GETDATE()");
-
-                    b.Property<int>("InventoryId");
-
-                    b.Property<int>("ItemId");
-
-                    b.Property<DateTime?>("UpdatedAt");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("InventoryId");
-
-                    b.HasIndex("ItemId");
-
-                    b.ToTable("InventoriyItems");
-                });
-
-            modelBuilder.Entity("Domain.Item", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<decimal>("Cost")
-                        .HasMaxLength(4);
-
-                    b.Property<DateTime?>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasDefaultValueSql("GETDATE()");
-
-                    b.Property<int>("ItemQualityId");
-
-                    b.Property<int>("ItemTypeId");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(64);
-
-                    b.Property<DateTime?>("UpdatedAt");
-
-                    b.Property<bool>("isCovert")
-                        .ValueGeneratedOnAdd()
-                        .HasDefaultValue(false);
-
-                    b.Property<bool>("isForSale")
-                        .ValueGeneratedOnAdd()
-                        .HasDefaultValue(false);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
-
-                    b.ToTable("Items");
                 });
 
             modelBuilder.Entity("Domain.Race", b =>
@@ -304,19 +240,6 @@ namespace EFDataAccess.Migrations
                     b.HasOne("Domain.User", "User")
                         .WithMany("Characters")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Domain.InventoryItem", b =>
-                {
-                    b.HasOne("Domain.Inventory", "Inventory")
-                        .WithMany("Items")
-                        .HasForeignKey("InventoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Domain.Item", "Item")
-                        .WithMany("Inventories")
-                        .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

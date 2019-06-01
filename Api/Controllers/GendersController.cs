@@ -19,11 +19,11 @@ namespace Api.Controllers
     public class GendersController : ControllerBase
     {
 
-        private IGetGenderCommand _getGender;
-        private IGetGendersCommand _getGenders;
-        private IAddGenderCommand _addGender;
-        private IEditGenderCommand _editGender;
-        private IDeleteGenderCommand _deleteGender;
+        private readonly IGetGenderCommand _getGender;
+        private readonly IGetGendersCommand _getGenders;
+        private readonly IAddGenderCommand _addGender;
+        private readonly IEditGenderCommand _editGender;
+        private readonly IDeleteGenderCommand _deleteGender;
 
         private string genericErrorMsg = "Something went wrong on the server";
 

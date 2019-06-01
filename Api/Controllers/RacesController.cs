@@ -19,11 +19,11 @@ namespace Api.Controllers
     public class RacesController : ControllerBase
     {
 
-        private IGetRacesCommand _getRaces;
-        private IGetRaceCommand _getRace;
-        private IAddRaceCommand _addRace;
-        private IEditRaceCommand _editRace;
-        private IDeleteRaceCommand _deleteRace;
+        private readonly IGetRacesCommand _getRaces;
+        private readonly IGetRaceCommand _getRace;
+        private readonly IAddRaceCommand _addRace;
+        private readonly IEditRaceCommand _editRace;
+        private readonly IDeleteRaceCommand _deleteRace;
 
         private string genericErrorMsg = "Something went wrong on the server.";
 

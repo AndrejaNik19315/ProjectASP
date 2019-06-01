@@ -54,9 +54,15 @@ namespace Api.Controllers
             catch (EntityNotFoundException ex) {
                 return NotFound(ex.Message);
             }
-            catch(Exception) {
+            catch (Exception) {
                 return StatusCode(500, genericErrorMsg);
-            } 
+            }
+        }
+
+        //GET: api/Characters/5/inventory
+        [HttpGet("{id}/inventory")]
+        public IActionResult GetInventory(int id){
+            return StatusCode(200, "Works");
         }
 
         // PUT: api/Characters/5

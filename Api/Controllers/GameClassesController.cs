@@ -10,7 +10,7 @@ using EFDataAccess;
 using Application.Commands.GameClasses;
 using Application.Searches;
 using Application.Exceptions;
-using Api.DataTransfer;
+using Application.Dto;
 
 namespace Api.Controllers
 {
@@ -18,11 +18,11 @@ namespace Api.Controllers
     [ApiController]
     public class GameClassesController : ControllerBase
     {
-        private IGetGameClassCommand _getGameClass;
-        private IGetGameClassesCommand _getGameClasses;
-        private IDeleteGameClassCommand _deleteGameClass;
-        private IEditGameClassCommand _editGameClass;
-        private IAddGameClassCommand _addGameClass;
+        private readonly IGetGameClassCommand _getGameClass;
+        private readonly IGetGameClassesCommand _getGameClasses;
+        private readonly IDeleteGameClassCommand _deleteGameClass;
+        private readonly IEditGameClassCommand _editGameClass;
+        private readonly IAddGameClassCommand _addGameClass;
 
         private string genericErrorMsg = "Something went wrong on the server";
 
@@ -63,7 +63,7 @@ namespace Api.Controllers
 
         // PUT: api/GameClasses/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] Application.Dto.GameClassDto dto)
+        public IActionResult Put(int id, [FromBody] GameClassDto dto)
         {
             try {
                 _editGameClass.Execute(dto, id);
@@ -82,7 +82,7 @@ namespace Api.Controllers
 
         // POST: api/GameClasses
         [HttpPost]
-        public IActionResult Post([FromBody] Application.Dto.GameClassDto dto)
+        public IActionResult Post([FromBody] GameClassDto dto)
         {
             try {
                 _addGameClass.Execute(dto);

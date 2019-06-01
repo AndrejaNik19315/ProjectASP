@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Application.Exceptions
 {
-    class EntityUnprocessableException : Exception
+    public class EntityUnprocessableException : Exception
     {
         public EntityUnprocessableException()
         {

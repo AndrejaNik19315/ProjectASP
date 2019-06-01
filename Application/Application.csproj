@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Folder Include="Commands\Characters\" />
+    <Folder Include="Dto\Characters\" />
   </ItemGroup>
 
 </Project>

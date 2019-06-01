@@ -4,14 +4,16 @@ using EFDataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EFDataAccess.Migrations
 {
     [DbContext(typeof(ProjectContext))]
-    partial class ProjectContextModelSnapshot : ModelSnapshot
+    [Migration("20190601150025_InventoryItemConfigurationRemovedBoughtOn")]
+    partial class InventoryItemConfigurationRemovedBoughtOn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -178,37 +180,25 @@ namespace EFDataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<decimal>("Cost")
-                        .HasMaxLength(4);
+                    b.Property<decimal>("Cost");
 
-                    b.Property<DateTime?>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasDefaultValueSql("GETDATE()");
+                    b.Property<DateTime?>("CreatedAt");
 
                     b.Property<int>("ItemQualityId");
 
                     b.Property<int>("ItemTypeId");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(64);
+                    b.Property<string>("Name");
 
                     b.Property<DateTime?>("UpdatedAt");
 
-                    b.Property<bool>("isCovert")
-                        .ValueGeneratedOnAdd()
-                        .HasDefaultValue(false);
+                    b.Property<bool?>("isCovert");
 
-                    b.Property<bool>("isForSale")
-                        .ValueGeneratedOnAdd()
-                        .HasDefaultValue(false);
+                    b.Property<bool?>("isForSale");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Name")
-                        .IsUnique();
-
-                    b.ToTable("Items");
+                    b.ToTable("Item");
                 });
 
             modelBuilder.Entity("Domain.Race", b =>

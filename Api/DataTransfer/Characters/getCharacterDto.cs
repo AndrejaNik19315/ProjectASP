@@ -1,23 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Domain
+namespace Api.DataTransfer.Characters
 {
-    public class Character : BaseEntity
+    public class getCharacterDto : BaseDto
     {
         public string Name { get; set; }
         public int? Level { get; set; }
         public decimal? Funds { get; set; }
         public int GameClassId { get; set; }
-        public GameClass GameClass { get; set; }
         public int GenderId { get; set; }
-        public Gender Gender { get; set; }
         public int RaceId { get; set; }
-        public Race Race { get; set; }
-        public int? InventoryId { get; set; }
-        public Inventory Inventory { get; set; }
         public int UserId { get; set; }
-        public User User { get; set; }
+        public int? InventoryId { get; set; }
+        public int InventorySlots { get; set; }
+        public int ItemsInInventory { get; set; }
     }
 }

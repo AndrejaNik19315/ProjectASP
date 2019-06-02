@@ -40,7 +40,7 @@ namespace EFCommands.Items
                 isForSale = i.isForSale,
                 ItemTypeId = i.ItemTypeId,
                 ItemQualityId = i.ItemQualityId
-            });
+            }).OrderBy(i => i.Id);
         }
 
         public IEnumerable<ItemDto> Execute(ItemSearch request, int id)

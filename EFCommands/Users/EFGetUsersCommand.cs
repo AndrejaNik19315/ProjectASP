@@ -35,7 +35,7 @@ namespace EFCommands.Users
                 Username = u.Username,
                 Email = u.Email,
                 IsActive = u.IsActive
-            });
+            }).OrderBy(u => u.Id);
         }
 
         public IEnumerable<UserDto> Execute(UserSearch request, int id)

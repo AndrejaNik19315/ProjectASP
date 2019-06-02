@@ -21,10 +21,6 @@ using Application.Commands.Genders;
 using EFCommands.Genders;
 using EFCommands.Races;
 using Application.Commands.Races;
-using EFCommands.ItemTypes;
-using Application.Commands.ItemTypes;
-using Application.Commands.ItemQualities;
-using EFCommands.ItemQualities;
 
 namespace Api
 {
@@ -72,18 +68,6 @@ namespace Api
             services.AddTransient<IAddRaceCommand, EFAddRaceCommand>();
             services.AddTransient<IEditRaceCommand, EFEditRaceCommand>();
             services.AddTransient<IDeleteRaceCommand, EFDeleteRaceCommand>();
-            //ItemTypes
-            services.AddTransient<IGetItemTypesCommand, EFGetItemTypesCommand>();
-            services.AddTransient<IGetItemTypeCommand, EFGetItemTypeCommand>();
-            services.AddTransient<IAddItemTypeCommand, EFAddItemTypeCommand>();
-            services.AddTransient<IEditItemTypeCommand, EFEditItemTypeCommand>();
-            services.AddTransient<IDeleteItemTypeCommand, EFDeleteItemTypeCommand>();
-            //ItemQualities
-            services.AddTransient<IGetItemQualitiesCommand, EFGetItemQualitiesCommand>();
-            services.AddTransient<IGetItemQualityCommand, EFGetItemQualityCommand>();
-            services.AddTransient<IAddItemQualityCommand, EFAddItemQualityCommand>();
-            services.AddTransient<IEditItemQualityCommand, EFEditItemQualityCommand>();
-            services.AddTransient<IDeleteItemQualityCommand, EFDeleteItemQualityCommand>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

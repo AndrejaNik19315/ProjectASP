@@ -26,7 +26,7 @@ namespace EFCommands.GameClasses
             {
                 Id = gc.Id,
                 Name = gc.Name
-            }).OrderBy(gc => gc.Id);
+            });
         }
 
         public IEnumerable<GameClassDto> Execute(GameClassSearch request, int id)

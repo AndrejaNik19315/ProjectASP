@@ -38,7 +38,7 @@ namespace Api.Controllers
 
         // GET: api/ItemTypes
         [HttpGet]
-        public IActionResult Get([FromQuery] ItemTypeSearch query)
+        public IActionResult Get([FromBody] ItemTypeSearch query)
         {
             return Ok(_getItemTypes.Execute(query));
         }

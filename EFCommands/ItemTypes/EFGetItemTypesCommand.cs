@@ -20,13 +20,13 @@ namespace EFCommands.ItemTypes
             var query = Context.ItemTypes.AsQueryable();
 
             if (request.Name != null)
-                query = Context.ItemTypes.Where(itm => itm.Name.ToLower().Contains(request.Name.ToLower()));
+                query = Context.ItemTypes.Where(it => it.Name.ToLower().Contains(request.Name.ToLower()));
 
-            return query.Select(itm => new ItemTypeDto
+            return query.Select(it => new ItemTypeDto
             {
-                Id = itm.Id,
-                Name = itm.Name
-            }).OrderBy(itm => itm.Id);
+                Id = it.Id,
+                Name = it.Name
+            });
         }
 
         public IEnumerable<ItemTypeDto> Execute(ItemTypeSearch request, int id)

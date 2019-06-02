@@ -40,7 +40,7 @@ namespace EFCommands.Characters
                 GameClassId = u.GameClassId,
                 GenderId = u.GenderId,
                 RaceId = u.RaceId
-            }).OrderBy(u => u.Id);
+            });
         }
 
         public IEnumerable<CharacterDto> Execute(CharacterSearch request, int id)

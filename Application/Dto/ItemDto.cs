@@ -18,7 +18,7 @@ namespace Application.Dto
         public bool isForSale { get; set; }
         [Required]
         public int ItemTypeId { get; set; }
-        [Required]
-        public int ItemQualityId { get; set; }
+        //[Required]
+        //public int ItemQualityId { get; set; }
     }
 }

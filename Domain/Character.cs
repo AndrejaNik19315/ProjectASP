@@ -15,9 +15,8 @@ namespace Domain
         public Gender Gender { get; set; }
         public int RaceId { get; set; }
         public Race Race { get; set; }
-        public int? InventoryId { get; set; }
-        public Inventory Inventory { get; set; }
         public int UserId { get; set; }
         public User User { get; set; }
+        public Inventory Inventory { get; set; }
     }
 }

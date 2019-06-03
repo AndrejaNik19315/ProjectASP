@@ -16,10 +16,10 @@ namespace EFDataAccess
         public DbSet<Gender> Genders { get; set; }
         public DbSet<Race> Races { get; set; }
         public DbSet<Inventory> Inventories { get; set; }
-        public DbSet<InventoryItem> InventoriyItems { get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<ItemType> ItemTypes { get; set; }
-        public DbSet<ItemQuality> ItemQualities { get; set; }
+        //public DbSet<ItemQuality> ItemQualities { get; set; }
+        //public DbSet<InventoryItem> InventoryItems { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -34,8 +34,9 @@ namespace EFDataAccess
             modelBuilder.ApplyConfiguration(new GenderConfiguration());
             modelBuilder.ApplyConfiguration(new RaceConfiguration());
             modelBuilder.ApplyConfiguration(new InventoryConfiguration());
-            modelBuilder.ApplyConfiguration(new InventoryItemConfiguration());
             modelBuilder.ApplyConfiguration(new ItemConfiguration());
+            modelBuilder.ApplyConfiguration(new ItemTypeConfiguration());
+            //modelBuilder.ApplyConfiguration(new InventoryItemConfiguration());
         }
     }
 }

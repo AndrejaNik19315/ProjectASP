@@ -25,7 +25,9 @@ namespace EFCommands.ItemTypes
             return query.Select(it => new ItemTypeDto
             {
                 Id = it.Id,
-                Name = it.Name
+                Name = it.Name,
+                CreatedAt = it.CreatedAt,
+                UpdatedAt = it.UpdatedAt
             });
         }
 

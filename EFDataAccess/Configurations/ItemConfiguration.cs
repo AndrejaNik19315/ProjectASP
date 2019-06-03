@@ -26,12 +26,6 @@ namespace EFDataAccess.Configurations
 
             builder.HasIndex(i => i.Name)
                 .IsUnique();
-            builder.HasKey(i => i.Id);
-
-            builder.HasMany(i => i.Inventories)
-                .WithOne(inv => inv.Item)
-                .HasForeignKey(inv => inv.ItemId)
-                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

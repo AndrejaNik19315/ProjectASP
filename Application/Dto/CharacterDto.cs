@@ -23,6 +23,5 @@ namespace Application.Dto
         public int RaceId { get; set; }
         [Required]
         public int UserId { get; set; }
-        public int? InventoryId { get; set; }
     }
 }

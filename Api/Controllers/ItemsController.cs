@@ -24,7 +24,7 @@ namespace Api.Controllers
         private readonly IEditItemCommand _editItem;
         private readonly IDeleteItemCommand _deleteItem;
 
-        public string genericErrorMsg = "Somehting went wrong on the server.";
+        public readonly string genericErrorMsg = "Something went wrong on the server.";
 
         public ItemsController(IGetItemsCommand getItems, IGetItemCommand getItem, IAddItemCommand addItem, IEditItemCommand editItem, IDeleteItemCommand deleteItem)
         {
@@ -37,7 +37,7 @@ namespace Api.Controllers
 
         // GET: api/Items
         [HttpGet]
-        public IActionResult Get([FromBody] ItemSearch query)
+        public IActionResult Get([FromQuery] ItemSearch query)
         {
             return Ok(_getItems.Execute(query));
         }
@@ -73,6 +73,10 @@ namespace Api.Controllers
             catch (EntityUnprocessableException ex) {
                 return UnprocessableEntity(ex.Message);
             }
+            catch (EntityAlreadyExistsException ex)
+            {
+                return Conflict(ex.Message);
+            }
             catch (Exception) {
                 return StatusCode(500, genericErrorMsg);
             }
@@ -82,7 +86,8 @@ namespace Api.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] ItemDto order66)
         {
-            try {
+            try
+            {
                 _addItem.Execute(order66);
 
                 return Created("api/items/" + order66.Id, new ItemDto
@@ -91,9 +96,9 @@ namespace Api.Controllers
                     Name = order66.Name,
                     Cost = order66.Cost,
                     isCovert = order66.isCovert,
-                    isForSale = order66.isForSale,
-                    ItemQualityId = order66.ItemQualityId,
-                    ItemTypeId = order66.ItemTypeId
+                    isForSale = order66.isForSale
+                    //ItemQualityId = order66.ItemQualityId,
+                    //ItemTypeId = order66.ItemTypeId
                 });
             }
             catch (EntityNotFoundException ex)
@@ -103,6 +108,9 @@ namespace Api.Controllers
             catch (EntityUnprocessableException ex)
             {
                 return UnprocessableEntity(ex.Message);
+            }
+            catch (EntityAlreadyExistsException ex) {
+                return Conflict(ex.Message);
             }
             catch (Exception)
             {

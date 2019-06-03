@@ -9,7 +9,7 @@ namespace Application.Searches
         public string Name { get; set; }
         public int? MinPrice { get; set; }
         public int? MaxPrice { get; set; }
-        public bool isCovert { get; set; }
-        public bool isForSale { get; set; }
+        public bool? isCovert { get; set; }
+        public bool? isForSale { get; set; }
     }
 }

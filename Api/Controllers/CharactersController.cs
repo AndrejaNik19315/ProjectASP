@@ -24,7 +24,7 @@ namespace Api.Controllers
         private readonly IEditCharacterCommand _editCharacter;
         private readonly IAddCharacterCommand _addCharacter;
 
-        private string genericErrorMsg = "Something went wrong on the server.";
+        private readonly string genericErrorMsg = "Something went wrong on the server.";
 
         public CharactersController(IGetCharacterCommand getCharacter, IGetCharactersCommand getCharacters, IDeleteCharacterCommand deleteCharacter, IEditCharacterCommand editCharacter, IAddCharacterCommand addCharacter)
         {
@@ -104,7 +104,6 @@ namespace Api.Controllers
                     GameClassId = dto.GameClassId,
                     GenderId = dto.GenderId,
                     RaceId = dto.RaceId,
-                    InventoryId = dto.InventoryId,
                     UserId = dto.UserId
                 });
             }

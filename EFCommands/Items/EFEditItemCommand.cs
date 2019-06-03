@@ -22,7 +22,7 @@ namespace EFCommands.Items
             if (item == null)
                 throw new EntityNotFoundException("Item not found.");
 
-            if(request.Name != item.Name)
+            if (request.Name != item.Name)
                 if (Context.Items.Any(i => i.Name == request.Name))
                     throw new EntityAlreadyExistsException("Item with that name already exists.");
 
@@ -37,8 +37,9 @@ namespace EFCommands.Items
             item.Cost = request.Cost;
             item.isCovert = request.isCovert;
             item.isForSale = request.isForSale;
-            item.ItemQualityId = request.ItemQualityId;
+            //item.ItemQualityId = request.ItemQualityId;
             item.ItemTypeId = request.ItemTypeId;
+            item.UpdatedAt = DateTime.Now;
 
             Context.SaveChanges();
         }

@@ -22,10 +22,10 @@ namespace EFCommands.Items
             if(request.Name != null)
                 query = query.Where(i => i.Name.ToLower().Contains(request.Name.ToLower()));
 
-            if (request.isCovert)
+            if (request.isCovert.HasValue)
                 query = query.Where(i => i.isCovert == request.isCovert);
 
-            if (request.isForSale)
+            if (request.isForSale.HasValue)
                 query = query.Where(i => i.isForSale == request.isForSale);
 
             if (request.MinPrice != null && request.MaxPrice != null)
@@ -39,8 +39,10 @@ namespace EFCommands.Items
                 isCovert = i.isCovert,
                 isForSale = i.isForSale,
                 ItemTypeId = i.ItemTypeId,
-                ItemQualityId = i.ItemQualityId
-            });
+                //ItemQualityId = i.ItemQualityId
+                CreatedAt = i.CreatedAt,
+                UpdatedAt = i.UpdatedAt
+            }).OrderBy(i => i.Id);
         }
 
         public IEnumerable<ItemDto> Execute(ItemSearch request, int id)

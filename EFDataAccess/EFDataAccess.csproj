@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
@@ -7,6 +7,38 @@
   <ItemGroup>
     <Compile Remove="Migrations\20190518123506_GameClassConfiguration.cs" />
     <Compile Remove="Migrations\20190518123506_GameClassConfiguration.Designer.cs" />
+    <Compile Remove="Migrations\20190601145125_InventoryItemConfiguration.cs" />
+    <Compile Remove="Migrations\20190601145125_InventoryItemConfiguration.Designer.cs" />
+    <Compile Remove="Migrations\20190601150025_InventoryItemConfigurationRemovedBoughtOn.cs" />
+    <Compile Remove="Migrations\20190601150025_InventoryItemConfigurationRemovedBoughtOn.Designer.cs" />
+    <Compile Remove="Migrations\20190601152010_ItemConfiguration.cs" />
+    <Compile Remove="Migrations\20190601152010_ItemConfiguration.Designer.cs" />
+    <Compile Remove="Migrations\20190602165450_Item&amp;InventoryConfigurations.cs" />
+    <Compile Remove="Migrations\20190602165450_Item&amp;InventoryConfigurations.Designer.cs" />
+    <Compile Remove="Migrations\20190602173930_InventoryItemConstraints.cs" />
+    <Compile Remove="Migrations\20190602173930_InventoryItemConstraints.Designer.cs" />
+    <Compile Remove="Migrations\20190603180422_InventoryConfigurationConstraintChanged.cs" />
+    <Compile Remove="Migrations\20190603180422_InventoryConfigurationConstraintChanged.Designer.cs" />
+    <Compile Remove="Migrations\20190603185033_InventoryConfigurationConstraintChanged.cs" />
+    <Compile Remove="Migrations\20190603185033_InventoryConfigurationConstraintChanged.Designer.cs" />
+    <Compile Remove="Migrations\20190603190827_InventoryCharacterContraintRemoved.cs" />
+    <Compile Remove="Migrations\20190603190827_InventoryCharacterContraintRemoved.Designer.cs" />
+    <Compile Remove="Migrations\20190603195225_InventoryDependencyConstraint.cs" />
+    <Compile Remove="Migrations\20190603195225_InventoryDependencyConstraint.Designer.cs" />
+    <Compile Remove="Migrations\20190603200153_InventoryDependencyConstraint.cs" />
+    <Compile Remove="Migrations\20190603200153_InventoryDependencyConstraint.Designer.cs" />
+    <Compile Remove="Migrations\20190603200901_InventoryDependencyConstraint.cs" />
+    <Compile Remove="Migrations\20190603200901_InventoryDependencyConstraint.Designer.cs" />
+    <Compile Remove="Migrations\20190603202206_InventoryDependencyConstraint.cs" />
+    <Compile Remove="Migrations\20190603202206_InventoryDependencyConstraint.Designer.cs" />
+    <Compile Remove="Migrations\20190603203517_InventoryDependencyConstraint.cs" />
+    <Compile Remove="Migrations\20190603203517_InventoryDependencyConstraint.Designer.cs" />
+    <Compile Remove="Migrations\20190603204044_InventoryDependencyConstraint.cs" />
+    <Compile Remove="Migrations\20190603204044_InventoryDependencyConstraint.Designer.cs" />
+    <Compile Remove="Migrations\20190603204159_InventoryDependencyConstraint.cs" />
+    <Compile Remove="Migrations\20190603204159_InventoryDependencyConstraint.Designer.cs" />
+    <Compile Remove="Migrations\20190603204618_InventoryDependencyConstraint.cs" />
+    <Compile Remove="Migrations\20190603204618_InventoryDependencyConstraint.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

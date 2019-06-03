@@ -11,7 +11,9 @@ namespace Domain
         public bool isCovert { get; set; }
         public bool isForSale { get; set; }
         public int ItemTypeId { get; set; }
-        public int ItemQualityId { get; set; }
-        public IEnumerable<InventoryItem> Inventories { get; set; }
+        public ItemType ItemType { get; }
+        //public int ItemQualityId { get; set; }
+        //public ItemQuality ItemQuality { get; }
+        //public IEnumerable<InventoryItem> InventoryItems { get; set; }
     }
 }

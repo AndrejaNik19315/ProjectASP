@@ -35,9 +35,7 @@ namespace EFCommands.Characters
             if(!(Context.Races.Any(r => r.Id == request.RaceId)))
                 throw new EntityNotFoundException("There is no race with that Id.");
 
-            var inventoryId = Context.Inventories.Add(new Domain.Inventory { }).Entity.Id;
-
-            Context.Characters.Add(new Domain.Character
+            var characterId = Context.Characters.Add(new Domain.Character
             {
                 Name = request.Name,
                 Level = request.Level,
@@ -45,8 +43,12 @@ namespace EFCommands.Characters
                 RaceId = request.RaceId,
                 GenderId = request.GenderId,
                 GameClassId = request.GameClassId,
-                InventoryId = inventoryId,
                 UserId = request.UserId
+            }).Entity.Id;
+
+            Context.Inventories.Add(new Domain.Inventory
+            {
+                CharacterId = characterId,
             });
 
             Context.SaveChanges();

@@ -30,7 +30,6 @@ namespace EFCommands.Characters
                 GameClassId = character.GameClassId,
                 GenderId = character.GenderId,
                 RaceId = character.RaceId,
-                InventoryId = character.InventoryId,
                 UserId = character.UserId,
                 CreatedAt = character.CreatedAt,
                 UpdatedAt = character.UpdatedAt

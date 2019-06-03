@@ -7,5 +7,7 @@ namespace Domain
     public class ItemQuality : BaseEntity
     {
         public string Name { get; set; }
+        public IEnumerable<Item> Items { get; set; }
+        public int ItemId { get; set; }
     }
 }

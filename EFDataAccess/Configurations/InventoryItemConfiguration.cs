@@ -18,7 +18,16 @@ namespace EFDataAccess.Configurations
             builder.Property(ii => ii.CreatedAt)
                .HasDefaultValueSql("GETDATE()");
 
-            builder.HasKey(ii => new { ii.InventoryId, ii.ItemId });
+            builder.HasKey(ii => ii.Id);
+
+            //builder.HasOne(ii => ii.Inventory)
+            //    .WithMany(i => i.InventoryItems)
+            //    .HasForeignKey(i => i.InventoryId)
+            //    .OnDelete(DeleteBehavior.Cascade);
+            //builder.HasOne(ii => ii.Item)
+            //    .WithMany(i => i.InventoryItems)
+            //    .HasForeignKey(i => i.ItemId)
+            //    .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

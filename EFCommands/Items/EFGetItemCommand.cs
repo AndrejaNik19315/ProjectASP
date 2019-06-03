@@ -29,7 +29,7 @@ namespace EFCommands.Items
                 isCovert = item.isCovert,
                 isForSale = item.isForSale,
                 ItemTypeId = item.ItemTypeId,
-                ItemQualityId = item.ItemQualityId,
+                //ItemQualityId = item.ItemQualityId,
                 CreatedAt = item.CreatedAt,
                 UpdatedAt = item.UpdatedAt
             };

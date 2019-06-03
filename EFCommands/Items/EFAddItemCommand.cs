@@ -28,12 +28,12 @@ namespace EFCommands.Items
 
             Context.Items.Add(new Domain.Item
             {
-               Name = request.Name,
-               Cost = request.Cost,
-               isCovert = request.isCovert,
-               isForSale = request.isForSale,
-               ItemTypeId = request.ItemTypeId,
-               ItemQualityId = request.ItemQualityId
+                Name = request.Name,
+                Cost = request.Cost,
+                isCovert = request.isCovert,
+                isForSale = request.isForSale,
+                ItemTypeId = request.ItemTypeId
+                //ItemQualityId = request.ItemQualityId
             });
 
             Context.SaveChanges();

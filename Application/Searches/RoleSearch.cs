@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Domain
+namespace Application.Searches
 {
-    public class Race : BaseEntity
+    public class RoleSearch
     {
         public string Name { get; set; }
-        public IEnumerable<Character> Characters { get; set; }
     }
 }

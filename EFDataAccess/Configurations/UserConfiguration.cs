@@ -25,7 +25,9 @@ namespace EFDataAccess.Configurations
                 .HasMaxLength(128)
                 .IsRequired();
             builder.Property(u => u.IsActive)
-                .HasDefaultValue(0);
+                .HasDefaultValue(1);
+            builder.Property(u => u.RoleId)
+              .HasDefaultValue(1);
             builder.Property(u => u.CreatedAt)
                 .HasDefaultValueSql("GETDATE()");
 

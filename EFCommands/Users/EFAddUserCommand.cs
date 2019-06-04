@@ -26,7 +26,8 @@ namespace EFCommands.Users
                 Username = request.Username,
                 Email = request.Email,
                 Password = request.Password,
-                IsActive = request.IsActive
+                IsActive = request.IsActive,
+                RoleId = request.RoleId
             });
 
             Context.SaveChanges();

@@ -19,12 +19,13 @@ namespace EFDataAccess
         public DbSet<Item> Items { get; set; }
         public DbSet<ItemType> ItemTypes { get; set; }
         public DbSet<ItemQuality> ItemQualities { get; set; }
+        public DbSet<Role> Roles { get; set; }
         //public DbSet<InventoryItem> InventoryItems { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=ANDREJA-LAPTOP;Initial Catalog=ProjectDb;Integrated Security=True"); //Laptop
-            //optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-K6HQC4F;Initial Catalog=ProjectDb;Integrated Security=True"); //PC
+            //optionsBuilder.UseSqlServer(@"Data Source=ANDREJA-LAPTOP;Initial Catalog=ProjectDb;Integrated Security=True"); //Laptop
+            optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-K6HQC4F;Initial Catalog=ProjectDb;Integrated Security=True"); //PC
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {

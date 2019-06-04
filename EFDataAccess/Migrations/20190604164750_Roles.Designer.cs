@@ -4,14 +4,16 @@ using EFDataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EFDataAccess.Migrations
 {
     [DbContext(typeof(ProjectContext))]
-    partial class ProjectContextModelSnapshot : ModelSnapshot
+    [Migration("20190604164750_Roles")]
+    partial class Roles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -299,7 +301,7 @@ namespace EFDataAccess.Migrations
 
                     b.Property<bool>("IsActive")
                         .ValueGeneratedOnAdd()
-                        .HasDefaultValue(true);
+                        .HasDefaultValue(false);
 
                     b.Property<string>("Lastname")
                         .HasMaxLength(32);
@@ -308,9 +310,7 @@ namespace EFDataAccess.Migrations
                         .IsRequired()
                         .HasMaxLength(128);
 
-                    b.Property<int>("RoleId")
-                        .ValueGeneratedOnAdd()
-                        .HasDefaultValue(1);
+                    b.Property<int>("RoleId");
 
                     b.Property<DateTime?>("UpdatedAt");
 

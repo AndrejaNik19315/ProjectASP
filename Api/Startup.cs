@@ -27,6 +27,8 @@ using EFCommands.ItemTypes;
 using Application.Commands.ItemTypes;
 using Application.Commands.ItemQualities;
 using EFCommands.ItemQualities;
+using EFCommands.Roles;
+using Application.Commands.Roles;
 
 namespace Api
 {
@@ -92,6 +94,9 @@ namespace Api
             services.AddTransient<IAddItemQualityCommand, EFAddItemQualityCommand>();
             services.AddTransient<IEditItemQualityCommand, EFEditItemQualityCommand>();
             services.AddTransient<IDeleteItemQualityCommand, EFDeleteItemQualityCommand>();
+            //Roles
+            services.AddTransient<IGetRolesCommand, EFGetRolesCommand>();
+            services.AddTransient<IGetRoleCommand, EFGetRoleCommand>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

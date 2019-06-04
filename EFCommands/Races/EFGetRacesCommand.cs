@@ -26,7 +26,7 @@ namespace EFCommands.Races
             {
                 Id = r.Id,
                 Name = r.Name
-            }).OrderBy(r => r.Id);
+            });
         }
 
         public IEnumerable<RaceDto> Execute(RaceSearch request, int id)

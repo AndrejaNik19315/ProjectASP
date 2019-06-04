@@ -25,5 +25,8 @@ namespace Application.Dto
         [MaxLength(24)]
         public string Password { get; set; }
         public bool IsActive { get; set; }
+        [Range(1,2)]
+        public int RoleId { get; set; }
+        public List<CharacterDto> Characters { get; set; }
     }
 }

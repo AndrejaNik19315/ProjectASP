@@ -20,11 +20,11 @@ namespace EFCommands.Items
             if (Context.Items.Any(i => i.Name == request.Name))
                 throw new EntityAlreadyExistsException("Item with that name already exists.");
 
-            //if (!(Context.ItemType.Any(t => t.Id == request.ItemTypeId)))
-            //    throw new EntityUnprocessableException("Type doesn't exist.");
+            if (!(Context.ItemTypes.Any(it => it.Id == request.ItemTypeId)))
+                throw new EntityUnprocessableException("Type doesn't exist.");
 
-            //if (!(Context.ItemQuality.Any(t => t.Id == request.ItemQualityId)))
-            //    throw new EntityUnprocessableException("Quality doesn't exist.");
+            if (!(Context.ItemQualities.Any(iq => iq.Id == request.ItemQualityId)))
+                throw new EntityUnprocessableException("Quality doesn't exist.");
 
             Context.Items.Add(new Domain.Item
             {
@@ -32,8 +32,8 @@ namespace EFCommands.Items
                 Cost = request.Cost,
                 isCovert = request.isCovert,
                 isForSale = request.isForSale,
-                ItemTypeId = request.ItemTypeId
-                //ItemQualityId = request.ItemQualityId
+                ItemTypeId = request.ItemTypeId,
+                ItemQualityId = request.ItemQualityId
             });
 
             Context.SaveChanges();

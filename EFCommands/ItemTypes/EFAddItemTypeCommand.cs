@@ -25,6 +25,8 @@ namespace EFCommands.ItemTypes
                 Name = request.Name
             });
 
+            Context.SaveChanges();
+
         }
 
         public void Execute(ItemTypeDto request, int id)

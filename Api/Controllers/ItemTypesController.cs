@@ -25,7 +25,7 @@ namespace Api.Controllers
         private readonly IEditItemTypeCommand _editItemType;
         private readonly IDeleteItemTypeCommand _deleteItemType;
 
-        private string genericErrorMsg = "Somehting went wrong on the server.";
+        private string genericErrorMsg = "Something went wrong on the server.";
 
         public ItemTypesController(IGetItemTypesCommand getItemTypes, IGetItemTypeCommand getItemType, IAddItemTypeCommand addItemType, IEditItemTypeCommand editItemType, IDeleteItemTypeCommand deleteItemType)
         {

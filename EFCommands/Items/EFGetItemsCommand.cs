@@ -39,7 +39,7 @@ namespace EFCommands.Items
                 isCovert = i.isCovert,
                 isForSale = i.isForSale,
                 ItemTypeId = i.ItemTypeId,
-                //ItemQualityId = i.ItemQualityId
+                ItemQualityId = i.ItemQualityId,
                 CreatedAt = i.CreatedAt,
                 UpdatedAt = i.UpdatedAt
             }).OrderBy(i => i.Id);

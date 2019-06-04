@@ -96,9 +96,9 @@ namespace Api.Controllers
                     Name = order66.Name,
                     Cost = order66.Cost,
                     isCovert = order66.isCovert,
-                    isForSale = order66.isForSale
-                    //ItemQualityId = order66.ItemQualityId,
-                    //ItemTypeId = order66.ItemTypeId
+                    isForSale = order66.isForSale,
+                    ItemQualityId = order66.ItemQualityId,
+                    ItemTypeId = order66.ItemTypeId
                 });
             }
             catch (EntityNotFoundException ex)

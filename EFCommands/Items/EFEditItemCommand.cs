@@ -26,18 +26,18 @@ namespace EFCommands.Items
                 if (Context.Items.Any(i => i.Name == request.Name))
                     throw new EntityAlreadyExistsException("Item with that name already exists.");
 
-            //if(request.ItemTypeId != item.ItemTypeId)
-            //if (!(Context.ItemType.Any(t => t.Id == request.ItemTypeId)))
-            //    throw new EntityUnprocessableException("Type doesn't exist.");
-            //if(request.ItemQualityId != item.ItemQualityId)
-            //if (!(Context.ItemQuality.Any(q => q.Id == request.ItemQualityId)))
-            //    throw new EntityUnprocessableException("Quality doesn't exist.");
+            if (request.ItemTypeId != item.ItemTypeId)
+                if (!(Context.ItemTypes.Any(t => t.Id == request.ItemTypeId)))
+                    throw new EntityUnprocessableException("Type doesn't exist.");
+            if (request.ItemQualityId != item.ItemQualityId)
+                if (!(Context.ItemQualities.Any(q => q.Id == request.ItemQualityId)))
+                    throw new EntityUnprocessableException("Quality doesn't exist.");
 
             item.Name = request.Name;
             item.Cost = request.Cost;
             item.isCovert = request.isCovert;
             item.isForSale = request.isForSale;
-            //item.ItemQualityId = request.ItemQualityId;
+            item.ItemQualityId = request.ItemQualityId;
             item.ItemTypeId = request.ItemTypeId;
             item.UpdatedAt = DateTime.Now;
 

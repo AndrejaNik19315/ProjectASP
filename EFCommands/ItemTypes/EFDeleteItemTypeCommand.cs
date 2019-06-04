@@ -17,7 +17,7 @@ namespace EFCommands.ItemTypes
         {
             var itemType = Context.ItemTypes.Find(request);
 
-            if (itemType != null)
+            if (itemType == null)
                 throw new EntityNotFoundException("ItemType not found.");
 
             Context.ItemTypes.Remove(itemType);

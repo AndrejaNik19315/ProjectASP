@@ -8,6 +8,5 @@ namespace Domain
     {
         public string Name { get; set; }
         public IEnumerable<Item> Items { get; set; }
-        public int ItemId { get; set; }
     }
 }

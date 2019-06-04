@@ -18,7 +18,7 @@ namespace EFDataAccess
         public DbSet<Inventory> Inventories { get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<ItemType> ItemTypes { get; set; }
-        //public DbSet<ItemQuality> ItemQualities { get; set; }
+        public DbSet<ItemQuality> ItemQualities { get; set; }
         //public DbSet<InventoryItem> InventoryItems { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -36,6 +36,7 @@ namespace EFDataAccess
             modelBuilder.ApplyConfiguration(new InventoryConfiguration());
             modelBuilder.ApplyConfiguration(new ItemConfiguration());
             modelBuilder.ApplyConfiguration(new ItemTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new ItemQualityConfiguration());
             //modelBuilder.ApplyConfiguration(new InventoryItemConfiguration());
         }
     }

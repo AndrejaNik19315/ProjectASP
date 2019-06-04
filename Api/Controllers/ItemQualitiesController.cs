@@ -7,50 +7,48 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Domain;
 using EFDataAccess;
-using Application.Dto;
-using Application.Commands.ItemTypes;
-using Application.Exceptions;
+using Application.Commands.ItemQualities;
 using Application.Searches;
+using Application.Exceptions;
+using Application.Dto;
 
 namespace Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ItemTypesController : ControllerBase
+    public class ItemQualitiesController : ControllerBase
     {
+        private readonly IGetItemQualitiesCommand _getQualities;
+        private readonly IGetItemQualityCommand _getQuality;
+        private readonly IAddItemQualityCommand _addQuality;
+        private readonly IEditItemQualityCommand _editQuality;
+        private readonly IDeleteItemQualityCommand _deleteQuality;
 
-        private readonly IGetItemTypesCommand _getItemTypes;
-        private readonly IGetItemTypeCommand _getItemType;
-        private readonly IAddItemTypeCommand _addItemType;
-        private readonly IEditItemTypeCommand _editItemType;
-        private readonly IDeleteItemTypeCommand _deleteItemType;
+        private string genericErrorMsg = "Something went wrong on the server";
 
-        private string genericErrorMsg = "Somehting went wrong on the server.";
-
-        public ItemTypesController(IGetItemTypesCommand getItemTypes, IGetItemTypeCommand getItemType, IAddItemTypeCommand addItemType, IEditItemTypeCommand editItemType, IDeleteItemTypeCommand deleteItemType)
+        public ItemQualitiesController(IGetItemQualitiesCommand getQualities, IGetItemQualityCommand getQuality, IAddItemQualityCommand addQuality, IEditItemQualityCommand editQuality, IDeleteItemQualityCommand deleteQuality)
         {
-            _getItemTypes = getItemTypes;
-            _getItemType = getItemType;
-            _addItemType = addItemType;
-            _editItemType = editItemType;
-            _deleteItemType = deleteItemType;
+            _getQualities = getQualities;
+            _getQuality = getQuality;
+            _addQuality = addQuality;
+            _editQuality = editQuality;
+            _deleteQuality = deleteQuality;
         }
 
-        // GET: api/ItemTypes
+        // GET: api/ItemQualities
         [HttpGet]
-        public IActionResult Get([FromQuery] ItemTypeSearch query)
+        public IActionResult Get([FromQuery] ItemQualitySearch query)
         {
-            return Ok(_getItemTypes.Execute(query));
+            return Ok(_getQualities.Execute(query));
         }
 
-        // GET: api/ItemTypes/5
+        // GET: api/ItemQualities/5
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            try
-            {
-                var itemType = _getItemType.Execute(id);
-                return Ok(itemType);
+            try {
+                var itemQuality = _getQuality.Execute(id);
+                return Ok(itemQuality);
             }
             catch (EntityNotFoundException ex)
             {
@@ -62,13 +60,12 @@ namespace Api.Controllers
             }
         }
 
-        // PUT: api/ItemTypes/5
+        // PUT: api/ItemQualities/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, ItemTypeDto dto)
+        public IActionResult Put(int id, [FromBody] ItemQualityDto dto)
         {
-            try
-            {
-                _editItemType.Execute(dto, id);
+            try {
+                _editQuality.Execute(dto, id);
                 return NoContent();
             }
             catch (EntityNotFoundException ex)
@@ -85,14 +82,13 @@ namespace Api.Controllers
             }
         }
 
-        // POST: api/ItemTypes
+        // POST: api/ItemQualities
         [HttpPost]
-        public IActionResult Post(ItemTypeDto dto)
+        public ActionResult Post([FromBody] ItemQualityDto dto)
         {
-            try
-            {
-                _addItemType.Execute(dto);
-                return Created("api/itemtypes/" + dto.Id, new ItemTypeDto
+            try {
+                _addQuality.Execute(dto);
+                return Created("api/itemquality/" + dto.Id, new ItemQualityDto
                 {
                     Id = dto.Id,
                     Name = dto.Name
@@ -108,13 +104,12 @@ namespace Api.Controllers
             }
         }
 
-        // DELETE: api/ItemTypes/5
+        // DELETE: api/ItemQualities/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            try
-            {
-                _deleteItemType.Execute(id);
+            try {
+                _deleteQuality.Execute(id);
                 return NoContent();
             }
             catch (EntityNotFoundException ex)

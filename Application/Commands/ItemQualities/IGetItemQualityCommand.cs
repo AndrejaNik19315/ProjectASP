@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Application.Commands.ItemQualities
 {
-    public interface IGetItemQualityCommand : ICommand<ItemQualityDto>
+    public interface IGetItemQualityCommand : ICommand<int, ItemQualityDto>
     {
     }
 }

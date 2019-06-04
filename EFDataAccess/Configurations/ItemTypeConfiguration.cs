@@ -12,8 +12,10 @@ namespace EFDataAccess.Configurations
         public void Configure(EntityTypeBuilder<ItemType> builder)
         {
             builder.Property(it => it.Name)
-                .HasMaxLength(32)
+                .HasMaxLength(24)
                 .IsRequired();
+            builder.Property(it => it.CreatedAt)
+                .HasDefaultValueSql("GETDATE()");
 
             builder.HasIndex(it => it.Name)
                 .IsUnique();

@@ -43,6 +43,10 @@
     <Compile Remove="Migrations\20190604082814_ItemTypeConfiguration.Designer.cs" />
     <Compile Remove="Migrations\20190604083310_ItemTypeConfiguration.cs" />
     <Compile Remove="Migrations\20190604083310_ItemTypeConfiguration.Designer.cs" />
+    <Compile Remove="Migrations\20190604092926_ItemQualityConfiguration.cs" />
+    <Compile Remove="Migrations\20190604092926_ItemQualityConfiguration.Designer.cs" />
+    <Compile Remove="Migrations\20190604093852_ItemQualityConfiguration.cs" />
+    <Compile Remove="Migrations\20190604093852_ItemQualityConfiguration.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

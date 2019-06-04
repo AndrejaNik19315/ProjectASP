@@ -4,14 +4,16 @@ using EFDataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EFDataAccess.Migrations
 {
     [DbContext(typeof(ProjectContext))]
-    partial class ProjectContextModelSnapshot : ModelSnapshot
+    [Migration("20190604094332_ItemQualityConfiguration")]
+    partial class ItemQualityConfiguration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -197,9 +199,7 @@ namespace EFDataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime?>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasDefaultValueSql("GETDATE()");
+                    b.Property<DateTime?>("CreatedAt");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -221,9 +221,7 @@ namespace EFDataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime?>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasDefaultValueSql("GETDATE()");
+                    b.Property<DateTime?>("CreatedAt");
 
                     b.Property<string>("Name")
                         .IsRequired()

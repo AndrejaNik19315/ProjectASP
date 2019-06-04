@@ -39,6 +39,10 @@
     <Compile Remove="Migrations\20190603204159_InventoryDependencyConstraint.Designer.cs" />
     <Compile Remove="Migrations\20190603204618_InventoryDependencyConstraint.cs" />
     <Compile Remove="Migrations\20190603204618_InventoryDependencyConstraint.Designer.cs" />
+    <Compile Remove="Migrations\20190604082814_ItemTypeConfiguration.cs" />
+    <Compile Remove="Migrations\20190604082814_ItemTypeConfiguration.Designer.cs" />
+    <Compile Remove="Migrations\20190604083310_ItemTypeConfiguration.cs" />
+    <Compile Remove="Migrations\20190604083310_ItemTypeConfiguration.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

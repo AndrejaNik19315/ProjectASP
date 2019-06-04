@@ -15,6 +15,9 @@ namespace EFDataAccess.Configurations
                 .HasMaxLength(32)
                 .IsRequired();
 
+            builder.HasIndex(it => it.Name)
+                .IsUnique();
+
             builder.HasMany(it => it.Items)
                 .WithOne(i => i.ItemType)
                 .HasForeignKey(i => i.ItemTypeId)

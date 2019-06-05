@@ -8,8 +8,8 @@ namespace Domain
     {
         public int SlotsFilled { get; set; }
         public int? MaxSlots { get; set; }
-        //public IEnumerable<InventoryItem> InventoryItems { get; set; }
         public int CharacterId { get; set; }
         public Character Character { get; set; }
+        public ICollection<InventoryItem> InventoryItems { get; set; }
     }
 }

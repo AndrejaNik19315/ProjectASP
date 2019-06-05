@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Domain
 {
-    public class InventoryItem : BaseEntity
+    public class InventoryItem
     {
         public Item Item { get; set; }
         public int ItemId { get; set; }

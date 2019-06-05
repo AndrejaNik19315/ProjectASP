@@ -11,23 +11,7 @@ namespace EFDataAccess.Configurations
     {
         public void Configure(EntityTypeBuilder<InventoryItem> builder)
         {
-            builder.Property(ii => ii.InventoryId)
-                .IsRequired();
-            builder.Property(ii => ii.ItemId)
-                .IsRequired();
-            builder.Property(ii => ii.CreatedAt)
-               .HasDefaultValueSql("GETDATE()");
-
-            builder.HasKey(ii => ii.Id);
-
-            //builder.HasOne(ii => ii.Inventory)
-            //    .WithMany(i => i.InventoryItems)
-            //    .HasForeignKey(i => i.InventoryId)
-            //    .OnDelete(DeleteBehavior.Cascade);
-            //builder.HasOne(ii => ii.Item)
-            //    .WithMany(i => i.InventoryItems)
-            //    .HasForeignKey(i => i.ItemId)
-            //    .OnDelete(DeleteBehavior.Cascade);
+            builder.HasKey(i => new { i.InventoryId, i.ItemId });
         }
     }
 }

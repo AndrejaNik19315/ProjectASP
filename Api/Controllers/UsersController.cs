@@ -56,7 +56,7 @@ namespace Api.Controllers
             catch (EntityNotFoundException ex) {
                 return NotFound(ex.Message);
             }
-            catch {
+            catch(Exception) {
                 return StatusCode(500, genericErrorMsg);
             }
         }

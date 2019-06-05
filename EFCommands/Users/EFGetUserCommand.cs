@@ -21,7 +21,18 @@ namespace EFCommands.Users
 
         public FullUserDto Execute(int request)
         {
-            var user = Context.Users.Find(request);
+            var user = Context.Users
+                .Include(u => u.Characters)
+                .ThenInclude(c => c.GameClass)
+                .Include(u => u.Characters)
+                .ThenInclude(c => c.Gender)
+                .Include(u => u.Characters)
+                .ThenInclude(c => c.Race)
+                .Include(u => u.Characters)
+                .ThenInclude(c => c.Inventory)
+                .Include(u => u.Role)
+                .AsQueryable()
+                .SingleOrDefault(u => u.Id == request);
 
             if (user == null)
                 throw new EntityNotFoundException("User not found.");
@@ -34,9 +45,11 @@ namespace EFCommands.Users
                 Username = user.Username,
                 Email = user.Email,
                 IsActive = user.IsActive,
+                Role = user.Role.Name,
                 CreatedAt = user.CreatedAt,
                 UpdatedAt = user.UpdatedAt,
-                Characters = user.Characters.Select(c => new FullCharacterDto {
+                Characters = user.Characters.Select(c => new FullCharacterDto
+                {
                     Id = c.Id,
                     Name = c.Name,
                     Level = (int)c.Level,
@@ -44,15 +57,17 @@ namespace EFCommands.Users
                     GameClass = c.GameClass.Name,
                     Gender = c.Gender.Sex,
                     Race = c.Race.Name,
-                    CreatedAt = c.CreatedAt,
-                    UpdatedAt = c.UpdatedAt,
-                    Invetory = new InventoryDto {
+                    Invetory = new InventoryDto
+                    {
                         Id = c.Inventory.Id,
                         MaxSlots = c.Inventory.MaxSlots,
                         SlotsFilled = c.Inventory.SlotsFilled,
+                        CharacterId = c.Inventory.CharacterId,
                         CreatedAt = c.Inventory.CreatedAt,
                         UpdatedAt = c.Inventory.UpdatedAt
-                    }
+                    },
+                    CreatedAt = c.CreatedAt,
+                    UpdatedAt = c.UpdatedAt,
                 }).ToList()
             };
         }

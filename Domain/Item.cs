@@ -14,6 +14,6 @@ namespace Domain
         public ItemType ItemType { get; set; }
         public int ItemQualityId { get; set; }
         public ItemQuality ItemQuality { get; set; }
-        //public IEnumerable<InventoryItem> InventoryItems { get; set; }
+        public ICollection<InventoryItem> InventoryItems { get; set; }
     }
 }

@@ -20,6 +20,11 @@ namespace EFDataAccess.Configurations
                 .HasDefaultValueSql("GETDATE()");
 
             builder.HasKey(i => i.Id);
+
+            builder.HasMany(i => i.InventoryItems)
+                .WithOne(ii => ii.Inventory)
+                .HasForeignKey(ii => ii.InventoryId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

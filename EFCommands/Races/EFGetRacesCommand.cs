@@ -25,8 +25,10 @@ namespace EFCommands.Races
             return query.Select(r => new RaceDto
             {
                 Id = r.Id,
-                Name = r.Name
-            });
+                Name = r.Name,
+                CreatedAt = r.CreatedAt,
+                UpdatedAt = r.UpdatedAt
+            }).OrderBy(r => r.Id);
         }
 
         public IEnumerable<RaceDto> Execute(RaceSearch request, int id)

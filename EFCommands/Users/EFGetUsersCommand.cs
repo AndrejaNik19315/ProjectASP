@@ -1,5 +1,7 @@
 ﻿using Application.Commands.Users;
 using Application.Dto;
+using Application.Dto.Characters;
+using Application.Dto.Users;
 using Application.Searches;
 using EFDataAccess;
 using Microsoft.EntityFrameworkCore;
@@ -16,11 +18,9 @@ namespace EFCommands.Users
         {
         }
 
-        public IEnumerable<UserDto> Execute(UserSearch request)
+        public IEnumerable<PartialUserDto> Execute(UserSearch request)
         {
-            var query = Context.Users
-                .Include(u => u.Characters)
-                .AsQueryable();
+            var query = Context.Users.AsQueryable();
 
             if (request.Username != null) {
                 query = query.Where(u => u.Username.ToLower().Contains(request.Username.ToLower()));
@@ -30,29 +30,29 @@ namespace EFCommands.Users
                 query = query.Where(u => u.IsActive);
             }
 
-            return query.Select(u => new UserDto
+            return query.Select(u => new PartialUserDto
             {
                 Id = u.Id,
-                Firstname = u.Firstname,
-                Lastname = u.Lastname,
                 Username = u.Username,
                 Email = u.Email,
                 IsActive = u.IsActive,
-                RoleId = u.RoleId,
+                Role = u.Role.Name,
                 CreatedAt = u.CreatedAt,
                 UpdatedAt = u.UpdatedAt,
-                Characters = u.Characters.Select(c => new CharacterDto {
+                Characters = u.Characters.Select(c => new PartialCharacterDto {
                     Id = c.Id,
                     Name = c.Name,
-                    Level = c.Level,
-                    GameClassId = c.GameClassId,
-                    GenderId = c.GenderId,
-                    RaceId = c.RaceId
+                    Level = (int)c.Level,
+                    GameClass = c.GameClass.Name,
+                    Gender = c.Gender.Sex,
+                    Race = c.Race.Name,
+                    CreatedAt = c.CreatedAt,
+                    UpdatedAt = c.UpdatedAt
                 }).ToList()
             }).ToList();
         }
 
-        public IEnumerable<UserDto> Execute(UserSearch request, int id)
+        public IEnumerable<PartialUserDto> Execute(UserSearch request, int id)
         {
             throw new NotImplementedException();
         }

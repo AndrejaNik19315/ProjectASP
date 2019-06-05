@@ -6,6 +6,11 @@ namespace Domain
 {
     public class Character : BaseEntity
     {
+        public Character()
+        {
+            Inventory = new Inventory();
+        }
+
         public string Name { get; set; }
         public int? Level { get; set; }
         public decimal? Funds { get; set; }

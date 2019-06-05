@@ -17,11 +17,16 @@ namespace EFCommands.Characters
 
         public void Execute(CharacterDto request)
         {
-            if (Context.Users.Find(request.UserId) == null)
+            var user = Context.Users.Find(request.UserId);
+
+            if (user == null)
                 throw new EntityNotFoundException("There is no User with that Id.");
 
-            if (Context.Users.Find(request.UserId).IsActive == false)
+            if (user.IsActive == false)
                 throw new EntityNotActiveException("User must be active.");
+
+            if (Context.Characters.Count(c => c.UserId == request.Id) >= 3)
+                throw new EntityUnprocessableException("User cannot have more than 3 characters.");
 
             if (Context.Characters.Any(c => c.Name == request.Name))
                 throw new EntityAlreadyExistsException("Character with that name already exists.");

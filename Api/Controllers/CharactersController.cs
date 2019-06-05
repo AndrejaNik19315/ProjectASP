@@ -23,16 +23,18 @@ namespace Api.Controllers
         private readonly IDeleteCharacterCommand _deleteCharacter;
         private readonly IEditCharacterCommand _editCharacter;
         private readonly IAddCharacterCommand _addCharacter;
+        private readonly IGetCharacterInventoryCommand _getInventory;
 
         private readonly string genericErrorMsg = "Something went wrong on the server.";
 
-        public CharactersController(IGetCharacterCommand getCharacter, IGetCharactersCommand getCharacters, IDeleteCharacterCommand deleteCharacter, IEditCharacterCommand editCharacter, IAddCharacterCommand addCharacter)
+        public CharactersController(IGetCharacterCommand getCharacter, IGetCharactersCommand getCharacters, IDeleteCharacterCommand deleteCharacter, IEditCharacterCommand editCharacter, IAddCharacterCommand addCharacter, IGetCharacterInventoryCommand getInventory)
         {
             _getCharacter = getCharacter;
             _getCharacters = getCharacters;
             _deleteCharacter = deleteCharacter;
             _editCharacter = editCharacter;
             _addCharacter = addCharacter;
+            _getInventory = getInventory;
         }
 
         // GET: api/Characters
@@ -62,7 +64,17 @@ namespace Api.Controllers
         //GET: api/Characters/5/inventory
         [HttpGet("{id}/inventory")]
         public IActionResult GetInventory(int id){
-            return StatusCode(200, "Works");
+            try {
+                return Ok(_getInventory.Execute(id));
+            }
+            catch (EntityNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
         }
 
         // PUT: api/Characters/5

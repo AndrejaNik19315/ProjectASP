@@ -9,8 +9,4 @@
     <ProjectReference Include="..\EFDataAccess\EFDataAccess.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Characters\" />
-  </ItemGroup>
-
 </Project>

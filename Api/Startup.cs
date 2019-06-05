@@ -58,6 +58,7 @@ namespace Api
             services.AddTransient<IDeleteCharacterCommand, EFDeleteCharacterCommand>();
             services.AddTransient<IAddCharacterCommand, EFAddCharacterCommand>();
             services.AddTransient<IEditCharacterCommand, EFEditCharacterCommand>();
+            services.AddTransient<IGetCharacterInventoryCommand, EFGetCharacterInventoryCommand>();
             //GameClasses
             services.AddTransient<IGetGameClassCommand, EFGetGameClassCommand>();
             services.AddTransient<IGetGameClassesCommand, EFGetGameClassesCommand>();

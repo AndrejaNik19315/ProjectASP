@@ -1,4 +1,5 @@
 ﻿using Application.Dto;
+using Application.Dto.Characters;
 using Application.Interfaces;
 using Application.Searches;
 using System;
@@ -7,7 +8,7 @@ using System.Text;
 
 namespace Application.Commands.Characters
 {
-    public interface IGetCharactersCommand : ICommand<CharacterSearch, IEnumerable<CharacterDto>>
+    public interface IGetCharactersCommand : ICommand<CharacterSearch, IEnumerable<FullCharacterDto>>
     {
     }
 }

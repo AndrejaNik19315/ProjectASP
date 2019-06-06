@@ -22,19 +22,19 @@ namespace EFCommands.Characters
             if (Context.Characters.Find(request) == null)
                 throw new EntityNotFoundException("Character not found.");
 
-            //TODO fix.
-            //var inventory = Context.Inventories
-            //    .Include(i => i.InventoryItems)
-            //    .ThenInclude(ii => ii.)
-            //    .AsQueryable()
-            //    .SingleOrDefault(i => i.CharacterId == request);
+            var inventory = Context.Inventories
+                .Include(i => i.InventoryItems)
+                    .ThenInclude(it => it.Item)
+                .AsQueryable()
+                .SingleOrDefault(i => i.CharacterId == request);
 
             return new FullInventoryDto
             {
                 Id = inventory.Id,
                 MaxSlots = inventory.MaxSlots,
                 SlotsFilled = inventory.SlotsFilled,
-                InventoryItems = inventory.InventoryItems.Select(i => new ItemDto {
+                InventoryItems = inventory.InventoryItems.Select(i => new ItemDto
+                {
                     Id = i.ItemId,
                     Name = i.Item.Name,
                     Cost = i.Item.Cost,

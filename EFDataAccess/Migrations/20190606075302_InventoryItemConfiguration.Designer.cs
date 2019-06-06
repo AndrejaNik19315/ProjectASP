@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFDataAccess.Migrations
 {
     [DbContext(typeof(ProjectContext))]
-    [Migration("20190605144225_InventoryItemConfiguration")]
+    [Migration("20190606075302_InventoryItemConfiguration")]
     partial class InventoryItemConfiguration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -160,7 +160,7 @@ namespace EFDataAccess.Migrations
 
                     b.HasIndex("ItemId");
 
-                    b.ToTable("InventoryItem");
+                    b.ToTable("InventoryItems");
                 });
 
             modelBuilder.Entity("Domain.Item", b =>

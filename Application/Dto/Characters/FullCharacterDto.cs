@@ -12,6 +12,6 @@ namespace Application.Dto.Characters
         public string GameClass { get; set; }
         public string Race { get; set; }
         public string Gender { get; set; }
-        public InventoryDto Invetory { get; set; }
+        public object Invetory { get; set; }
     }
 }

@@ -7,7 +7,7 @@ namespace EFDataAccess.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "InventoryItem",
+                name: "InventoryItems",
                 columns: table => new
                 {
                     ItemId = table.Column<int>(nullable: false),
@@ -15,15 +15,15 @@ namespace EFDataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_InventoryItem", x => new { x.InventoryId, x.ItemId });
+                    table.PrimaryKey("PK_InventoryItems", x => new { x.InventoryId, x.ItemId });
                     table.ForeignKey(
-                        name: "FK_InventoryItem_Inventories_InventoryId",
+                        name: "FK_InventoryItems_Inventories_InventoryId",
                         column: x => x.InventoryId,
                         principalTable: "Inventories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_InventoryItem_Items_ItemId",
+                        name: "FK_InventoryItems_Items_ItemId",
                         column: x => x.ItemId,
                         principalTable: "Items",
                         principalColumn: "Id",
@@ -31,15 +31,15 @@ namespace EFDataAccess.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_InventoryItem_ItemId",
-                table: "InventoryItem",
+                name: "IX_InventoryItems_ItemId",
+                table: "InventoryItems",
                 column: "ItemId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "InventoryItem");
+                name: "InventoryItems");
         }
     }
 }

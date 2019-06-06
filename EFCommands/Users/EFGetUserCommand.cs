@@ -1,6 +1,7 @@
 ﻿using Application.Commands.Users;
 using Application.Dto;
 using Application.Dto.Characters;
+using Application.Dto.Inventories;
 using Application.Dto.Users;
 using Application.Exceptions;
 using Application.Interfaces;
@@ -23,13 +24,13 @@ namespace EFCommands.Users
         {
             var user = Context.Users
                 .Include(u => u.Characters)
-                .ThenInclude(c => c.GameClass)
+                    .ThenInclude(c => c.GameClass)
                 .Include(u => u.Characters)
-                .ThenInclude(c => c.Gender)
+                    .ThenInclude(c => c.Gender)
                 .Include(u => u.Characters)
-                .ThenInclude(c => c.Race)
+                    .ThenInclude(c => c.Race)
                 .Include(u => u.Characters)
-                .ThenInclude(c => c.Inventory)
+                    .ThenInclude(c => c.Inventory)
                 .Include(u => u.Role)
                 .AsQueryable()
                 .SingleOrDefault(u => u.Id == request);
@@ -57,14 +58,10 @@ namespace EFCommands.Users
                     GameClass = c.GameClass.Name,
                     Gender = c.Gender.Sex,
                     Race = c.Race.Name,
-                    Invetory = new InventoryDto
+                    Invetory = new PartialInventoryDto
                     {
-                        Id = c.Inventory.Id,
                         MaxSlots = c.Inventory.MaxSlots,
                         SlotsFilled = c.Inventory.SlotsFilled,
-                        CharacterId = c.Inventory.CharacterId,
-                        CreatedAt = c.Inventory.CreatedAt,
-                        UpdatedAt = c.Inventory.UpdatedAt
                     },
                     CreatedAt = c.CreatedAt,
                     UpdatedAt = c.UpdatedAt,

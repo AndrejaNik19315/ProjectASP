@@ -158,7 +158,7 @@ namespace EFDataAccess.Migrations
 
                     b.HasIndex("ItemId");
 
-                    b.ToTable("InventoryItem");
+                    b.ToTable("InventoryItems");
                 });
 
             modelBuilder.Entity("Domain.Item", b =>

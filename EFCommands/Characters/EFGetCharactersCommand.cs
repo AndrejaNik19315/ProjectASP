@@ -48,9 +48,9 @@ namespace EFCommands.Characters
                 GameClass = u.GameClass.Name,
                 Gender = u.Gender.Sex,
                 Race = u.Race.Name,
-                Invetory = new InventoryDto {
-                    Id = u.Inventory.Id,
-                    
+                Invetory = new PartialInventoryDto {
+                    MaxSlots = u.Inventory.MaxSlots,
+                    SlotsFilled = u.Inventory.SlotsFilled
                 },
                 CreatedAt = u.CreatedAt,
                 UpdatedAt = u.UpdatedAt

@@ -56,7 +56,7 @@ namespace Api.Controllers
             catch (EntityNotFoundException ex) {
                 return NotFound(ex.Message);
             }
-            catch(Exception) {
+            catch (Exception) {
                 return StatusCode(500, genericErrorMsg);
             }
         }
@@ -108,7 +108,7 @@ namespace Api.Controllers
             catch (EntityBadFormatException ex) {
                 return BadRequest(ex.Message);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return StatusCode(500, genericErrorMsg);
             }
@@ -131,6 +131,12 @@ namespace Api.Controllers
                 return StatusCode(500, genericErrorMsg);
             }
         }
+
+        //LOGIN Method
+        //[HttpPost("login")]
+        //public IActionResult Login([FromBody] LoginDto dto) {
+        //    //
+        //}
 
     }
 }

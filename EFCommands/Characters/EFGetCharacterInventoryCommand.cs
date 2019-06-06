@@ -25,8 +25,8 @@ namespace EFCommands.Characters
             var inventory = Context.Inventories
                 .Include(i => i.InventoryItems)
                     .ThenInclude(it => it.Item)
-                .AsQueryable()
-                .SingleOrDefault(i => i.CharacterId == request);
+                    .Where(i => i.CharacterId == request)
+                    .FirstOrDefault();
 
             return new FullInventoryDto
             {

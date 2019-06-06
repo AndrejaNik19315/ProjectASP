@@ -12,6 +12,7 @@ namespace EFDataAccess.Configurations
         public void Configure(EntityTypeBuilder<InventoryItem> builder)
         {
             builder.HasKey(i => new { i.InventoryId, i.ItemId });
+            builder.ToTable("InventoryItems");
         }
     }
 }

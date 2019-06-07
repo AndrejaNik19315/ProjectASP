@@ -11,5 +11,7 @@ namespace Application.Searches
         public int? MaxPrice { get; set; }
         public bool? isCovert { get; set; }
         public bool? isForSale { get; set; }
+        public int PerPage { get; set; } = 3;
+        public int PageNumber { get; set; } = 1;
     }
 }

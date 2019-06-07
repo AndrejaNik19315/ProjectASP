@@ -1,7 +1,9 @@
 ﻿using Application.Commands.Items;
 using Application.Dto;
+using Application.Responses;
 using Application.Searches;
 using EFDataAccess;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +17,7 @@ namespace EFCommands.Items
         {
         }
 
-        public IEnumerable<ItemDto> Execute(ItemSearch request)
+        public Paged<ItemDto> Execute(ItemSearch request)
         {
             var query = Context.Items.AsQueryable();
 
@@ -31,21 +33,46 @@ namespace EFCommands.Items
             if (request.MinPrice != null && request.MaxPrice != null)
                 query = query.Where(i => i.Cost >= request.MinPrice && i.Cost <= request.MaxPrice);
 
-            return query.Select(i => new ItemDto
+            var totalCount = query.Count();
+
+            var pagesCount = (int)Math.Ceiling((double)totalCount / request.PerPage);
+
+            query = query.Skip((request.PageNumber - 1) * request.PerPage).Take(request.PerPage);
+
+
+            return new Paged<ItemDto>
             {
-                Id = i.Id,
-                Name = i.Name,
-                Cost = i.Cost,
-                isCovert = i.isCovert,
-                isForSale = i.isForSale,
-                ItemTypeId = i.ItemTypeId,
-                ItemQualityId = i.ItemQualityId,
-                CreatedAt = i.CreatedAt,
-                UpdatedAt = i.UpdatedAt
-            }).OrderBy(i => i.Id);
+                CurrentPage = request.PageNumber,
+                PagesCount = pagesCount,
+                TotalCount = totalCount,
+                Data = query.Select(i => new ItemDto {
+                    Id = i.Id,
+                    Name = i.Name,
+                    Cost = i.Cost,
+                    isCovert = i.isCovert,
+                    isForSale = i.isForSale,
+                    ItemQualityId = i.ItemQualityId,
+                    ItemTypeId = i.ItemTypeId,
+                    CreatedAt = i.CreatedAt,
+                    UpdatedAt = i.UpdatedAt
+                })  
+            };
+
+            //return query.Select(i => new ItemDto
+            //{
+            //    Id = i.Id,
+            //    Name = i.Name,
+            //    Cost = i.Cost,
+            //    isCovert = i.isCovert,
+            //    isForSale = i.isForSale,
+            //    ItemTypeId = i.ItemTypeId,
+            //    ItemQualityId = i.ItemQualityId,
+            //    CreatedAt = i.CreatedAt,
+            //    UpdatedAt = i.UpdatedAt
+            //}).OrderBy(i => i.Id);
         }
 
-        public IEnumerable<ItemDto> Execute(ItemSearch request, int id)
+        public Paged<ItemDto> Execute(ItemSearch request, int id)
         {
             throw new NotImplementedException();
         }

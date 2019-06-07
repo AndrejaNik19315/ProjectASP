@@ -71,9 +71,9 @@ namespace Api.Controllers
             {
                 return NotFound(ex.Message);
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                return StatusCode(500, e.Message);
+                return StatusCode(500, genericErrorMsg);
             }
         }
 

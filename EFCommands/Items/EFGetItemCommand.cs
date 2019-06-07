@@ -1,5 +1,6 @@
 ﻿using Application.Commands.Items;
 using Application.Dto;
+using Application.Dto.Items;
 using Application.Exceptions;
 using EFDataAccess;
 using System;
@@ -14,28 +15,29 @@ namespace EFCommands.Items
         {
         }
 
-        public ItemDto Execute(int request)
+        public FullItemDto Execute(int request)
         {
             var item = Context.Items.Find(request);
 
             if (item == null)
                 throw new EntityNotFoundException("Item not found.");
 
-            return new ItemDto
+            return new FullItemDto
             {
                 Id = item.Id,
                 Name = item.Name,
                 Cost = item.Cost,
                 isCovert = item.isCovert,
                 isForSale = item.isForSale,
-                ItemTypeId = item.ItemTypeId,
-                ItemQualityId = item.ItemQualityId,
+                ItemType = item.ItemType.Name,
+                ItemQuality = item.ItemQuality.Name,
+                Quantity = item.Quantity,
                 CreatedAt = item.CreatedAt,
                 UpdatedAt = item.UpdatedAt
             };
         }
 
-        public ItemDto Execute(int request, int id)
+        public FullItemDto Execute(int request, int id)
         {
             throw new NotImplementedException();
         }

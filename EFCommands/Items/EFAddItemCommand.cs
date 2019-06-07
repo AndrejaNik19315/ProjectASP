@@ -33,7 +33,8 @@ namespace EFCommands.Items
                 isCovert = request.isCovert,
                 isForSale = request.isForSale,
                 ItemTypeId = request.ItemTypeId,
-                ItemQualityId = request.ItemQualityId
+                ItemQualityId = request.ItemQualityId,
+                Quantity = request.Quantity
             });
 
             Context.SaveChanges();

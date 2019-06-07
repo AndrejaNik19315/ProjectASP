@@ -23,6 +23,8 @@ namespace EFDataAccess.Configurations
                 .HasDefaultValue(0);
             builder.Property(i => i.CreatedAt)
                 .HasDefaultValueSql("GETDATE()");
+            builder.Property(i => i.Quantity)
+                .HasDefaultValue(0);
 
             builder.HasIndex(i => i.Name)
                 .IsUnique();

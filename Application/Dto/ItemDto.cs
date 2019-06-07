@@ -21,6 +21,6 @@ namespace Application.Dto
         [Required]
         public int ItemQualityId { get; set; }
         [RegularExpression("^[1-9][0-9]?$|^100$")]
-        public int Quantity { get; set; }  
+        public int? Quantity { get; set; }  
     }
 }

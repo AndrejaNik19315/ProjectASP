@@ -34,15 +34,13 @@ namespace EFCommands.Items
                 if (!(Context.ItemQualities.Any(q => q.Id == request.ItemQualityId)))
                     throw new EntityUnprocessableException("Quality doesn't exist.");
 
-            if(request.Quantity != item.Quantity)
-
             item.Name = request.Name;
             item.Cost = request.Cost;
             item.isCovert = request.isCovert;
             item.isForSale = request.isForSale;
             item.ItemQualityId = request.ItemQualityId;
             item.ItemTypeId = request.ItemTypeId;
-            item.Quantity = (item.Quantity != request.Quantity && request.Quantity >= 0)? request.Quantity : item.Quantity;
+            item.Quantity = (item.Quantity != request.Quantity && request.Quantity >= 0)? (int)request.Quantity : (int)item.Quantity;
             item.UpdatedAt = DateTime.Now;
 
             Context.SaveChanges();

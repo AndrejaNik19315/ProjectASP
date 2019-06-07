@@ -34,7 +34,7 @@ namespace EFCommands.Items
                 isForSale = request.isForSale,
                 ItemTypeId = request.ItemTypeId,
                 ItemQualityId = request.ItemQualityId,
-                Quantity = request.Quantity
+                Quantity = (int)request.Quantity
             });
 
             Context.SaveChanges();

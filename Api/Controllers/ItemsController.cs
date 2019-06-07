@@ -53,9 +53,9 @@ namespace Api.Controllers
             catch (EntityNotFoundException ex) {
                 return NotFound(ex.Message);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return StatusCode(500, genericErrorMsg);
+                return StatusCode(500, e.Message);
             }
         }
 
@@ -98,7 +98,8 @@ namespace Api.Controllers
                     isCovert = order66.isCovert,
                     isForSale = order66.isForSale,
                     ItemQualityId = order66.ItemQualityId,
-                    ItemTypeId = order66.ItemTypeId
+                    ItemTypeId = order66.ItemTypeId,
+                    Quantity = order66.Quantity
                 });
             }
             catch (EntityNotFoundException ex)
@@ -112,9 +113,9 @@ namespace Api.Controllers
             catch (EntityAlreadyExistsException ex) {
                 return Conflict(ex.Message);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return StatusCode(500, genericErrorMsg);
+                return StatusCode(500, e.Message);
             }
         }
 

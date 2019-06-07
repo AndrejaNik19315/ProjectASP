@@ -12,6 +12,6 @@ namespace Application.Dto.Items
         public bool isForSale { get; set; }
         public string ItemType { get; set; }
         public string ItemQuality { get; set; }
-        public int Quantity { get; set; }
+        public int? Quantity { get; set; }
     }
 }

@@ -1,9 +1,13 @@
 ﻿using Application.Commands.Characters;
 using Application.Dto;
+using Application.Dto.Characters;
+using Application.Dto.Inventories;
 using Application.Exceptions;
 using EFDataAccess;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace EFCommands.Characters
@@ -14,29 +18,40 @@ namespace EFCommands.Characters
         {
         }
 
-        public CharacterDto Execute(int request)
+        public FullCharacterDto Execute(int request)
         {
-            var character = Context.Characters.Find(request);
+            var character = Context.Characters
+                .Include(c => c.GameClass)
+                .Include(c => c.GameClass)
+                .Include(c => c.Race)
+                .Include(c => c.Gender)
+                .Include(c => c.Inventory)
+                .FirstOrDefault(c => c.Id == request);
 
             if (character == null)
                 throw new EntityNotFoundException("Character not found.");
 
-            return new CharacterDto
+            return new FullCharacterDto
             {
                 Id = character.Id,
-                Name = character.Name,
-                Level = character.Level,
-                Funds = character.Funds,
-                GameClassId = character.GameClassId,
-                GenderId = character.GenderId,
-                RaceId = character.RaceId,
                 UserId = character.UserId,
+                Name = character.Name,
+                Level = (int)character.Level,
+                Funds = (int)character.Funds,
+                GameClass = character.GameClass.Name,
+                Gender = character.Gender.Sex,
+                Race = character.Race.Name,
+                Invetory = new PartialInventoryDto
+                {
+                    MaxSlots = character.Inventory.MaxSlots,
+                    SlotsFilled = character.Inventory.SlotsFilled
+                },
                 CreatedAt = character.CreatedAt,
                 UpdatedAt = character.UpdatedAt
             };
         }
 
-        public CharacterDto Execute(int request, int id)
+        public FullCharacterDto Execute(int request, int id)
         {
             throw new NotImplementedException();
         }

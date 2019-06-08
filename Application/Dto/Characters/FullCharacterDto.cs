@@ -13,5 +13,6 @@ namespace Application.Dto.Characters
         public string Race { get; set; }
         public string Gender { get; set; }
         public object Invetory { get; set; }
+        public int UserId { get; set; }
     }
 }

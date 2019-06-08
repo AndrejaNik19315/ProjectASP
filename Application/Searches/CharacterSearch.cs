@@ -10,5 +10,7 @@ namespace Application.Searches
         public int? Level { get; set; }
         public decimal? MinFunds { get; set; }
         public decimal? MaxFunds { get; set; }
+        public int PerPage { get; set; } = 3;
+        public int PageNumber { get; set; } = 1;
     }
 }

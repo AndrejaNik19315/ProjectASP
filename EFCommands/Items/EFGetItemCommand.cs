@@ -35,6 +35,7 @@ namespace EFCommands.Items
                 isCovert = item.isCovert,
                 ItemType = item.ItemType.Name,
                 ItemQuality = item.ItemQuality.Name,
+                inStock = item.inStock,
                 Quantity = item.Quantity,
                 CreatedAt = item.CreatedAt,
                 UpdatedAt = item.UpdatedAt

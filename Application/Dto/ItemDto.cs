@@ -15,7 +15,7 @@ namespace Application.Dto
         [Range(1,1000)]
         public decimal Cost { get; set; }
         public bool isCovert { get; set; }
-        public bool isForSale { get; set; }
+        public bool inStock { get; set; }
         [Required]
         public int ItemTypeId { get; set; }
         [Required]

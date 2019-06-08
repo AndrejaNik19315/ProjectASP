@@ -27,9 +27,6 @@ namespace EFCommands.Items
             if (request.isCovert.HasValue)
                 query = query.Where(i => i.isCovert == request.isCovert);
 
-            if (request.isForSale.HasValue)
-                query = query.Where(i => i.isForSale == request.isForSale);
-
             if (request.MinPrice != null && request.MaxPrice != null)
                 query = query.Where(i => i.Cost >= request.MinPrice && i.Cost <= request.MaxPrice);
 
@@ -53,7 +50,6 @@ namespace EFCommands.Items
                     Name = i.Name,
                     Cost = i.Cost,
                     isCovert = i.isCovert,
-                    isForSale = i.isForSale,
                     ItemQuality= i.ItemQuality.Name,
                     ItemType = i.ItemType.Name,
                     Quantity = i.Quantity,

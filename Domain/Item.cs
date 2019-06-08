@@ -9,7 +9,7 @@ namespace Domain
         public string Name { get; set; }
         public decimal Cost { get; set; }
         public bool isCovert { get; set; }
-        public bool isForSale { get; set; }
+        public bool inStock { get; set; }
         public int ItemTypeId { get; set; }
         public ItemType ItemType { get; set; }
         public int ItemQualityId { get; set; }

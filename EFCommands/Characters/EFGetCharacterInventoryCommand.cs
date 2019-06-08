@@ -38,7 +38,7 @@ namespace EFCommands.Characters
                     Id = i.ItemId,
                     Name = i.Item.Name,
                     Cost = i.Item.Cost,
-                    isForSale = i.Item.isForSale,
+                    inStock = i.Item.inStock,
                     isCovert = i.Item.isCovert,
                     ItemQualityId = i.Item.ItemQualityId,
                     ItemTypeId = i.Item.ItemTypeId,

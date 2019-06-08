@@ -33,7 +33,6 @@ namespace EFCommands.Items
                 Name = item.Name,
                 Cost = item.Cost,
                 isCovert = item.isCovert,
-                isForSale = item.isForSale,
                 ItemType = item.ItemType.Name,
                 ItemQuality = item.ItemQuality.Name,
                 Quantity = item.Quantity,

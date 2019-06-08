@@ -31,10 +31,10 @@ namespace EFCommands.Items
                 Name = request.Name,
                 Cost = request.Cost,
                 isCovert = request.isCovert,
-                isForSale = request.isForSale,
                 ItemTypeId = request.ItemTypeId,
                 ItemQualityId = request.ItemQualityId,
-                Quantity = (int)request.Quantity
+                Quantity = request.Quantity,
+                inStock = request.Quantity > 0 ? true : false
             });
 
             Context.SaveChanges();

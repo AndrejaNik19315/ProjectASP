@@ -19,7 +19,7 @@ namespace EFDataAccess.Configurations
                 .IsRequired();
             builder.Property(i => i.isCovert)
                 .HasDefaultValue(0);
-            builder.Property(i => i.isForSale)
+            builder.Property(i => i.inStock)
                 .HasDefaultValue(0);
             builder.Property(i => i.CreatedAt)
                 .HasDefaultValueSql("GETDATE()");

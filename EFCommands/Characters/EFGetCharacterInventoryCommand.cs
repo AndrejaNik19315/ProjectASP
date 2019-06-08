@@ -1,6 +1,7 @@
 ﻿using Application.Commands.Characters;
 using Application.Dto;
 using Application.Dto.Inventories;
+using Application.Dto.Items;
 using Application.Exceptions;
 using EFDataAccess;
 using Microsoft.EntityFrameworkCore;
@@ -25,6 +26,9 @@ namespace EFCommands.Characters
             var inventory = Context.Inventories
                 .Include(i => i.InventoryItems)
                     .ThenInclude(it => it.Item)
+                        .ThenInclude(i => i.ItemQuality)
+                    .ThenInclude(iq => iq.Items)
+                        .ThenInclude(i => i.ItemType)
                     .Where(i => i.CharacterId == request)
                     .FirstOrDefault();
 
@@ -33,17 +37,12 @@ namespace EFCommands.Characters
                 Id = inventory.Id,
                 MaxSlots = inventory.MaxSlots,
                 SlotsFilled = inventory.SlotsFilled,
-                InventoryItems = inventory.InventoryItems.Select(i => new ItemDto
+                InventoryItems = inventory.InventoryItems.Select(i => new PartialItemDto
                 {
-                    Id = i.ItemId,
                     Name = i.Item.Name,
-                    Cost = i.Item.Cost,
-                    inStock = i.Item.inStock,
                     isCovert = i.Item.isCovert,
-                    ItemQualityId = i.Item.ItemQualityId,
-                    ItemTypeId = i.Item.ItemTypeId,
-                    CreatedAt = i.Item.CreatedAt,
-                    UpdatedAt = i.Item.UpdatedAt
+                    ItemQuality = i.Item.ItemQuality.Name,
+                    ItemType = i.Item.ItemType.Name
                 }),
                 CreatedAt = inventory.CreatedAt,
                 UpdatedAt = inventory.UpdatedAt

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Application.Dto.Items;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -13,6 +14,6 @@ namespace Application.Dto.Inventories
                 return (int) (MaxSlots - SlotsFilled);
             }
         }
-        public IEnumerable<ItemDto> InventoryItems { get; set; }
+        public IEnumerable<PartialItemDto> InventoryItems { get; set; }
     }
 }

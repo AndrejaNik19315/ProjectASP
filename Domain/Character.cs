@@ -23,5 +23,6 @@ namespace Domain
         public int UserId { get; set; }
         public User User { get; set; }
         public Inventory Inventory { get; set; }
+        public ICollection<Order> Orders { get; set; }
     }
 }

@@ -29,6 +29,8 @@ using Application.Commands.ItemQualities;
 using EFCommands.ItemQualities;
 using EFCommands.Roles;
 using Application.Commands.Roles;
+using Application.Commands.Orders;
+using EFCommands.Orders;
 
 namespace Api
 {
@@ -98,6 +100,8 @@ namespace Api
             //Roles
             services.AddTransient<IGetRolesCommand, EFGetRolesCommand>();
             services.AddTransient<IGetRoleCommand, EFGetRoleCommand>();
+            //Orders
+            services.AddTransient<IMakeOrderCommand, EFMakeOrderCommand>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

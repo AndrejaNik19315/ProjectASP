@@ -13,6 +13,8 @@ namespace EFDataAccess.Configurations
         {
             builder.Property(o => o.CreatedAt)
                 .HasDefaultValueSql("GETDATE()");
+
+            builder.HasKey(o => o.Id);
         }
     }
 }

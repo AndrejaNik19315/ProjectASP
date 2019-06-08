@@ -33,6 +33,11 @@ namespace EFDataAccess.Configurations
                 .WithOne(ii => ii.Item)
                 .HasForeignKey(ii => ii.ItemId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasMany(i => i.Orders)
+                .WithOne(o => o.Item)
+                .HasForeignKey(o => o.ItemId)
+                .OnDelete(DeleteBehavior.SetNull);
         }
     }
 }

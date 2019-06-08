@@ -25,6 +25,11 @@ namespace EFDataAccess.Configurations
 
             builder.HasIndex(c => c.Name).IsUnique();
             builder.HasKey(c => c.Id);
+
+            builder.HasMany(c => c.Orders)
+                .WithOne(o => o.Character)
+                .HasForeignKey(o => o.CharacterId)
+                .OnDelete(DeleteBehavior.SetNull);
         }
     }
 }

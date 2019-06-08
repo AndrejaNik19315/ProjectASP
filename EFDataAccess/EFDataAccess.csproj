@@ -49,6 +49,8 @@
     <Compile Remove="Migrations\20190604093852_ItemQualityConfiguration.Designer.cs" />
     <Compile Remove="Migrations\20190605144225_InventoryItemConfiguration.cs" />
     <Compile Remove="Migrations\20190605144225_InventoryItemConfiguration.Designer.cs" />
+    <Compile Remove="Migrations\20190608133953_OrdersConfiguration.cs" />
+    <Compile Remove="Migrations\20190608133953_OrdersConfiguration.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

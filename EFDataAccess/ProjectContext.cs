@@ -20,6 +20,7 @@ namespace EFDataAccess
         public DbSet<ItemType> ItemTypes { get; set; }
         public DbSet<ItemQuality> ItemQualities { get; set; }
         public DbSet<Role> Roles { get; set; }
+        public DbSet<Order> Orders { get; set; }
     
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -38,6 +39,7 @@ namespace EFDataAccess
             modelBuilder.ApplyConfiguration(new ItemTypeConfiguration());
             modelBuilder.ApplyConfiguration(new ItemQualityConfiguration());
             modelBuilder.ApplyConfiguration(new InventoryItemConfiguration());
+            modelBuilder.ApplyConfiguration(new OrderConfiguration());
         }
     }
 }

@@ -16,5 +16,6 @@ namespace Domain
         public ItemQuality ItemQuality { get; set; }
         public ICollection<InventoryItem> InventoryItems { get; set; }
         public int? Quantity { get; set; }
+        public ICollection<Order> Orders { get; set; }
     }
 }

@@ -31,6 +31,12 @@ using EFCommands.Roles;
 using Application.Commands.Roles;
 using Application.Commands.Orders;
 using EFCommands.Orders;
+using EFCommands.Authorization;
+using Application.Commands.Authorization;
+using Api.Helpers;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
+using Application.HelperClasses;
 
 namespace Api
 {
@@ -102,6 +108,36 @@ namespace Api
             services.AddTransient<IGetRoleCommand, EFGetRoleCommand>();
             //Orders
             services.AddTransient<IMakeOrderCommand, EFMakeOrderCommand>();
+            //Auth
+            services.AddTransient<IGetAuthUserCommand, EFGetAuthUserCommand>();
+
+            var key = Configuration.GetSection("Encryption")["key"];
+            var enc = new Encryption(key);
+
+            services.AddSingleton(enc);
+
+            services.AddTransient(s =>
+            {
+                var http = s.GetRequiredService<IHttpContextAccessor>();
+                var value = http.HttpContext.Request.Headers["Authorization"].ToString();
+                var encryption = s.GetRequiredService<Encryption>();
+
+                try
+                {
+                    var decodedString = encryption.DecryptString(value);
+                    decodedString = decodedString.Replace("\f", "");
+                    var user = JsonConvert.DeserializeObject<LoggedUser>(decodedString);
+                    user.IsLogged = true;
+                    return user;
+                }
+                catch (Exception)
+                {
+                    return new LoggedUser
+                    {
+                        IsLogged = false
+                    };
+                }
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

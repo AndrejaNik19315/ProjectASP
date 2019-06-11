@@ -26,6 +26,23 @@ namespace Api.Controllers
             _makeOrder = makeOrder;
         }
 
+        /// <response code="201">Created, item was bought by the character.</response>
+        /// <resposne code="400">Bad format.</resposne>
+        /// <response code="404">Character or Item doesn't exist.</response> 
+        /// <response code="409">User not active.</response>
+        /// <response code="422">Format of the request is good but one more properties are not valid.</response>
+        /// <response code="500">Server error.</response>
+        /// <summary>
+        /// Creates order for a character that bought the item.
+        /// </summary>
+        /// <remarks>
+        /// POST Example
+        /// {
+        ///   "itemId" : 1,
+        ///   "characterId" : 2
+        /// }
+        /// </remarks>
+
         // POST: api/Orders
         [HttpPost]
         public IActionResult Post([FromBody] OrderDto dto) {
@@ -45,14 +62,14 @@ namespace Api.Controllers
             }
             catch (EntityNotActiveException ex)
             {
-                return UnprocessableEntity(ex.Message);
+                return Conflict(ex.Message);
             }
             catch (EntityUnprocessableException ex) {
                 return UnprocessableEntity(ex.Message);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, ex.Message);
+                return StatusCode(500, genericErrorMsg);
             }
         }
     }

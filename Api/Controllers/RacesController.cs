@@ -36,16 +36,24 @@ namespace Api.Controllers
             _deleteRace = deleteRace;
         }
 
+        /// <summary>
+        /// Returns all races
+        /// </summary>
         // GET: api/Races
         [HttpGet]
-        public IActionResult Get([FromQuery] RaceSearch query)
+        public ActionResult<IEnumerable<RaceDto>> Get([FromQuery] RaceSearch query)
         {
             return Ok(_getRaces.Execute(query));
         }
 
+        /// <response code="404">Race not found</response>
+        /// <response code="500">Server error.</response>
+        /// <summary>
+        /// Returns single race by id
+        /// </summary>
         // GET: api/Races/5
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public ActionResult<RaceDto> Get(int id)
         {
             try
             {
@@ -60,6 +68,19 @@ namespace Api.Controllers
             }
         }
 
+        /// <response code="400">Bad Format</response>
+        /// <response code="404">Race not found</response>
+        /// <response code="409">Conflict, race with that name exists.</response>
+        /// <response code="500">Server error.</response>
+        /// <summary>
+        /// Update race
+        /// </summary>
+        /// <remarks>
+        /// PUT / Example
+        /// {
+        ///     "Name" : "Orc"
+        /// }
+        /// </remarks>
         // PUT: api/Races/5
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] RaceDto dto)
@@ -79,6 +100,19 @@ namespace Api.Controllers
             }
         }
 
+        /// <response code="201">Created</response>
+        /// <response code="400">Bad Format</response>
+        /// <response code="409">Conflict, race with that name exists.</response>
+        /// <response code="500">Server error.</response>
+        /// <summary>
+        /// Create race
+        /// </summary>
+        /// <remarks>
+        /// POST / Example
+        /// {
+        ///     "Name" : "Human"
+        /// }
+        /// </remarks>
         // POST: api/Races
         [HttpPost]
         public IActionResult Post([FromBody] RaceDto dto)
@@ -99,6 +133,14 @@ namespace Api.Controllers
             }
         }
 
+        /// <response code="404">Race doesn't exist.</response>
+        /// <response code="500">Server error.</response>
+        /// <summary>
+        /// Remove race by id
+        /// </summary>
+        /// <remarks>
+        /// NOTE: Races that are in use cannot be removed and will return code 500.
+        /// </remarks>
         // DELETE: api/Races/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)

@@ -35,16 +35,25 @@ namespace Api.Controllers
             _deleteQuality = deleteQuality;
         }
 
+        /// <summary>
+        /// Returns all item qulities
+        /// </summary>
         // GET: api/ItemQualities
         [HttpGet]
-        public IActionResult Get([FromQuery] ItemQualitySearch query)
+        public ActionResult<IEnumerable<ItemQualityDto>> Get([FromQuery] ItemQualitySearch query)
         {
             return Ok(_getQualities.Execute(query));
         }
 
+
+        /// <response code="404">Item quality not found</response>
+        /// <response code="500">Server error.</response>
+        /// <summary>
+        /// Returns single item quality by id
+        /// </summary>
         // GET: api/ItemQualities/5
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public ActionResult<ItemQualityDto> Get(int id)
         {
             try {
                 var itemQuality = _getQuality.Execute(id);
@@ -60,6 +69,19 @@ namespace Api.Controllers
             }
         }
 
+        /// <response code="400">Bad Format</response>
+        /// <response code="404">Item quality not found</response>
+        /// <response code="409">Conflict, quality with that name exists.</response>
+        /// <response code="500">Server error.</response>
+        /// <summary>
+        /// Update quality
+        /// </summary>
+        /// <remarks>
+        /// PUT / Example
+        /// {
+        ///     "Name" : "Uncommon"
+        /// }
+        /// </remarks>
         // PUT: api/ItemQualities/5
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] ItemQualityDto dto)
@@ -82,6 +104,19 @@ namespace Api.Controllers
             }
         }
 
+        /// <response code="201">Created</response>
+        /// <response code="400">Bad Format</response>
+        /// <response code="409">Conflict, quality with that name exists.</response>
+        /// <response code="500">Server error.</response>
+        /// <summary>
+        /// Create item quality
+        /// </summary>
+        /// <remarks>
+        /// POST / Example
+        /// {
+        ///     "Name" : "Common"
+        /// }
+        /// </remarks>
         // POST: api/ItemQualities
         [HttpPost]
         public ActionResult Post([FromBody] ItemQualityDto dto)
@@ -104,6 +139,14 @@ namespace Api.Controllers
             }
         }
 
+        /// <response code="404">Item quality doesn't exist.</response>
+        /// <response code="500">Server error.</response>
+        /// <summary>
+        /// Remove quality by id
+        /// </summary>
+        /// <remarks>
+        /// NOTE: Qualities that are in use cannot be removed and will return code 500
+        /// </remarks>
         // DELETE: api/ItemQualities/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)

@@ -35,16 +35,24 @@ namespace Api.Controllers
             _addGameClass = addGameClass;
         }
 
+        /// <summary>
+        /// Returns all game classes
+        /// </summary>
         //GET: api/GameClasses
        [HttpGet]
-        public IActionResult Get([FromQuery] GameClassSearch query)
+        public ActionResult<IEnumerable<GameClassDto>> Get([FromQuery] GameClassSearch query)
         {
             return Ok(_getGameClasses.Execute(query));
         }
 
+        /// <response code="404">Game class not found</response>
+        /// <response code="500">Server error.</response>
+        /// <summary>
+        /// Returns single game class by id
+        /// </summary>
         // GET: api/GameClasses/5
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public ActionResult<GameClassDto> Get(int id)
         {
             try
             {
@@ -61,6 +69,19 @@ namespace Api.Controllers
 
         }
 
+        /// <response code="400">Bad Format</response>
+        /// <response code="404">Game class not found</response>
+        /// <response code="409">Conflict, game class with that name exists.</response>
+        /// <response code="500">Server error.</response>
+        /// <summary>
+        /// Update game class
+        /// </summary>
+        /// <remarks>
+        /// PUT / Example
+        /// {
+        ///     "Name" : "Warrior"
+        /// }
+        /// </remarks>
         // PUT: api/GameClasses/5
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] GameClassDto dto)
@@ -80,6 +101,19 @@ namespace Api.Controllers
             }
         }
 
+        /// <response code="201">Created</response>
+        /// <response code="400">Bad Format</response>
+        /// <response code="409">Conflict, game class with that name exists.</response>
+        /// <response code="500">Server error.</response>
+        /// <summary>
+        /// Create game class
+        /// </summary>
+        /// <remarks>
+        /// POST / Example
+        /// {
+        ///     "Name" : "Paladin"
+        /// }
+        /// </remarks>
         // POST: api/GameClasses
         [HttpPost]
         public IActionResult Post([FromBody] GameClassDto dto)
@@ -99,6 +133,14 @@ namespace Api.Controllers
             }
         }
 
+        /// <response code="404">Game class doesn't exist.</response>
+        /// <response code="500">Server error.</response>
+        /// <summary>
+        /// Remove game class by id
+        /// </summary>
+        /// <remarks>
+        /// NOTE: Game classes that are in use cannot be removed and will return code 500
+        /// </remarks>
         // DELETE: api/GameClasses/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)

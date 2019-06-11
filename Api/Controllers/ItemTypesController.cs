@@ -36,16 +36,24 @@ namespace Api.Controllers
             _deleteItemType = deleteItemType;
         }
 
+        /// <summary>
+        /// Returns all item types
+        /// </summary>
         // GET: api/ItemTypes
         [HttpGet]
-        public IActionResult Get([FromQuery] ItemTypeSearch query)
+        public ActionResult<IEnumerable<ItemTypeDto>> Get([FromQuery] ItemTypeSearch query)
         {
             return Ok(_getItemTypes.Execute(query));
         }
 
+        /// <response code="404">ItemType not found</response>
+        /// <response code="500">Server error.</response>
+        /// <summary>
+        /// Returns single item type by id
+        /// </summary>
         // GET: api/ItemTypes/5
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public ActionResult<ItemTypeDto> Get(int id)
         {
             try
             {
@@ -62,6 +70,19 @@ namespace Api.Controllers
             }
         }
 
+        /// <response code="400">Bad Format</response>
+        /// <response code="404">ItemType not found</response>
+        /// <response code="409">Conflict, item type with that name exists.</response>
+        /// <response code="500">Server error.</response>
+        /// <summary>
+        /// Update item type
+        /// </summary>
+        /// <remarks>
+        /// PUT / Example
+        /// {
+        ///     "Name" : "Sword"
+        /// }
+        /// </remarks>
         // PUT: api/ItemTypes/5
         [HttpPut("{id}")]
         public IActionResult Put(int id, ItemTypeDto dto)
@@ -85,6 +106,19 @@ namespace Api.Controllers
             }
         }
 
+        /// <response code="201">Created</response>
+        /// <response code="400">Bad Format</response>
+        /// <response code="409">Conflict, item type with that name exists.</response>
+        /// <response code="500">Server error.</response>
+        /// <summary>
+        /// Create item type
+        /// </summary>
+        /// <remarks>
+        /// POST / Example
+        /// {
+        ///     "Name" : "Bow"
+        /// }
+        /// </remarks>
         // POST: api/ItemTypes
         [HttpPost]
         public IActionResult Post(ItemTypeDto dto)
@@ -108,6 +142,14 @@ namespace Api.Controllers
             }
         }
 
+        /// <response code="404">Item type doesn't exist.</response>
+        /// <response code="500">Server error.</response>
+        /// <summary>
+        /// Remove item type by id
+        /// </summary>
+        /// <remarks>
+        /// NOTE: Item types that are in use cannot be removed and will return code 500
+        /// </remarks>
         // DELETE: api/ItemTypes/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)

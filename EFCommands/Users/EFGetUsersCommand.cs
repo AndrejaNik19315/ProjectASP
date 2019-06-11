@@ -28,7 +28,7 @@ namespace EFCommands.Users
             }
 
             if (request.IsActive.HasValue) {
-                query = query.Where(u => u.IsActive);
+                query = query.Where(u => u.IsActive == request.IsActive);
             }
 
             query = query.Skip((request.PageNumber - 1) * request.PerPage).Take(request.PerPage);

@@ -32,13 +32,13 @@ namespace EFCommands.Characters
                 throw new EntityAlreadyExistsException("Character with that name already exists.");
 
             if (!(Context.Genders.Any(gen => gen.Id == request.GenderId)))
-                throw new EntityNotFoundException("There is no gender with that Id.");
+                throw new EntityUnprocessableException("There is no gender with that Id.");
 
             if(!(Context.GameClasses.Any(gc => gc.Id == request.GameClassId)))
-                throw new EntityNotFoundException("There is no gameclass with that Id.");
+                throw new EntityUnprocessableException("There is no gameclass with that Id.");
 
             if(!(Context.Races.Any(r => r.Id == request.RaceId)))
-                throw new EntityNotFoundException("There is no race with that Id.");
+                throw new EntityUnprocessableException("There is no race with that Id.");
 
             var characterId = Context.Characters.Add(new Domain.Character
             {

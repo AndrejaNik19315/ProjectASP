@@ -36,16 +36,24 @@ namespace Api.Controllers
             _deleteGender = deleteGender;
         }
 
+        /// <summary>
+        /// Returns all genders
+        /// </summary>
         // GET: api/Genders
         [HttpGet]
-        public IActionResult Get([FromQuery] GenderSearch query)
+        public ActionResult<IEnumerable<GenderDto>> Get([FromQuery] GenderSearch query)
         {
             return Ok(_getGenders.Execute(query));
         }
 
+        /// <response code="404">Gender not found</response>
+        /// <response code="500">Server error.</response>
+        /// <summary>
+        /// Returns single gender by id
+        /// </summary>
         // GET: api/Genders/5
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public ActionResult<GenderDto> Get(int id)
         {
             try
             {
@@ -61,6 +69,19 @@ namespace Api.Controllers
             }
         }
 
+        /// <response code="400">Bad Format</response>
+        /// <response code="404">Gender not found</response>
+        /// <response code="409">Conflict, gender with that name exists.</response>
+        /// <response code="500">Server error.</response>
+        /// <summary>
+        /// Update gender
+        /// </summary>
+        /// <remarks>
+        /// PUT / Example
+        /// {
+        ///     "Sex" : "Attack Helicopter"
+        /// }
+        /// </remarks>
         // PUT: api/Genders/5
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] GenderDto gender)
@@ -83,6 +104,19 @@ namespace Api.Controllers
             }
         }
 
+        /// <response code="201">Created</response>
+        /// <response code="400">Bad Format</response>
+        /// <response code="409">Conflict, gender with that name exists.</response>
+        /// <response code="500">Server error.</response>
+        /// <summary>
+        /// Create gender
+        /// </summary>
+        /// <remarks>
+        /// POST / Example
+        /// {
+        ///     "Sex" : "Male"
+        /// }
+        /// </remarks>
         // POST: api/Genders
         [HttpPost]
         public IActionResult Post([FromBody] GenderDto dto)
@@ -105,6 +139,14 @@ namespace Api.Controllers
             }
         }
 
+        /// <response code="404">Gender doesn't exist.</response>
+        /// <response code="500">Server error.</response>
+        /// <summary>
+        /// Remove gender by id
+        /// </summary>
+        /// <remarks>
+        /// NOTE: Genders that are in use cannot be removed and will return code 500
+        /// </remarks>
         // DELETE: api/Genders/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)

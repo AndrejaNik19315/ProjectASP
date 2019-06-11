@@ -27,7 +27,7 @@ namespace EFCommands.Orders
             if (character == null)
                 throw new EntityNotFoundException("Character not found.");
 
-            if (!character.User.IsActive) //greska user nije ucitan
+            if (!character.User.IsActive)
                 throw new EntityNotActiveException("User is not active.");
 
             var item = Context.Items.Find(request.ItemId);

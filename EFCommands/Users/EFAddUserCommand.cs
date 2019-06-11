@@ -20,6 +20,9 @@ namespace EFCommands.Users
             if (Context.Users.Any(u => u.Username == request.Username || u.Email == request.Email))
                 throw new EntityAlreadyExistsException("Username or Email already exist.");
 
+            if (!(Context.Roles.Any(r => r.Id == request.RoleId)))
+                throw new EntityUnprocessableException("No such role.");
+
             Context.Users.Add(new Domain.User {
                 Firstname = request.Firstname,
                 Lastname = request.Lastname,

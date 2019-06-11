@@ -11,6 +11,7 @@ using Application.Commands.Users;
 using Application.Searches;
 using Application.Exceptions;
 using Application.Dto;
+using Application.Dto.Users;
 
 namespace Api.Controllers
 {
@@ -18,8 +19,6 @@ namespace Api.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly ProjectContext _context = new ProjectContext();
-
         private readonly IGetUserCommand _getUser;
         private readonly IGetUsersCommand _getUsers;
         private readonly IEditUserCommand _editUser;
@@ -37,17 +36,26 @@ namespace Api.Controllers
             _deleteUser = deleteUser;
         }
 
+        /// <summary>
+        /// Returns all Users according to search parameters
+        /// </summary>
         // GET: api/users
         [HttpGet]
-        public IActionResult Get([FromQuery]UserSearch query)
+        public ActionResult<IEnumerable<PartialUserDto>> Get([FromQuery]UserSearch query)
         {
             var users = _getUsers.Execute(query);
             return Ok(users);
         }
 
+        /// <response code="404">User doesn't exist</response>   
+        /// <response code="500">Server error.</response>
+        /// <summary>
+        /// Returns single User by id
+        /// </summary>
+
         // GET: api/users/5
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public ActionResult<FullUserDto> Get(int id)
         {
             try {
                 var user = _getUser.Execute(id);
@@ -60,6 +68,27 @@ namespace Api.Controllers
                 return StatusCode(500, genericErrorMsg);
             }
         }
+
+        /// <response code="400">Bad format of user.</response>
+        /// <response code="404">User deosn't exist.</response>
+        /// <response code="409">Conflict, User with that Email or Username already exists.</response>
+        /// <response code="422">Format of the request is good but there are one or more invalid values.</response>
+        /// <response code="500">Server error.</response>
+        /// <summary>
+        /// Updates user
+        /// </summary>
+        /// <remarks>
+        /// PUT Example
+        /// {
+        ///     "firstname" : "Jane",
+        ///     "lastname" : "Doe",
+        ///     "username" : "Jenny",
+        ///     "email" : "jane@gmail.com",
+        ///     "password" : "jane1",
+        ///     "isActive" : true ,
+        ///     "roleId" : 2
+        /// }
+        /// </remarks>
 
         // PUT: api/Users/5
         [HttpPut("{id}")]
@@ -74,14 +103,40 @@ namespace Api.Controllers
             {
                 return NotFound(ex.Message);
             }
-            catch (EntityAlreadyExistsException ex) {
+            catch (EntityAlreadyExistsException ex)
+            {
                 return Conflict(ex.Message);
+            }
+            catch (EntityUnprocessableException ex)
+            {
+                return UnprocessableEntity(ex.Message);
             }
             catch
             {
                 return StatusCode(500, genericErrorMsg);
             }
         }
+
+        /// <response code="201">Created</response>
+        /// <response code="400">Bad format of user.</response>
+        /// <response code="409">User with that Email or Username already exists.</response>
+        /// <response code="422">Format of the request is good but there are one or more invalid values.</response>
+        /// <response code="500">Server error.</response>
+        /// <summary>
+        /// Create user
+        /// </summary>
+        ///<remarks>
+        /// POST Example
+        /// {
+        ///     "firstname" : "Jane",
+	    ///     "lastname" : "Doe",
+	    ///     "username" : "Jane",
+	    ///     "email" : "jane@gmail.com",
+	    ///     "password" : "jane1",
+	    ///     "isActive" : true ,
+	    ///     "roleId" : 1
+        /// }
+        /// </remarks>
 
         // POST: api/Users
         [HttpPost]
@@ -114,6 +169,11 @@ namespace Api.Controllers
             }
         }
 
+        /// <response code="404">User doesn't exist.</response>
+        /// <response code="500">Server error.</response>
+        /// <summary>
+        /// Removes user by id
+        /// </summary>
         // DELETE: api/Users/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
@@ -137,6 +197,5 @@ namespace Api.Controllers
         //public IActionResult Login([FromBody] LoginDto dto) {
         //    //
         //}
-
     }
 }

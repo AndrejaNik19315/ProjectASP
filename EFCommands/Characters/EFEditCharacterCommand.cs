@@ -31,15 +31,15 @@ namespace EFCommands.Characters
 
             if (request.GenderId != character.GenderId)
                 if (!(Context.Genders.Any(gen => gen.Id == request.GenderId)))
-                    throw new EntityNotFoundException("There is no gender with that Id.");
+                    throw new EntityUnprocessableException("There is no gender with that Id.");
 
             if (request.GameClassId != character.GameClassId)
                 if (!(Context.GameClasses.Any(gc => gc.Id == request.GameClassId)))
-                    throw new EntityNotFoundException("There is no gameclass with that Id.");
+                    throw new EntityUnprocessableException("There is no gameclass with that Id.");
 
             if(request.RaceId != character.RaceId)
                 if (!(Context.Races.Any(r => r.Id == request.RaceId)))
-                    throw new EntityNotFoundException("There is no race with that Id.");
+                    throw new EntityUnprocessableException("There is no race with that Id.");
 
             character.Name = request.Name;
             character.Level = request.Level;

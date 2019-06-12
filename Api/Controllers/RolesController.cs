@@ -14,6 +14,7 @@ using Application.Dto;
 
 namespace Api.Controllers
 {
+    [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
     public class RolesController : ControllerBase

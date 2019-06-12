@@ -15,6 +15,7 @@ using Application.Dto.Items;
 
 namespace Api.Controllers
 {
+    [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
     public class ItemsController : ControllerBase
@@ -68,6 +69,7 @@ namespace Api.Controllers
             }
         }
 
+        /// <response code="204">No content</response>
         /// <response code="400">Bad Format</response>
         /// <response code="404">Item not found</response>
         /// <response code="409">Conflict, item with that name exists.</response>
@@ -160,6 +162,7 @@ namespace Api.Controllers
             }
         }
 
+        /// <response code="204">No content</response>
         /// <response code="404">Item doesn't exist.</response>
         /// <response code="500">Server error.</response>
         /// <summary>

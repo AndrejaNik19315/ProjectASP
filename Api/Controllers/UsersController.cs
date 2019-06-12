@@ -15,6 +15,7 @@ using Application.Dto.Users;
 
 namespace Api.Controllers
 {
+    [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
@@ -69,6 +70,7 @@ namespace Api.Controllers
             }
         }
 
+        /// <response code="204">No content</response>
         /// <response code="400">Bad format of user.</response>
         /// <response code="404">User deosn't exist.</response>
         /// <response code="409">Conflict, User with that Email or Username already exists.</response>
@@ -169,6 +171,7 @@ namespace Api.Controllers
             }
         }
 
+        /// <response code="204">No content</response>
         /// <response code="404">User doesn't exist.</response>
         /// <response code="500">Server error.</response>
         /// <summary>

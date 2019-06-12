@@ -13,6 +13,7 @@ using Application.Exceptions;
 
 namespace Api.Controllers
 {
+    [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
     public class OrdersController : ControllerBase

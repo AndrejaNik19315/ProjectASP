@@ -14,6 +14,7 @@ using Application.Dto;
 
 namespace Api.Controllers
 {
+    [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
     public class ItemQualitiesController : ControllerBase
@@ -69,6 +70,7 @@ namespace Api.Controllers
             }
         }
 
+        /// <response code="204">No content</response>
         /// <response code="400">Bad Format</response>
         /// <response code="404">Item quality not found</response>
         /// <response code="409">Conflict, quality with that name exists.</response>
@@ -139,6 +141,7 @@ namespace Api.Controllers
             }
         }
 
+        /// <response code="204">No content</response>
         /// <response code="404">Item quality doesn't exist.</response>
         /// <response code="500">Server error.</response>
         /// <summary>

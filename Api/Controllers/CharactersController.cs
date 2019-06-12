@@ -42,6 +42,7 @@ namespace Api.Controllers
         /// Returns all characters according to search parameters 
         /// </summary>
         // GET: api/Characters
+        [Produces("application/json")]
         [HttpGet]
         public ActionResult<IEnumerable<FullCharacterDto>> Get([FromQuery] CharacterSearch query)
         {
@@ -55,6 +56,7 @@ namespace Api.Controllers
         /// Returns single character by id
         /// </summary>
         // GET: api/Characters/5
+        [Produces("application/json")]
         [HttpGet("{id}")]
         public ActionResult<FullCharacterDto> Get(int id)
         {
@@ -91,6 +93,7 @@ namespace Api.Controllers
             }
         }
 
+        /// <response code="204">No content</response>
         /// <resposne code="400">Bad format.</resposne>
         /// <response code="404">Character doesn't exist</response> 
         /// <response code="409">Conflict, character name is already taken or user is not active.</response>
@@ -194,6 +197,7 @@ namespace Api.Controllers
             }
         }
 
+        /// <response code="204">No content</response>
         /// <response code="404">Character doesn't exist.</response>
         /// <response code="500">Server error.</response>
         /// <summary>

@@ -14,6 +14,7 @@ using Application.Dto;
 
 namespace Api.Controllers
 {
+    [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
     public class GameClassesController : ControllerBase
@@ -39,7 +40,7 @@ namespace Api.Controllers
         /// Returns all game classes
         /// </summary>
         //GET: api/GameClasses
-       [HttpGet]
+        [HttpGet]
         public ActionResult<IEnumerable<GameClassDto>> Get([FromQuery] GameClassSearch query)
         {
             return Ok(_getGameClasses.Execute(query));
@@ -69,6 +70,7 @@ namespace Api.Controllers
 
         }
 
+        /// <response code="204">No content</response>
         /// <response code="400">Bad Format</response>
         /// <response code="404">Game class not found</response>
         /// <response code="409">Conflict, game class with that name exists.</response>
@@ -133,6 +135,7 @@ namespace Api.Controllers
             }
         }
 
+        /// <response code="204">No content</response>
         /// <response code="404">Game class doesn't exist.</response>
         /// <response code="500">Server error.</response>
         /// <summary>

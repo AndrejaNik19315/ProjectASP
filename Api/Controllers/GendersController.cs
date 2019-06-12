@@ -14,6 +14,7 @@ using Application.Dto;
 
 namespace Api.Controllers
 {
+    [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
     public class GendersController : ControllerBase
@@ -69,6 +70,7 @@ namespace Api.Controllers
             }
         }
 
+        /// <response code="204">No content</response>
         /// <response code="400">Bad Format</response>
         /// <response code="404">Gender not found</response>
         /// <response code="409">Conflict, gender with that name exists.</response>
@@ -137,8 +139,9 @@ namespace Api.Controllers
             {
                 return StatusCode(500, genericErrorMsg);
             }
-        }
 
+        }
+        /// <response code="204">No content</response>
         /// <response code="404">Gender doesn't exist.</response>
         /// <response code="500">Server error.</response>
         /// <summary>

@@ -34,7 +34,7 @@ namespace Api.Controllers
         /// <response code="422">Format of the request is good but one more properties are not valid.</response>
         /// <response code="500">Server error.</response>
         /// <summary>
-        /// Creates order for a character that bought the item.
+        /// Creates order for a character that is buying an item.
         /// </summary>
         /// <remarks>
         /// POST Example

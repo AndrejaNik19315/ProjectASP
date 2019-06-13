@@ -55,7 +55,9 @@ namespace Api.Controllers
         [HttpGet("decode")]
         public IActionResult Decode(string value) {
             var decodedString = _encryption.DecryptString(value);
-            decodedString = decodedString.Replace("\f", "");
+            //decodedString = decodedString.Replace("\f", "");
+            //decodedString = decodedString.LastIndexOf('}');
+
             var user = JsonConvert.DeserializeObject<LoggedUser>(decodedString);
 
             return null;

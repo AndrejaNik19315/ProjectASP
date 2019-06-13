@@ -29,6 +29,10 @@ namespace EFDataAccess.Migrations
                     table.PrimaryKey("PK_ItemTypes", x => x.Id);
                 });
 
+            migrationBuilder.Sql(@"Insert Into ItemTypes(Name, CreatedAt) Values('Sword', GETDATE())");
+            migrationBuilder.Sql(@"Insert Into ItemTypes(Name, CreatedAt) Values('Potion', GETDATE())");
+            migrationBuilder.Sql(@"Insert Into ItemTypes(Name, CreatedAt) Values('Light Armor', GETDATE())");
+
             migrationBuilder.CreateIndex(
                 name: "IX_Items_ItemTypeId",
                 table: "Items",

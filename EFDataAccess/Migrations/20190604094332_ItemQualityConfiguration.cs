@@ -37,6 +37,11 @@ namespace EFDataAccess.Migrations
                     table.PrimaryKey("PK_ItemQualities", x => x.Id);
                 });
 
+            migrationBuilder.Sql(@"Insert Into ItemQualities(Name, CreatedAt) Values('Common', GETDATE())");
+            migrationBuilder.Sql(@"Insert Into ItemQualities(Name, CreatedAt) Values('Uncommon', GETDATE())");
+            migrationBuilder.Sql(@"Insert Into ItemQualities(Name, CreatedAt) Values('Rare', GETDATE())");
+            migrationBuilder.Sql(@"Insert Into ItemQualities(Name, CreatedAt) Values('Epic', GETDATE())");
+
             migrationBuilder.CreateIndex(
                 name: "IX_Items_ItemQualityId",
                 table: "Items",

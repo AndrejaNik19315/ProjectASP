@@ -23,6 +23,10 @@ namespace EFDataAccess.Migrations
                     table.PrimaryKey("PK_GameClasses", x => x.Id);
                 });
 
+            migrationBuilder.Sql(@"Insert Into GameClasses(Name, CreatedAt) Values('Warrior', GETDATE())");
+            migrationBuilder.Sql(@"Insert Into GameClasses(Name, CreatedAt) Values('Rouge', GETDATE())");
+            migrationBuilder.Sql(@"Insert Into GameClasses(Name, CreatedAt) Values('Mage', GETDATE())");
+
             migrationBuilder.CreateTable(
                 name: "Genders",
                 columns: table => new
@@ -37,6 +41,9 @@ namespace EFDataAccess.Migrations
                 {
                     table.PrimaryKey("PK_Genders", x => x.Id);
                 });
+
+            migrationBuilder.Sql(@"Insert Into Genders(Sex, CreatedAt) Values('Male', GETDATE())");
+            migrationBuilder.Sql(@"Insert Into Genders(Sex, CreatedAt) Values('Female', GETDATE())");
 
             migrationBuilder.CreateTable(
                 name: "Inventories",
@@ -68,6 +75,11 @@ namespace EFDataAccess.Migrations
                 {
                     table.PrimaryKey("PK_Races", x => x.Id);
                 });
+
+            migrationBuilder.Sql(@"Insert Into Races(Name, CreatedAt) Values('Human', GETDATE())");
+            migrationBuilder.Sql(@"Insert Into Races(Name, CreatedAt) Values('Orc', GETDATE())");
+            migrationBuilder.Sql(@"Insert Into Races(Name, CreatedAt) Values('Elf', GETDATE())");
+            migrationBuilder.Sql(@"Insert Into Races(Name, CreatedAt) Values('Dwarf', GETDATE())");
 
             migrationBuilder.CreateTable(
                 name: "Users",

@@ -31,10 +31,5 @@ namespace EFCommands.Races
 
             Context.SaveChanges();
         }
-
-        public void Execute(RaceDto request)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

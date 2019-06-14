@@ -58,10 +58,5 @@ namespace EFCommands.Characters
 
             Context.SaveChanges();
         }
-
-        public void Execute(CharacterDto request, int id)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

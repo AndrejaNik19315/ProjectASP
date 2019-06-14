@@ -29,10 +29,5 @@ namespace EFCommands.Races
                 UpdatedAt = race.UpdatedAt
             };
         }
-
-        public RaceDto Execute(int request, int id)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

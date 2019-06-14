@@ -59,10 +59,5 @@ namespace EFCommands.Items
                 })  
             };
         }
-
-        public Paged<FullItemDto> Execute(ItemSearch request, int id)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

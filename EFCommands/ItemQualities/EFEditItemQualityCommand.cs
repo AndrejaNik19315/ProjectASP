@@ -15,11 +15,6 @@ namespace EFCommands.ItemQualities
         {
         }
 
-        public void Execute(ItemQualityDto request)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Execute(ItemQualityDto request, int id)
         {
             var itemQuality = Context.ItemQualities.Find(id);

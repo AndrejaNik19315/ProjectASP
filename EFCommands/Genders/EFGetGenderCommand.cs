@@ -29,10 +29,5 @@ namespace EFCommands.Genders
                 UpdatedAt = gender.UpdatedAt
             };
         }
-
-        public GenderDto Execute(int request, int id)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

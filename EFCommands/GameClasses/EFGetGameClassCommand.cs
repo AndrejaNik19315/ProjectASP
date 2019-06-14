@@ -29,10 +29,5 @@ namespace EFCommands.GameClasses
                 UpdatedAt = gameClass.UpdatedAt
             };
         }
-
-        public GameClassDto Execute(int request, int id)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

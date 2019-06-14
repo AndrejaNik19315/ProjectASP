@@ -64,10 +64,5 @@ namespace EFCommands.Users
                 }).OrderBy(u => u.Id)
             };
         }
-
-        public Paged<PartialUserDto> Execute(UserSearch request, int id)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

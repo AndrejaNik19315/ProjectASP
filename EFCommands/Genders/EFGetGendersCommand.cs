@@ -25,14 +25,11 @@ namespace EFCommands.Genders
             return query.Select(g => new GenderDto
             {
                 Id = g.Id,
-                Sex = g.Sex
+                Sex = g.Sex,
+                CreatedAt = g.CreatedAt,
+                UpdatedAt = g.UpdatedAt
             }).OrderBy(g => g.Id);
 
-        }
-
-        public IEnumerable<GenderDto> Execute(GenderSearch request, int id)
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -48,10 +48,5 @@ namespace EFCommands.Characters
                 UpdatedAt = inventory.UpdatedAt
             };
         }
-
-        public FullInventoryDto Execute(int request, int id)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

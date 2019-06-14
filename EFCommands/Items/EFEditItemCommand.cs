@@ -39,16 +39,11 @@ namespace EFCommands.Items
             item.isCovert = request.isCovert;
             item.ItemQualityId = request.ItemQualityId;
             item.ItemTypeId = request.ItemTypeId;
-            item.Quantity = (item.Quantity != request.Quantity && request.Quantity >= 0)? request.Quantity : item.Quantity;
+            item.Quantity = (item.Quantity != request.Quantity && request.Quantity >= 0) ? request.Quantity : item.Quantity;
             item.inStock = item.Quantity > 0 ? true : false;
             item.UpdatedAt = DateTime.Now;
 
             Context.SaveChanges();
-        }
-
-        public void Execute(ItemDto request)
-        {
-            throw new NotImplementedException();
         }
     }
 }

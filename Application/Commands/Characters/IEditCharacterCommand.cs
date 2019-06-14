@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Application.Commands.Characters
 {
-    public interface IEditCharacterCommand : ICommand<CharacterDto>
+    public interface IEditCharacterCommand : ICommand<CharacterDto, int, int>
     {
     }
 }

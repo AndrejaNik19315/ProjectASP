@@ -29,10 +29,5 @@ namespace EFCommands.Roles
                 UpdatedAt = role.UpdatedAt
             };
         }
-
-        public RoleDto Execute(int request, int id)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Application.Commands.Characters;
 using Application.Dto;
 using Application.Exceptions;
+using Application.Interfaces;
 using EFDataAccess;
 using System;
 using System.Collections.Generic;
@@ -37,7 +38,7 @@ namespace EFCommands.Characters
                 if (!(Context.GameClasses.Any(gc => gc.Id == request.GameClassId)))
                     throw new EntityUnprocessableException("There is no gameclass with that Id.");
 
-            if(request.RaceId != character.RaceId)
+            if (request.RaceId != character.RaceId)
                 if (!(Context.Races.Any(r => r.Id == request.RaceId)))
                     throw new EntityUnprocessableException("There is no race with that Id.");
 
@@ -49,12 +50,6 @@ namespace EFCommands.Characters
             character.UpdatedAt = DateTime.Now;
 
             Context.SaveChanges();
-        }
-
-
-        public void Execute(CharacterDto request)
-        {
-            throw new NotImplementedException();
         }
     }
 }

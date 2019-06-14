@@ -31,10 +31,5 @@ namespace EFCommands.Genders
 
             Context.SaveChanges();
         }
-
-        public void Execute(GenderDto request)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

@@ -30,10 +30,5 @@ namespace EFCommands.Races
                 UpdatedAt = r.UpdatedAt
             }).OrderBy(r => r.Id);
         }
-
-        public IEnumerable<RaceDto> Execute(RaceSearch request, int id)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

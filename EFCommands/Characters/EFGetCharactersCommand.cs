@@ -74,10 +74,5 @@ namespace EFCommands.Characters
                 })
             };
         }
-
-        public Paged<FullCharacterDto> Execute(CharacterSearch request, int id)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

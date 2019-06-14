@@ -23,10 +23,5 @@ namespace EFCommands.Races
             Context.Races.Remove(race);
             Context.SaveChanges();
         }
-
-        public void Execute(int request, int id)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

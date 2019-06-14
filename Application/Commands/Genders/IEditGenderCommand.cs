@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Application.Commands.Genders
 {
-    public interface IEditGenderCommand : ICommand<GenderDto>
+    public interface IEditGenderCommand : ICommand<GenderDto, int, int>
     {
     }
 }

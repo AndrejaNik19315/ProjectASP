@@ -78,10 +78,5 @@ namespace EFCommands.Orders
 
             Context.SaveChanges();
         }
-
-        public void Execute(OrderDto request, int id)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

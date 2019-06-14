@@ -23,10 +23,5 @@ namespace EFCommands.GameClasses
             Context.GameClasses.Remove(gameClass);
             Context.SaveChanges();
         }
-
-        public void Execute(int request, int id)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

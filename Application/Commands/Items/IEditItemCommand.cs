@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Application.Commands.Items
 {
-    public interface IEditItemCommand : ICommand<ItemDto>
+    public interface IEditItemCommand : ICommand<ItemDto,int,int>
     {
     }
 }

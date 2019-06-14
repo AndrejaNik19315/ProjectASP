@@ -30,10 +30,5 @@ namespace EFCommands.ItemQualities
                 UpdatedAt = iq.UpdatedAt
             });
         }
-
-        public IEnumerable<ItemQualityDto> Execute(ItemQualitySearch request, int id)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

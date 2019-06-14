@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Application.Commands.GameClasses
 {
-    public interface IEditGameClassCommand : ICommand<GameClassDto>
+    public interface IEditGameClassCommand : ICommand<GameClassDto, int, int>
     {
         
     }

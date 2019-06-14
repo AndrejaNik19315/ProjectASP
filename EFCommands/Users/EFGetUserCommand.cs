@@ -68,10 +68,5 @@ namespace EFCommands.Users
                 }).ToList()
             };
         }
-
-        public FullUserDto Execute(int request, int id)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

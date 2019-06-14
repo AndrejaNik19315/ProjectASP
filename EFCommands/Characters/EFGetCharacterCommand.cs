@@ -50,10 +50,5 @@ namespace EFCommands.Characters
                 UpdatedAt = character.UpdatedAt
             };
         }
-
-        public FullCharacterDto Execute(int request, int id)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

@@ -25,13 +25,10 @@ namespace EFCommands.GameClasses
             return query.Select(gc => new GameClassDto
             {
                 Id = gc.Id,
-                Name = gc.Name
+                Name = gc.Name,
+                CreatedAt = gc.CreatedAt,
+                UpdatedAt = gc.UpdatedAt
             });
-        }
-
-        public IEnumerable<GameClassDto> Execute(GameClassSearch request, int id)
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -44,10 +44,5 @@ namespace EFCommands.Users
 
             Context.SaveChanges();
         }
-
-        public void Execute(UserDto request)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

@@ -39,10 +39,5 @@ namespace EFCommands.Items
 
             Context.SaveChanges();
         }
-
-        public void Execute(ItemDto request, int id)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

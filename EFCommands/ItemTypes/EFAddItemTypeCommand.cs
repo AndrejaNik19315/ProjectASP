@@ -26,12 +26,6 @@ namespace EFCommands.ItemTypes
             });
 
             Context.SaveChanges();
-
-        }
-
-        public void Execute(ItemTypeDto request, int id)
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Application.Commands.Races
 {
-    public interface IEditRaceCommand : ICommand<RaceDto>
+    public interface IEditRaceCommand : ICommand<RaceDto, int, int>
     {
     }
 }

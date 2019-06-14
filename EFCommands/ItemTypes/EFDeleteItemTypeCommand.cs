@@ -23,10 +23,5 @@ namespace EFCommands.ItemTypes
             Context.ItemTypes.Remove(itemType);
             Context.SaveChanges();
         }
-
-        public void Execute(int request, int id)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

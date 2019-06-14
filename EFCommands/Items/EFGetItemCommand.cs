@@ -41,10 +41,5 @@ namespace EFCommands.Items
                 UpdatedAt = item.UpdatedAt
             };
         }
-
-        public FullItemDto Execute(int request, int id)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

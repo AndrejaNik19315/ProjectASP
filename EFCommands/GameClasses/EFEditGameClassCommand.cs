@@ -31,10 +31,5 @@ namespace EFCommands.GameClasses
 
             Context.SaveChanges();
         }
-
-        public void Execute(GameClassDto request)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

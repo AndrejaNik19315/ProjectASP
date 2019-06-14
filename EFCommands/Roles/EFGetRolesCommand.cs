@@ -30,10 +30,5 @@ namespace EFCommands.Roles
                 UpdatedAt = r.UpdatedAt
             });
         }
-
-        public IEnumerable<RoleDto> Execute(RoleSearch request, int id)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

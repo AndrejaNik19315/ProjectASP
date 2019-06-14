@@ -23,10 +23,5 @@ namespace EFCommands.Genders
             Context.Genders.Remove(gender);
             Context.SaveChanges();
         }
-
-        public void Execute(int request, int id)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

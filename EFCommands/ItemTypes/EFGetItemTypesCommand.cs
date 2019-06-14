@@ -30,10 +30,5 @@ namespace EFCommands.ItemTypes
                 UpdatedAt = it.UpdatedAt
             });
         }
-
-        public IEnumerable<ItemTypeDto> Execute(ItemTypeSearch request, int id)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

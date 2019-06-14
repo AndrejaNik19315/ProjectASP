@@ -29,10 +29,5 @@ namespace EFCommands.ItemTypes
                 UpdatedAt = itemType.UpdatedAt
             };
         }
-
-        public ItemTypeDto Execute(int request, int id)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

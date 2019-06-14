@@ -29,10 +29,5 @@ namespace EFCommands.ItemQualities
                 UpdatedAt = itemQuality.UpdatedAt
             };
         }
-
-        public ItemQualityDto Execute(int request, int id)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

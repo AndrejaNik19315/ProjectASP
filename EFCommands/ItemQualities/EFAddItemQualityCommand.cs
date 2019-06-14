@@ -27,10 +27,5 @@ namespace EFCommands.ItemQualities
 
             Context.SaveChanges();
         }
-
-        public void Execute(ItemQualityDto request, int id)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

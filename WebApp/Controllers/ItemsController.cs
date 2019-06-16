@@ -151,7 +151,7 @@ namespace WebApp.Controllers
             }
             catch (EntityNotFoundException)
             {
-                return RedirectToAction(nameof(Index));
+                return View("NotFound");
             }
             catch (EntityUnprocessableException ex)
             {
@@ -184,7 +184,7 @@ namespace WebApp.Controllers
             {
                 return View("NotFound");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return View();
             }

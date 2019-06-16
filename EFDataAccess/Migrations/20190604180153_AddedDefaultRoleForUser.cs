@@ -13,13 +13,13 @@ namespace EFDataAccess.Migrations
                 defaultValue: 1,
                 oldClrType: typeof(int));
 
-            migrationBuilder.AlterColumn<bool>(
-                name: "IsActive",
-                table: "Users",
-                nullable: false,
-                defaultValue: true,
-                oldClrType: typeof(bool),
-                oldDefaultValue: false);
+            //migrationBuilder.AlterColumn<bool>(
+            //    name: "IsActive",
+            //    table: "Users",
+            //    nullable: false,
+            //    defaultValue: false,
+            //    oldClrType: typeof(bool),
+            //    oldDefaultValue: false);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -31,13 +31,13 @@ namespace EFDataAccess.Migrations
                 oldClrType: typeof(int),
                 oldDefaultValue: 1);
 
-            migrationBuilder.AlterColumn<bool>(
-                name: "IsActive",
-                table: "Users",
-                nullable: false,
-                defaultValue: false,
-                oldClrType: typeof(bool),
-                oldDefaultValue: true);
+            //migrationBuilder.AlterColumn<bool>(
+            //    name: "IsActive",
+            //    table: "Users",
+            //    nullable: false,
+            //    defaultValue: false,
+            //    oldClrType: typeof(bool),
+            //    oldDefaultValue: true);
         }
     }
 }

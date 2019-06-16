@@ -7,48 +7,65 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Domain;
 using EFDataAccess;
+using Application.Searches;
+using Application.Commands.Users.WebApp;
+using Application.Commands.Users;
+using Application.Exceptions;
+using Application.Dto;
 
 namespace WebApp.Controllers
 {
     public class UsersController : Controller
     {
         private readonly ProjectContext _context;
+        private readonly IGetUsersWebCommand _getUsers;
+        private readonly IGetUserCommand _getUser;
+        private readonly IAddUserCommand _addUser;
+        private readonly IEditUserCommand _editUser;
+        private readonly IDeleteUserCommand _deleteUser;
 
-        public UsersController(ProjectContext context)
+        public readonly string genericErrorMsg = "Something went wrong on the server.";
+
+        public UsersController(ProjectContext context, IGetUsersWebCommand getUsers, IGetUserCommand getUser, IAddUserCommand addUser, IEditUserCommand editUser, IDeleteUserCommand deleteUser)
         {
             _context = context;
+            _getUsers = getUsers;
+            _getUser = getUser;
+            _addUser = addUser;
+            _editUser = editUser;
+            _deleteUser = deleteUser;
         }
 
         // GET: Users
-        public async Task<IActionResult> Index()
+        public IActionResult Index([FromQuery] UserSearchWeb query)
         {
-            var projectContext = _context.Users.Include(u => u.Role);
-            return View(await projectContext.ToListAsync());
+            var users = _getUsers.Execute(query);
+            return View(users);
         }
 
         // GET: Users/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int id)
         {
-            if (id == null)
+            try
             {
-                return NotFound();
+                var user = _getUser.Execute(id);
+                return View(user);
             }
-
-            var user = await _context.Users
-                .Include(u => u.Role)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (user == null)
+            catch (EntityNotFoundException)
             {
-                return NotFound();
+                Response.StatusCode = 404;
+                return View("NotFound");
             }
-
-            return View(user);
+            catch (Exception)
+            {
+                return View("Error");
+            }
         }
 
         // GET: Users/Create
         public IActionResult Create()
         {
-            ViewData["RoleId"] = new SelectList(_context.Roles, "Id", "Id");
+            ViewData["RoleId"] = new SelectList(_context.Roles, "Id", "Name");
             return View();
         }
 
@@ -57,33 +74,60 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Firstname,Lastname,Username,Email,IsActive,Password,RoleId,Id,CreatedAt,UpdatedAt")] User user)
+        public IActionResult Create(UserDto dto)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                _context.Add(user);
-                await _context.SaveChangesAsync();
+                return View(dto);
+            }
+
+            try
+            {
+                _addUser.Execute(dto);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["RoleId"] = new SelectList(_context.Roles, "Id", "Id", user.RoleId);
-            return View(user);
+            catch (EntityAlreadyExistsException e)
+            {
+                TempData["error"] = e.Message;
+            }
+            catch (EntityUnprocessableException e)
+            {
+                TempData["error"] = e.Message;
+            }
+            catch (Exception e) {
+                TempData["error"] = genericErrorMsg;
+            }
+
+            return View();
         }
 
         // GET: Users/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            try {
+                var dto = _context.Users.Find(id);
 
-            var user = await _context.Users.FindAsync(id);
-            if (user == null)
-            {
-                return NotFound();
+                var user = new UserDto
+                {
+                    Id = dto.Id,
+                    Firstname = dto.Firstname,
+                    Lastname = dto.Lastname,
+                    Username = dto.Username,
+                    Email = dto.Email,
+                    IsActive = dto.IsActive,
+                    Password = dto.Password,
+                    RoleId = dto.RoleId
+                };
+
+                ViewData["RoleId"] = new SelectList(_context.Roles, "Id", "Name");
+                return View(user);
             }
-            ViewData["RoleId"] = new SelectList(_context.Roles, "Id", "Id", user.RoleId);
-            return View(user);
+            catch (EntityNotFoundException) {
+                return View("NotFound");
+            }
+            catch (Exception ex) {
+                return RedirectToAction("Index");
+            }
         }
 
         // POST: Users/Edit/5
@@ -91,70 +135,54 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Firstname,Lastname,Username,Email,IsActive,Password,RoleId,Id,CreatedAt,UpdatedAt")] User user)
+        public IActionResult Edit(int id, UserDto dto)
         {
-            if (id != user.Id)
+            if (!ModelState.IsValid)
             {
-                return NotFound();
+                return View(dto);
             }
 
-            if (ModelState.IsValid)
+            try
             {
-                try
-                {
-                    _context.Update(user);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!UserExists(user.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                _editUser.Execute(dto, id);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["RoleId"] = new SelectList(_context.Roles, "Id", "Id", user.RoleId);
-            return View(user);
-        }
-
-        // GET: Users/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
+            catch (EntityNotFoundException)
             {
-                return NotFound();
+                return View("NotFound");
             }
-
-            var user = await _context.Users
-                .Include(u => u.Role)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (user == null)
+            catch (EntityUnprocessableException ex)
             {
-                return NotFound();
+                TempData["error"] = ex.Message;
+                return View(dto);
             }
-
-            return View(user);
+            catch (EntityAlreadyExistsException ex)
+            {
+                TempData["error"] = ex.Message;
+                return View(dto);
+            }
+            catch (Exception)
+            {
+                TempData["error"] = genericErrorMsg;
+                return View(dto);
+            }
         }
 
         // POST: Users/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult Delete([FromForm(Name = "id")] int id)
         {
-            var user = await _context.Users.FindAsync(id);
-            _context.Users.Remove(user);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool UserExists(int id)
-        {
-            return _context.Users.Any(e => e.Id == id);
+            try {
+                _deleteUser.Execute(id);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (EntityNotFoundException) {
+                return View("NotFound");
+            }
+            catch (Exception ex) {
+                return View();
+            }
         }
     }
 }

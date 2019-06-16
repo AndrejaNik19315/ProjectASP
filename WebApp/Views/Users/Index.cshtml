@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Domain.User>
+﻿@model IEnumerable<Application.Dto.Users.PartialUserDto>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,12 +13,6 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Firstname)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Lastname)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Username)
             </th>
             <th>
@@ -28,29 +22,14 @@
                 @Html.DisplayNameFor(model => model.IsActive)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Password)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Role)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedAt)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UpdatedAt)
-            </th>
-            <th></th>
+            <th>Options</th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Firstname)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Lastname)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Username)
             </td>
@@ -61,21 +40,15 @@
                 @Html.DisplayFor(modelItem => item.IsActive)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Password)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Role.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedAt)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UpdatedAt)
+                @Html.DisplayFor(modelItem => item.Role)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <form asp-action="Delete">
+                    <input type="hidden" name="id" asp-for="@item.Id" />
+                    <input type="submit" value="Delete" class="alert-warning" /> |
+                </form>
             </td>
         </tr>
 }

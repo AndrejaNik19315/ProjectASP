@@ -4,8 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Application.Commands.Items;
 using Application.Commands.Items.WebApp;
+using Application.Commands.Users;
+using Application.Commands.Users.WebApp;
 using EFCommands.Items;
 using EFCommands.Items.WebApp;
+using EFCommands.Users;
+using EFCommands.Users.WebApp;
 using EFDataAccess;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -45,6 +49,12 @@ namespace WebApp
             services.AddTransient<IAddItemCommand, EFAddItemCommand>();
             services.AddTransient<IEditItemCommand, EFEditItemCommand>();
             services.AddTransient<IDeleteItemCommand, EFDeleteItemCommand>();
+            //Users
+            services.AddTransient<IGetUsersWebCommand, EFGetUsersWebCommand>();
+            services.AddTransient<IGetUserCommand, EFGetUserCommand>();
+            services.AddTransient<IAddUserCommand, EFAddUserCommand>();
+            services.AddTransient<IEditUserCommand, EFEditUserCommand>();
+            services.AddTransient<IDeleteUserCommand, EFDeleteUserCommand>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

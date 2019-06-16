@@ -1,5 +1,4 @@
-﻿@model Domain.User
-
+﻿@model Application.Dto.Users.FullUserDto
 @{
     ViewData["Title"] = "Details";
 }
@@ -10,61 +9,87 @@
     <h4>User</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Firstname)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Firstname)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Lastname)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Lastname)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Username)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Username)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Email)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Email)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.IsActive)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.IsActive)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Password)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Password)
-        </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Role)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Role.Id)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Role)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.CreatedAt)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.CreatedAt)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.UpdatedAt)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.UpdatedAt)
         </dd>
     </dl>
+    <h4>Characters</h4>
+    @if (Model.Characters.Any())
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Level</th>
+                    <th>GameClass</th>
+                    <th>Render</th>
+                    <th>Race</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var character in Model.Characters)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(model => character.Name)</td>
+                        <td>@Html.DisplayFor(model => character.Level)</td>
+                        <td>@Html.DisplayFor(model => character.GameClass)</td>
+                        <td>@Html.DisplayFor(model => character.Gender)</td>
+                        <td>@Html.DisplayFor(model => character.Race)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else {
+        <hr/>
+        <div class="text-center  display-4">No characters found</div>
+    }
+
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |

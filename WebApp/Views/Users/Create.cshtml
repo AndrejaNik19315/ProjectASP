@@ -1,4 +1,4 @@
-﻿@model Domain.User
+﻿@model Application.Dto.UserDto
 
 @{
     ViewData["Title"] = "Create";
@@ -7,6 +7,13 @@
 <h1>Create</h1>
 
 <h4>User</h4>
+
+
+@if (TempData["error"] != null)
+{
+    <p class="text-danger">@TempData["error"]</p>
+}
+
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -33,14 +40,20 @@
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label class="form-check-label">
+                    <input type="checkbox" asp-for="IsActive"/> IsActive
+                    <div class="alert-info">Note this enables or disables user</div>
+                </label>
+            </div>
+            <div class="form-group">
                 <label asp-for="Password" class="control-label"></label>
                 <input asp-for="Password" class="form-control" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="UpdatedAt" class="control-label"></label>
-                <input asp-for="UpdatedAt" class="form-control" />
-                <span asp-validation-for="UpdatedAt" class="text-danger"></span>
+                <label asp-for="RoleId" class="control-label"></label>
+                <select asp-for="RoleId" class="form-control" asp-items="ViewBag.RoleId"></select>
+                <span asp-validation-for="RoleId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

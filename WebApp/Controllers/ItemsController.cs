@@ -10,19 +10,30 @@ using EFDataAccess;
 using Application.Searches;
 using Application.Commands.Items.WebApp;
 using Application.Exceptions;
+using Application.Commands.Items;
+using Application.Dto;
 
 namespace WebApp.Controllers
 {
     public class ItemsController : Controller
     {
-
+        private readonly ProjectContext _context;
         private readonly IGetItemsWebCommand _getItems;
         private readonly IGetItemWebCommand _getItem;
+        private readonly IAddItemCommand _addItem;
+        private readonly IEditItemCommand _editItem;
+        private readonly IDeleteItemCommand _deleteItem;
 
-        public ItemsController(IGetItemsWebCommand getItems, IGetItemWebCommand getItem)
+        public readonly string genericErrorMsg = "Something went wrong on the server.";
+
+        public ItemsController(ProjectContext context, IGetItemsWebCommand getItems, IGetItemWebCommand getItem, IAddItemCommand addItem, IEditItemCommand editItem, IDeleteItemCommand deleteItem)
         {
+            _context = context;
             _getItems = getItems;
             _getItem = getItem;
+            _addItem = addItem;
+            _editItem = editItem;
+            _deleteItem = deleteItem;
         }
 
         // GET: Items
@@ -53,118 +64,130 @@ namespace WebApp.Controllers
         // GET: Items/Create
         public IActionResult Create()
         {
-            //ViewData["ItemQualityId"] = new SelectList(_context.ItemQualities, "Id", "Name");
-            //ViewData["ItemTypeId"] = new SelectList(_context.ItemTypes, "Id", "Name");
+            ViewData["ItemQualityId"] = new SelectList(_context.ItemQualities, "Id", "Name");
+            ViewData["ItemTypeId"] = new SelectList(_context.ItemTypes, "Id", "Name");
             return View();
         }
 
-        //// POST: Items/Create
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create([Bind("Name,Cost,isCovert,inStock,ItemTypeId,ItemQualityId,Quantity,Id,CreatedAt,UpdatedAt")] Item item)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _context.Add(item);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    ViewData["ItemQualityId"] = new SelectList(_context.ItemQualities, "Id", "Name", item.ItemQualityId);
-        //    ViewData["ItemTypeId"] = new SelectList(_context.ItemTypes, "Id", "Name", item.ItemTypeId);
-        //    return View(item);
-        //}
+        // POST: Items/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(ItemDto dto)
+        {
+            if (!ModelState.IsValid) {
+                return View(dto);
+            }
 
-        //// GET: Items/Edit/5
-        //public async Task<IActionResult> Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
+            try
+            {
+                 _addItem.Execute(dto);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (EntityUnprocessableException ex)
+            {
+                TempData["error"] = ex.Message;
+            }
+             catch (EntityAlreadyExistsException ex)
+            {
+                TempData["error"] = ex.Message;
+            }
+            catch (Exception)
+            {
+                TempData["error"] = genericErrorMsg;
+            }
 
-        //    var item = await _context.Items.FindAsync(id);
-        //    if (item == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    ViewData["ItemQualityId"] = new SelectList(_context.ItemQualities, "Id", "Name", item.ItemQualityId);
-        //    ViewData["ItemTypeId"] = new SelectList(_context.ItemTypes, "Id", "Name", item.ItemTypeId);
-        //    return View(item);
-        //}
+            return View();
+        }
 
-        //// POST: Items/Edit/5
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(int id, [Bind("Name,Cost,isCovert,inStock,ItemTypeId,ItemQualityId,Quantity,Id,CreatedAt,UpdatedAt")] Item item)
-        //{
-        //    if (id != item.Id)
-        //    {
-        //        return NotFound();
-        //    }
+        // GET: Items/Edit/5
+        public IActionResult Edit(int id)
+        {
+            try
+            {
+                var dto = _context.Items.Find(id);
 
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            _context.Update(item);
-        //            await _context.SaveChangesAsync();
-        //        }
-        //        catch (DbUpdateConcurrencyException)
-        //        {
-        //            if (!ItemExists(item.Id))
-        //            {
-        //                return NotFound();
-        //            }
-        //            else
-        //            {
-        //                throw;
-        //            }
-        //        }
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    ViewData["ItemQualityId"] = new SelectList(_context.ItemQualities, "Id", "Name", item.ItemQualityId);
-        //    ViewData["ItemTypeId"] = new SelectList(_context.ItemTypes, "Id", "Name", item.ItemTypeId);
-        //    return View(item);
-        //}
+                var item = new ItemDto
+                {
+                    Id = dto.Id,
+                    Name = dto.Name,
+                    Cost = dto.Cost,
+                    isCovert = dto.isCovert,
+                    ItemQualityId = dto.ItemQualityId,
+                    ItemTypeId = dto.ItemTypeId,
+                    Quantity = dto.Quantity
+                };
 
-        //// GET: Items/Delete/5
-        //public async Task<IActionResult> Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
+                ViewData["ItemQualityId"] = new SelectList(_context.ItemQualities, "Id", "Name");
+                ViewData["ItemTypeId"] = new SelectList(_context.ItemTypes, "Id", "Name");
+                return View(item);
+            }
+            catch (EntityNotFoundException) {
+                return View("NotFound");
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Index");
+            }
+        }
 
-        //    var item = await _context.Items
-        //        .Include(i => i.ItemQuality)
-        //        .Include(i => i.ItemType)
-        //        .FirstOrDefaultAsync(m => m.Id == id);
-        //    if (item == null)
-        //    {
-        //        return NotFound();
-        //    }
+        // POST: Items/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, ItemDto dto)
+        {
 
-        //    return View(item);
-        //}
+            if (!ModelState.IsValid) {
+                return View(dto);
+            }
 
-        //// POST: Items/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> DeleteConfirmed(int id)
-        //{
-        //    var item = await _context.Items.FindAsync(id);
-        //    _context.Items.Remove(item);
-        //    await _context.SaveChangesAsync();
-        //    return RedirectToAction(nameof(Index));
-        //}
+            try
+            {
+                _editItem.Execute(dto, id);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (EntityNotFoundException)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            catch (EntityUnprocessableException ex)
+            {
+                TempData["error"] = ex.Message;
+                return View(dto);
+            }
+            catch (EntityAlreadyExistsException ex)
+            {
+                TempData["error"] = ex.Message;
+                return View(dto);
+            }
+            catch (Exception)
+            {
+                TempData["error"] = genericErrorMsg;
+                return View(dto);
+            }
+        }
 
-        //private bool ItemExists(int id)
-        //{
-        //    return _context.Items.Any(e => e.Id == id);
-        //}
+        // POST: Items/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete([FromForm(Name="id")] int id)
+        {
+            try
+            {
+                _deleteItem.Execute(id);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (EntityNotFoundException)
+            {
+                return View("NotFound");
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
+        }
     }
 }

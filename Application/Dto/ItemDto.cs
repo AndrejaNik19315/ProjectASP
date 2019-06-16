@@ -12,7 +12,7 @@ namespace Application.Dto
         [MaxLength(64)]
         public string Name { get; set; }
         [Required]
-        [Range(1,1000)]
+        [Range(1.00,1000.00)]
         public decimal Cost { get; set; }
         public bool isCovert { get; set; }
         public bool inStock { get; set; }
@@ -20,7 +20,7 @@ namespace Application.Dto
         public int ItemTypeId { get; set; }
         [Required]
         public int ItemQualityId { get; set; }
-        [RegularExpression("^[1-9][0-9]?$|^100$")]
+        [RegularExpression("^[1-9][0-9]?$|^100$", ErrorMessage ="Quantity available range is from 0 to 100")]
         public int? Quantity { get; set; }  
     }
 }

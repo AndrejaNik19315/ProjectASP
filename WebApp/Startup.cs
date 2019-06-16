@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application.Commands.Items;
 using Application.Commands.Items.WebApp;
+using EFCommands.Items;
 using EFCommands.Items.WebApp;
 using EFDataAccess;
 using Microsoft.AspNetCore.Builder;
@@ -40,6 +42,9 @@ namespace WebApp
             //Items
             services.AddTransient<IGetItemsWebCommand, EFGetItemsWebCommand>();
             services.AddTransient<IGetItemWebCommand, EFGetItemWebCommand>();
+            services.AddTransient<IAddItemCommand, EFAddItemCommand>();
+            services.AddTransient<IEditItemCommand, EFEditItemCommand>();
+            services.AddTransient<IDeleteItemCommand, EFDeleteItemCommand>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

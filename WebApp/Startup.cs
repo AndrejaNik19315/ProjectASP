@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Application.Commands.Items;
-using EFCommands.Items;
+using Application.Commands.Items.WebApp;
+using EFCommands.Items.WebApp;
 using EFDataAccess;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -38,11 +38,8 @@ namespace WebApp
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddDbContext<ProjectContext>();
             //Items
-            services.AddTransient<IGetItemsCommand, EFGetItemsCommand>();
-            services.AddTransient<IGetItemCommand, EFGetItemCommand>();
-            services.AddTransient<IAddItemCommand, EFAddItemCommand>();
-            services.AddTransient<IEditItemCommand, EFEditItemCommand>();
-            services.AddTransient<IDeleteItemCommand, EFDeleteItemCommand>();
+            services.AddTransient<IGetItemsWebCommand, EFGetItemsWebCommand>();
+            services.AddTransient<IGetItemWebCommand, EFGetItemWebCommand>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -48,7 +48,8 @@ namespace EFCommands.Characters
                .Include(c => c.Race)
                .Include(c => c.Gender)
                .Include(c => c.Inventory)
-               .Skip((request.PageNumber - 1) * request.PerPage).Take(request.PerPage);
+               .Skip((request.PageNumber - 1) * request.PerPage)
+               .Take(request.PerPage);
 
             return new Paged<FullCharacterDto> {
                 CurrentPage = request.PageNumber,

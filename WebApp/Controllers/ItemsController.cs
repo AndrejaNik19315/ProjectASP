@@ -7,60 +7,58 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Domain;
 using EFDataAccess;
-using Application.Commands.Items;
 using Application.Searches;
-using Application.Responses;
-using Application.Dto.Items;
+using Application.Commands.Items.WebApp;
+using Application.Exceptions;
 
 namespace WebApp.Controllers
 {
-    public class ItemController : Controller
+    public class ItemsController : Controller
     {
-        private readonly IGetItemsCommand _getItems;
-        private readonly IGetItemCommand _getItem;
 
-        public ItemController(IGetItemsCommand getItems, IGetItemCommand getItem)
+        private readonly IGetItemsWebCommand _getItems;
+        private readonly IGetItemWebCommand _getItem;
+
+        public ItemsController(IGetItemsWebCommand getItems, IGetItemWebCommand getItem)
         {
             _getItems = getItems;
             _getItem = getItem;
         }
 
-        // GET: Item
-        public ActionResult<Paged<FullItemDto>> Index(ItemSearch search)
+        // GET: Items
+        public IActionResult Index([FromQuery] ItemSearchWeb query)
         {
-            var result = _getItems.Execute(search);
-            return View(result);
+            var items = _getItems.Execute(query);
+            return View(items);
         }
 
-        //// GET: Item/Details/5
-        //public async Task<IActionResult> Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
+        // GET: Items/Details/5
+        public IActionResult Details(int id)
+        {
+            try
+            {
+                var item = _getItem.Execute(id);
+                return View(item);
+            }
+            catch (EntityNotFoundException)
+            {
+                Response.StatusCode = 404;
+                return View("NotFound");
+            }
+            catch (Exception) {
+                return View("Error");
+            }
+        }
 
-        //    var item = await _context.Items
-        //        .Include(i => i.ItemQuality)
-        //        .Include(i => i.ItemType)
-        //        .FirstOrDefaultAsync(m => m.Id == id);
-        //    if (item == null)
-        //    {
-        //        return NotFound();
-        //    }
+        // GET: Items/Create
+        public IActionResult Create()
+        {
+            //ViewData["ItemQualityId"] = new SelectList(_context.ItemQualities, "Id", "Name");
+            //ViewData["ItemTypeId"] = new SelectList(_context.ItemTypes, "Id", "Name");
+            return View();
+        }
 
-        //    return View(item);
-        //}
-
-        //// GET: Item/Create
-        //public IActionResult Create()
-        //{
-        //    ViewData["ItemQualityId"] = new SelectList(_context.ItemQualities, "Id", "Name");
-        //    ViewData["ItemTypeId"] = new SelectList(_context.ItemTypes, "Id", "Name");
-        //    return View();
-        //}
-
-        //// POST: Item/Create
+        //// POST: Items/Create
         //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         //[HttpPost]
@@ -78,7 +76,7 @@ namespace WebApp.Controllers
         //    return View(item);
         //}
 
-        //// GET: Item/Edit/5
+        //// GET: Items/Edit/5
         //public async Task<IActionResult> Edit(int? id)
         //{
         //    if (id == null)
@@ -96,7 +94,7 @@ namespace WebApp.Controllers
         //    return View(item);
         //}
 
-        //// POST: Item/Edit/5
+        //// POST: Items/Edit/5
         //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         //[HttpPost]
@@ -133,7 +131,7 @@ namespace WebApp.Controllers
         //    return View(item);
         //}
 
-        //// GET: Item/Delete/5
+        //// GET: Items/Delete/5
         //public async Task<IActionResult> Delete(int? id)
         //{
         //    if (id == null)
@@ -153,7 +151,7 @@ namespace WebApp.Controllers
         //    return View(item);
         //}
 
-        //// POST: Item/Delete/5
+        //// POST: Items/Delete/5
         //[HttpPost, ActionName("Delete")]
         //[ValidateAntiForgeryToken]
         //public async Task<IActionResult> DeleteConfirmed(int id)

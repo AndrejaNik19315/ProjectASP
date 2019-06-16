@@ -19,4 +19,9 @@
     <ProjectReference Include="..\EFDataAccess\EFDataAccess.csproj" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
 </Project>

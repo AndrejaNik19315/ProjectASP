@@ -4,6 +4,7 @@ using Application.Exceptions;
 using EFDataAccess;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -34,6 +35,8 @@ namespace EFCommands.Items
                 ItemTypeId = request.ItemTypeId,
                 ItemQualityId = request.ItemQualityId,
                 Quantity = request.Quantity,
+                ImagePath = "/images/"+request.ImageName,
+                ImageAlt = request.ImageName,
                 inStock = request.Quantity > 0 ? true : false
             });
 

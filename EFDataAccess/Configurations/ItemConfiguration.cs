@@ -25,6 +25,10 @@ namespace EFDataAccess.Configurations
                 .HasDefaultValueSql("GETDATE()");
             builder.Property(i => i.Quantity)
                 .HasDefaultValue(0);
+            builder.Property(i => i.ImagePath)
+                .HasMaxLength(255);
+            builder.Property(i => i.ImageAlt)
+                .HasMaxLength(48);
 
             builder.HasIndex(i => i.Name)
                 .IsUnique();

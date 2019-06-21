@@ -13,5 +13,7 @@ namespace Application.Dto.Items
         public string ItemType { get; set; }
         public string ItemQuality { get; set; }
         public int? Quantity { get; set; }
+        public string ImagePath { get; set; }
+        public string ImageName { get; set; }
     }
 }

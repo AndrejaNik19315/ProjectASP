@@ -12,6 +12,8 @@ using Application.Commands.Items.WebApp;
 using Application.Exceptions;
 using Application.Commands.Items;
 using Application.Dto;
+using System.IO;
+using Application.HelperClasses;
 
 namespace WebApp.Controllers
 {
@@ -74,7 +76,7 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(ItemDto dto)
+        public IActionResult Create([FromForm] ItemDto dto)
         {
             if (!ModelState.IsValid) {
                 return View(dto);
@@ -82,7 +84,27 @@ namespace WebApp.Controllers
 
             try
             {
-                 _addItem.Execute(dto);
+                if (dto.Image != null) { 
+                    var extension = Path.GetExtension(dto.Image.FileName);
+
+                    if (!ImageUpload.AllowedExtensions.Contains(extension))
+                    {
+                        return UnprocessableEntity("Image is out of format. Allowed extensions: jpeg, jpg or png");
+                    }
+
+                    var fileName = (int)(DateTime.Now.Subtract(new DateTime(1970,1,1))).TotalSeconds + extension;
+
+                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", fileName);
+
+                    dto.Image.CopyTo(new FileStream(filePath, FileMode.Create));
+
+                    dto.ImageName = fileName;
+                }
+                else {
+                    dto.ImageName = "noimg.jpg";
+                }
+
+                _addItem.Execute(dto);
                 return RedirectToAction(nameof(Index));
             }
             catch (EntityUnprocessableException ex)
@@ -93,9 +115,9 @@ namespace WebApp.Controllers
             {
                 TempData["error"] = ex.Message;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                TempData["error"] = genericErrorMsg;
+                TempData["error"] = ex.Message;//genericErrorMsg;
             }
 
             return View();

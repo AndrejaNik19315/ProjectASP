@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -17,5 +18,7 @@ namespace Domain
         public ICollection<InventoryItem> InventoryItems { get; set; }
         public int? Quantity { get; set; }
         public ICollection<Order> Orders { get; set; }
+        public string ImagePath { get; set; }
+        public string ImageAlt { get; set; }
     }
 }

@@ -42,6 +42,8 @@ namespace EFCommands.Items.WebApp
                 ItemType = i.ItemType.Name,
                 inStock = i.inStock,
                 Quantity = i.Quantity,
+                ImageName = i.ImageAlt,
+                ImagePath = i.ImagePath,
                 CreatedAt = i.CreatedAt,
                 UpdatedAt = i.UpdatedAt
             });

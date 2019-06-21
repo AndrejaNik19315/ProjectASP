@@ -46,7 +46,7 @@
                         @Html.DisplayFor(modelItem => item.Name)
                     </td>
                     <td> 
-                        <img src="~/images/noimg.jpg" alt="noimg" class="img-thumbnail" width="300px"/>
+                        <img src="@Html.DisplayFor(modelItem => item.ImagePath)" alt="@Html.DisplayFor(modelItem => item.ImageName)" class="img-thumbnail" width="300px"/>
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Cost)

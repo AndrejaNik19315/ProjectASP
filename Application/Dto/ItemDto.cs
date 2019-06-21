@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -22,5 +23,7 @@ namespace Application.Dto
         public int ItemQualityId { get; set; }
         [RegularExpression("^[0-9][0-9]?$|^100$", ErrorMessage ="Quantity available range is from 0 to 100")]
         public int? Quantity { get; set; }  
+        public IFormFile Image { get; set; }
+        public string ImageName { get; set; }
     }
 }

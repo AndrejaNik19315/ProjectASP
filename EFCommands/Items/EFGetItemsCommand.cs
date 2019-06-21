@@ -54,6 +54,7 @@ namespace EFCommands.Items
                     ItemType = i.ItemType.Name,
                     inStock = i.inStock,
                     Quantity = i.Quantity,
+                    ImageName = i.ImageAlt,
                     CreatedAt = i.CreatedAt,
                     UpdatedAt = i.UpdatedAt
                 })  
